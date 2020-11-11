@@ -25,7 +25,7 @@ class UnsharedConcreteFlyweight :public Flyweight//不共享的子类
 		std::cout << "不共享的FlyWeight:" << i << std::endl;
 	}
 };
-class FlyweightFactory//享元工厂
+class FlyweightFactory : public DPObject//享元工厂
 {
 private:
 	map<string, Flyweight*>flyweights;//模块名列表

@@ -12,7 +12,7 @@ public:
 	std::string vehicle;
 };
 
-typedef CommandReciver Spot;
+typedef CommandReceiver Spot;
 
 struct Plan: public DPObject {
 public:
@@ -40,7 +40,7 @@ public:
 	virtual void buildPlan() = 0;
 	virtual void buildPath() = 0;
 	virtual void buildDescription(std::string str) = 0;
-	virtual void buildSpot(CommandReciver* commandReciver) = 0;
+	virtual void buildSpot(CommandReceiver* commandReciver) = 0;
 	virtual Plan* getMacroPlan() = 0;
 };
 

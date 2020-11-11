@@ -9,17 +9,17 @@ class DPObject {};
 
 /************************************************************************************
 *																					*
-*							CommandReciver指令接收器								*
+*							CommandReceiver指令接收器								*
 *																					*
 *	本模块的各类指令接收器构成一棵多叉树，本项目中多叉树以MainReciver为根节点，由	*
-*	MacroCommandReciver派生的子类为分支节点，由CommandReciver派生的子类为叶子节点	*
+*	MacroCommandReceiver派生的子类为分支节点，由CommandReceiver派生的子类为叶子节点	*
 *************************************************************************************/
 
 /*指令接收器抽象基类
 * 项目中出现的其他指令接受者均继承自此类
 * 必须被重载才能使用的纯虚函数为bool executeCommand(std::string cmd)
 */
-class CommandReciver : public DPObject {
+class CommandReceiver : public DPObject {
 protected:
 	/*执行指令
 	* 接收并吞没用户输入cmd，根据cmd内容执行相应的操作，内部可用cin
@@ -59,7 +59,7 @@ protected:
 		return subCmd;
 	}
 public:
-	//标签——当前CommandReciver的唯一标识符
+	//标签——当前CommandReceiver的唯一标识符
 	std::string tag;
 	/*打印可用指令
 	* 根据level打印对应格式的指令，默认打印tag
@@ -88,24 +88,24 @@ public:
 	* @param tag_in 标签
 	* @return void
 	*/
-	CommandReciver(std::string tag_in) {
+	CommandReceiver(std::string tag_in) {
 		tag = tag_in;
 	}
 };
 /*宏指令接收器抽象基类
 * 继承于指令接收器抽象基类，内部维护一个vector保存子接收器
 */
-class MacroCommandReciver : public CommandReciver {
+class MacroCommandReceiver : public CommandReceiver {
 private:
 	//子接收器列表
-	std::vector<CommandReciver*> reciverList;
+	std::vector<CommandReceiver*> reciverList;
 	/*解析子指令
 	* 接收子指令中待匹配的tag，根据tag匹配子接收器，并返回指向子接收器的指针
 	* @param subCmd 待匹配的标签
-	* @return CommandReciver* 指向子接收器的指针（若无相应子接收器返回nullptr）
+	* @return CommandReceiver* 指向子接收器的指针（若无相应子接收器返回nullptr）
 	*/
-	CommandReciver* resolveSubCommand(std::string& subCmd) {
-		for (std::vector<CommandReciver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
+	CommandReceiver* resolveSubCommand(std::string& subCmd) {
+		for (std::vector<CommandReceiver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
 			if (subCmd == (*i)->tag) {
 				return (*i);
 			}
@@ -118,7 +118,7 @@ public:
 	* @param tag_in 标签
 	* @return void
 	*/
-	MacroCommandReciver(std::string tag_in) : CommandReciver(tag_in) {};
+	MacroCommandReceiver(std::string tag_in) : CommandReceiver(tag_in) {};
 	/*打印可用指令
 	* 根据level打印对应格式的指令，默认先打印tag，再递归调用子接收器的printHelp，类似VLR
 	* @param level 当前Reciver在Reciver树中的层级
@@ -137,8 +137,8 @@ public:
 	* @param p_reciver 指向待添加的子接收器的指针
 	* @return bool 是否添加成功
 	*/
-	virtual bool addReciver(CommandReciver* p_reciver) {
-		for (std::vector<CommandReciver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
+	virtual bool addReciver(CommandReceiver* p_reciver) {
+		for (std::vector<CommandReceiver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
 			if (tag == (*i)->tag) {
 				return false;
 			}
@@ -152,7 +152,7 @@ public:
 	* @return bool 是否添加成功
 	*/
 	virtual bool removeReciver(std::string tag) {
-		for (std::vector<CommandReciver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
+		for (std::vector<CommandReceiver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
 			if (tag == (*i)->tag) {
 				reciverList.erase(i);
 				return true;
@@ -165,7 +165,7 @@ public:
 	* @param p_reciver 指向待移除的子接收器的指针
 	* @return bool 是否添加成功
 	*/
-	virtual bool removeReciver(CommandReciver* reciver) { return removeReciver(reciver->tag); }
+	virtual bool removeReciver(CommandReceiver* reciver) { return removeReciver(reciver->tag); }
 	/*处理指令
 	* 当前Reciver收到的指令首先进入这里进行处理，默认处理方式是匹配子接收器，若匹配失败则执行指令
 	* @param cmd 用户输入的指令内容
@@ -174,7 +174,7 @@ public:
 	virtual void handleCommand(std::string cmd) {
 		removeBlank(cmd);
 		std::string subCmd = sliceCommand(cmd);
-		CommandReciver* childReciver = resolveSubCommand(subCmd);
+		CommandReceiver* childReciver = resolveSubCommand(subCmd);
 		if (childReciver == nullptr) {
 			if (!executeCommand(subCmd + cmd)) {
 				std::cout << "无效指令请检查输入的指令格式" << std::endl;

@@ -31,7 +31,7 @@ public:
 	}
 };
 
-class Context
+class Context : public DPObject
 {
 public:
 	Context(Vehicle_State* pState) : m_pState(pState) {}
@@ -54,7 +54,7 @@ private:
 };
 
 
-class Vehicle : public CommandReciver {
+class Vehicle : public CommandReceiver {
 private:
 	//记录的字符串
 	std::string str;
@@ -62,7 +62,7 @@ private:
 	* 构造函数为private，用于实现单例，tag为"Vehicle"
 	* @return void
 	*/
-	Vehicle() : CommandReciver("vehicle") {}
+	Vehicle() : CommandReceiver("vehicle") {}
 protected:
 	/*执行指令
 	* 重载父类执行指令的纯虚函数，根据输入的命令执行相应操作

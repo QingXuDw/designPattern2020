@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class Expression
+class Expression : public DPObject
 {
 public:
     //解析公式和数值，其中var中的key是公式中的参数，value值是具体的数字
@@ -99,7 +99,7 @@ public:
 
 //*********************************解析器封装类***************************************
 //解析器封装类，这个类是根据迪米特法则进行封装，目的是让Client只与直接朋友打交道，相当于Facade
-class Calculator
+class Calculator : public DPObject
 {
 private:
     Expression* expression;

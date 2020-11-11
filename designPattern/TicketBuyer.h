@@ -14,7 +14,7 @@ public:
 	Ticket_officer* ticket_officer;
 	ConcreteCommand* concreteCommand;
 	Description* description;
-	CommandReciver* spot;
+	CommandReceiver* spot;
 
 	Ticket_officer* make_Ticket_officer()
 	{
@@ -42,10 +42,10 @@ public:
 	}
 };
 
-class Ticket_Buyer :public CommandReciver
+class Ticket_Buyer :public CommandReceiver
 {
 private:
-	Ticket_Buyer() :CommandReciver("booking") {}
+	Ticket_Buyer() :CommandReceiver("booking") {}
 
 	std::vector<Booking*> bookingList;
 

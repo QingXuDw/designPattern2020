@@ -37,7 +37,7 @@ public:
 	};
 };
 //登山环境类
-class MountainMode {
+class MountainMode : public DPObject {
 public:
 	MountainMode(Mountaineering* mountain) : m_mountain(mountain) {};
 	~MountainMode() { free_ptr(m_mountain); }
@@ -49,7 +49,7 @@ private:
 };
 
 
-class Mountain : public CommandReciver {
+class Mountain : public CommandReceiver {
 private:
 	//记录的字符串
 	std::string str;
@@ -57,7 +57,7 @@ private:
 	* 构造函数为private，用于实现单例，tag为"choose"
 	* @return void
 	*/
-	Mountain() : CommandReciver("mountain") {}
+	Mountain() : CommandReceiver("mountain") {}
 protected:
 	/*执行指令
 	* 重载父类执行指令的纯虚函数，根据输入的命令执行相应操作

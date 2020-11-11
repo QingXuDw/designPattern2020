@@ -435,11 +435,11 @@ void ClientOption(std::string op, std::string obj)
 *							ShoppingMallÄ£¿é							*
 *************************************************************************/
 
-class ShoppingManager : public CommandReciver
+class ShoppingManager : public CommandReceiver
 {
 
 private:
-	ShoppingManager() : CommandReciver("shop") {}
+	ShoppingManager() : CommandReceiver("shop") {}
 	std::vector<Shopping*> ShoppingList;
 
 protected:
@@ -517,7 +517,7 @@ public:
 
 	virtual void printHelp(int level)
 	{
-		CommandReciver::printHelp(level);
+		CommandReceiver::printHelp(level);
 		level++;
 		std::string head(level * 3, '-');
 		std::cout << head + "buy" << std::endl;

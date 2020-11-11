@@ -62,5 +62,8 @@
     <ClInclude Include="TicketBuyer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TestPlan.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

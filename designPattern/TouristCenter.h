@@ -4,13 +4,13 @@
 #include"Consult.h"
 #include"Adapter.h"
 //游客中心 （ 咨询--外观模式 / 外币兑换--适配器模式 ）
-class TouristCenter : public CommandReciver {
+class TouristCenter : public CommandReceiver {
 private:
 	/*构造函数
 	* 构造函数为private，用于实现单例，tag为"tourist"
 	* @return void
 	*/
-	TouristCenter() : CommandReciver("tourist") {}
+	TouristCenter() : CommandReceiver("tourist") {}
 
 protected:
 	bool executeCommand(std::string cmd) {

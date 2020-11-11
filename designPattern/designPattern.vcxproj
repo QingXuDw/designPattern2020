@@ -133,6 +133,7 @@
     <ClInclude Include="Consult.h" />
     <ClInclude Include="FCurrency.h" />
     <ClInclude Include="FlyWeight.h" />
+    <ClInclude Include="TestPlan.h" />
     <ClInclude Include="ShoppingMall.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Strategy.h" />
