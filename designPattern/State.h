@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include"BaseClasses.h"
 #include"TravelPlan.h"
@@ -31,11 +30,10 @@ public:
 	}
 };
 
-class Context : public DPObject
+class Context
 {
 public:
 	Context(Vehicle_State* pState) : m_pState(pState) {}
-
 	void Request()
 	{
 		if (m_pState)
@@ -43,15 +41,18 @@ public:
 			m_pState->Handle(this);
 		}
 	}
-
 	void ChangeState(Vehicle_State* pState)
 	{
 		m_pState = pState;
 	}
-
 private:
 	Vehicle_State* m_pState;
 };
+
+class Storage {//存储状态用
+public:
+	int n_state = 0;//初始状态置为0，即等待状态
+}storage;
 
 
 class Vehicle : public CommandReceiver {
@@ -73,33 +74,70 @@ protected:
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "all") {
-			FlyweightFactory Fac;//整个过程值采用一个工厂
-			Flyweight* pw = Fac.GetFlyWeight("W");//获取W对应的模块，相当于用属性列表给固定部分穿上衣服
-			Flyweight* pc = Fac.GetFlyWeight("C");//获取C对应的模块
-			Flyweight* pp = Fac.GetFlyWeight("P");
-			std::cout << "当前可供共享的模块有:" << Fac.countN() << "个!" << std::endl;
-			delete pw;
-			delete pc;
-			delete pp;
+			int ord;
+			std::cout << "您可以在此操作中添加载具种类（禁止添加两次同种载具。请填写对应编号哦~）" << std::endl;
+			std::cout << "1.11路公交车		2.缆车		3.托马斯小火车" << std::endl;
+			std::cin >> ord;
+			getchar();
+			switch (ord) {
+			case 1: {
+				Flyweight* pw = Fac.GetFlyWeight("W");//获取W对应的模块，相当于用属性列表给固定部分穿上衣服
+				std::cout << "11路公交车已成功加入载具库！" << std::endl;
+				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
+				delete pw;
+			}break;
+			case 2: {
+				Flyweight* pc = Fac.GetFlyWeight("C");//获取C对应的模块
+				std::cout << "缆车已成功加入载具库！" << std::endl;
+				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
+				delete pc;
+			}break;
+			case 3: {
+				Flyweight* pp = Fac.GetFlyWeight("P");
+				std::cout << "托马斯小火车已成功加入载具库！" << std::endl;
+				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
+				delete pp;
+			}break;
+			default: {
+				cout << "输入指令错误！" << endl;
+			}
+			}
 			return true;
 		}
 		else if (subCmd == "state") {
 			int ord = 0;
-			Vehicle_State* wait = new Waiting();
-			Context* pContext = new Context(wait);
-			pContext->Request();
-			std::cout << "如果你想改变状态为运行请按1" << std::endl;
+			if (storage.n_state == 0)
+			{
+				std::cout << "当前载具的状态为等待状态；" << std::endl;
+			}
+			else if (storage.n_state == 1)
+			{
+				std::cout << "当前载具的状态为运行状态；" << std::endl;
+			}
+			std::cout << "如果你想让载具状态为运行请按1，置为等待请按0." << std::endl;
 			cin >> ord;
 			getchar();
-			if (ord == 1)
-			{
+			switch (ord) {
+			case 0: {
+				Vehicle_State* wait = new Waiting();
+				Context* pContext = new Context(wait);
+				storage.n_state = 0;//置为等待状态
+				pContext->Request();
+				delete wait;
+				delete pContext;
+			}break;
+			case 1: {
 				Vehicle_State* run = new Running();
-				pContext->ChangeState(run);
+				Context* pContext = new Context(run);
+				storage.n_state = 1;//置为运行状态
 				pContext->Request();
 				delete run;
+				delete pContext;
+			}break;
+			default: {
+				cout << "输入指令错误！" << endl;
 			}
-			delete wait;
-			delete pContext;
+			}
 			return true;
 		}
 		return false;
