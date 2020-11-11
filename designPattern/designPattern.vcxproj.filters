@@ -53,5 +53,14 @@
     <ClInclude Include="VisitorClasses.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Booking.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="caculate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TicketBuyer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
