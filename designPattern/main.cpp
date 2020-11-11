@@ -5,6 +5,7 @@
 #include "Strategy.h"
 #include "State.h"
 #include "TouristCenter.h"
+#include "VisitorClasses.h"
 
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发
@@ -238,6 +239,18 @@ protected:
 				std::cout << "成功创建mountain，指令为choose" << std::endl;
 				return true;
 			}
+			if (cmd == "cave") {
+				CavePlanFactory factory;
+				createPlan(factory);
+				std::cout << "冰封鬼窟探险已加入计划，指令为cave" << std::endl;
+				return true;
+			}
+			if (cmd == "exhibit") {
+				ExhibitPlanFactory factory;
+				createPlan(factory);
+				std::cout << "参观冰雕展览已加入计划，指令为exhibit" << std::endl;
+				return true;
+			}
 			return false;
 		}
 		if (subCmd == "getDescription") {
@@ -277,6 +290,8 @@ public:
 		std::cout << head + "create" << std::endl;								//输出子指令
 		std::cout << head + "---" + "testSpot" << std::endl;					//输出子指令
 		std::cout << head + "---" + "mountain" << std::endl;					//输出子指令
+		std::cout << head + "---" + "cave   (冰封鬼窟)" << std::endl;			//输出子指令
+		std::cout << head + "---" + "exhibit   (冰雕展览)" << std::endl;		//输出子指令
 		std::cout << head + "getDescription -p:计划在列表中的位置" << std::endl;//输出子指令
 	}
 	/*析构函数
@@ -298,6 +313,7 @@ int main() {
 	mainReciver.addReciver(&PlanManager::getInstance());	//添加计划管理器到主接收器下面
 	mainReciver.addReciver(&ShoppingManager::getInstance());
 	mainReciver.addReciver(&Vehicle::getInstance());
+	mainReciver.addReciver(&DecoratorReceiver::getInstance());
 	mainReciver.addReciver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
 	mainReciver.run();										//运行
 }

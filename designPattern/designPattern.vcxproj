@@ -136,6 +136,7 @@
     <ClInclude Include="Strategy.h" />
     <ClInclude Include="TouristCenter.h" />
     <ClInclude Include="TravelPlan.h" />
+    <ClInclude Include="VisitorClasses.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

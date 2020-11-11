@@ -50,5 +50,8 @@
     <ClInclude Include="FCurrency.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="VisitorClasses.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
