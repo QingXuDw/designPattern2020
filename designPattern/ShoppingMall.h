@@ -7,6 +7,7 @@
 #include <sstream>
 #include "BaseClasses.h"
 #include "TravelPlan.h"
+#include "CIcecream.h"
 
 struct Shopping : public DPObject {
 public:
@@ -435,11 +436,13 @@ void ClientOption(std::string op, std::string obj)
 *							ShoppingMallÄ£¿é							*
 *************************************************************************/
 
-class ShoppingManager : public CommandReceiver
+class ShoppingManager : public MacroCommandReceiver
 {
 
 private:
-	ShoppingManager() : CommandReceiver("shop") {}
+	ShoppingManager() : MacroCommandReceiver("shop") {
+		this->addReciver(&(IcecreamManager::getInstance()));
+	}
 	std::vector<Shopping*> ShoppingList;
 
 protected:
@@ -517,7 +520,7 @@ public:
 
 	virtual void printHelp(int level)
 	{
-		CommandReceiver::printHelp(level);
+		MacroCommandReceiver::printHelp(level);
 		level++;
 		std::string head(level * 3, '-');
 		std::cout << head + "buy" << std::endl;
