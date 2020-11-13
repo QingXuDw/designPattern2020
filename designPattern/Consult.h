@@ -1,8 +1,7 @@
-#pragma once
+#ifndef _CONSULT_H_
+#define _CONSULT_H_
 
 #include<iostream>
-#include"BaseClasses.h"
-#include"Adapter.h"
 using namespace std;
 
 /**
@@ -179,3 +178,5 @@ private:
 	}
  
 };
+
+#endif
