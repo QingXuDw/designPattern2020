@@ -3,85 +3,50 @@
 #include<map>
 #include<string>
 using namespace std;
-/**
- * æŠ½è±¡çš„äº«å…ƒç±»
- * å®šä¹‰äº«å…ƒç±»æ“ä½œ
- */
-class Flyweight : public DPObject
+
+class Flyweight : public DPObject//³éÏóµÄÏíÔªÀà
 {
-	/**
-	 * å®šä¹‰äº«å…ƒç±»çš„æ“ä½œ
-	 * @param i Flyweightç¼–å·
-	 * @return void
-	 */
 public:
 	virtual void Operation(int i) = 0;
 };
-
-/**
- * æŠ½è±¡çš„å…±äº«çš„å­ç±»
- * å®šä¹‰å…±äº«äº«å…ƒç±»æ“ä½œ
- */
-class ConcreteFlyWeight :public Flyweight
+class ConcreteFlyWeight :public Flyweight//¹²ÏíµÄ×ÓÀà
 {
 public:
-	/**
-	 * å®šä¹‰å…±äº«å­ç±»çš„æ“ä½œ
-	 * @param i Flyweightç¼–å·
-	 * @return void
-	 */
 	void Operation(int i)
 	{
-		std::cout << "å…±äº«çš„FlyWeight:" << i << std::endl;
+		std::cout << "¹²ÏíµÄFlyWeight:" << i << std::endl;
 	}
 };
-/**
- * æŠ½è±¡çš„ä¸å…±äº«çš„å­ç±»
- * å®šä¹‰ä¸å…±äº«äº«å…ƒç±»æ“ä½œ
- */
-class UnsharedConcreteFlyweight :public Flyweight//ä¸å…±äº«çš„å­ç±»
+class UnsharedConcreteFlyweight :public Flyweight//²»¹²ÏíµÄ×ÓÀà
 {
-	/**
-	 * å®šä¹‰ä¸å…±äº«å­ç±»çš„æ“ä½œ
-	 * @param i Flyweightç¼–å·
-	 * @return void
-	 */
 	void Operation(int i)
 	{
-		std::cout << "ä¸å…±äº«çš„FlyWeight:" << i << std::endl;
+		std::cout << "²»¹²ÏíµÄFlyWeight:" << i << std::endl;
 	}
 };
-/**
- * äº«å…ƒå·¥å‚ç±»
- * åˆ›å»ºå¹¶ç®¡ç†Flyweightå¯¹è±¡
- */
-class FlyweightFactory//
+class FlyweightFactory//ÏíÔª¹¤³§
 {
 private:
-	map<string, Flyweight*>flyweights;//æ¨¡å—ååˆ—è¡¨
+	map<string, Flyweight*>flyweights;//Ä£¿éÃûÁĞ±í
 public:
-	FlyweightFactory()//åˆå§‹å…±äº«æ¨¡å—åˆ—è¡¨
+	FlyweightFactory()//³õÊ¼¹²ÏíÄ£¿éÁĞ±í
 	{
-		//flyweights["W"] = new ConcreteFlyWeight();//è¿™é‡Œéœ€è¦ç”¨å †ï¼Œå› ä¸ºè¿™æ˜¯ç»™å®¢æˆ·ç¨‹åºè¿”å›çš„ï¼Œå¦‚æœä¸ç”¨å †ï¼Œåˆ™ä¼šè¿”å›å±€éƒ¨å¯¹è±¡çš„å¼•ç”¨
+		//flyweights["W"] = new ConcreteFlyWeight();//ÕâÀïĞèÒªÓÃ¶Ñ£¬ÒòÎªÕâÊÇ¸ø¿Í»§³ÌĞò·µ»ØµÄ£¬Èç¹û²»ÓÃ¶Ñ£¬Ôò»á·µ»Ø¾Ö²¿¶ÔÏóµÄÒıÓÃ
 		//flyweights["C"] = new ConcreteFlyWeight();
-		//flyweights["P"] = new ConcreteFlyWeight();//æ‰€æœ‰çš„å±æ€§ä¸ºâ€œPâ€çš„æ¨¡å—éƒ½åªå¯¹åº”è¿™ä¸ªä¸€ä¸ªå®ä¾‹ï¼Œè¿™æ­£æ˜¯äº«å…ƒæ¨¡å¼çš„ç²¾é«“æ‰€åœ¨å‘€
+		//flyweights["P"] = new ConcreteFlyWeight();//ËùÓĞµÄÊôĞÔÎª¡°P¡±µÄÄ£¿é¶¼Ö»¶ÔÓ¦Õâ¸öÒ»¸öÊµÀı£¬ÕâÕıÊÇÏíÔªÄ£Ê½µÄ¾«ËèËùÔÚÑ½
 	}
-	/**
-	 * å®šä¹‰ä¸å…±äº«å­ç±»çš„æ“ä½œ
-	 * @param key Flyweightå±æ€§
-	 * @return flyweights[key] è¿”å›äº«å…ƒå¯¹è±¡
-	 */
-	Flyweight* GetFlyWeight(string key)//å·¥å‚è¿”å›äº«å…ƒå¯¹è±¡ï¼Œè€Œè¿™äº›å¯¹è±¡çš„å±æ€§éƒ½å­˜æ”¾åœ¨ä¸€ä¸ªè¯¥å·¥å‚çš„æ¨¡å—ååˆ—è¡¨ä¸­
+
+	Flyweight* GetFlyWeight(string key)//¹¤³§·µ»ØÏíÔª¶ÔÏó£¬¶øÕâĞ©¶ÔÏóµÄÊôĞÔ¶¼´æ·ÅÔÚÒ»¸ö¸Ã¹¤³§µÄÄ£¿éÃûÁĞ±íÖĞ
 	{
-		if (!flyweights.count(key))//å…ˆæ£€æŸ¥ä¸‹æ˜¯å¦åœ¨åˆ—è¡¨ä¸­ï¼Œå¦‚æœä¸åœ¨åˆ™æ–°å»ºè¯¥åˆ—è¡¨é¡¹
+		if (!flyweights.count(key))//ÏÈ¼ì²éÏÂÊÇ·ñÔÚÁĞ±íÖĞ£¬Èç¹û²»ÔÚÔòĞÂ½¨¸ÃÁĞ±íÏî
 		{
-			flyweights[key] = new ConcreteFlyWeight();//è¿™é‡Œåªèƒ½è¿”å›å †ç©ºé—´
+			flyweights[key] = new ConcreteFlyWeight();//ÕâÀïÖ»ÄÜ·µ»Ø¶Ñ¿Õ¼ä
 		}
 		return flyweights[key];
 	}
-	map<string, Flyweight*>::size_type countN()//è¿”å›å½“å‰æœ‰å¤šå°‘ä¸ªå¯ä¾›å…±äº«çš„æ¨¡å—
+	map<string, Flyweight*>::size_type countN()//·µ»Øµ±Ç°ÓĞ¶àÉÙ¸ö¿É¹©¹²ÏíµÄÄ£¿é
 	{
 		return flyweights.size();
 	}
 };
-FlyweightFactory Fac;//æ•´ä¸ªè¿‡ç¨‹å€¼é‡‡ç”¨ä¸€ä¸ªå·¥å‚
+FlyweightFactory Fac;//Õû¸ö¹ı³ÌÖµ²ÉÓÃÒ»¸ö¹¤³§
