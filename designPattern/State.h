@@ -3,37 +3,65 @@
 #include"TravelPlan.h"
 #include"Flyweight.h"
 using namespace std;
-//×´Ì¬Ä£Ê½ÊµÏÖ
-class Context;
-//ÔØ¾ß×´Ì¬
+/**
+ * çŠ¶æ€æ¨¡å¼çš„å®ç°
+ */
+
+class Context;//æå‰å£°æ˜Contextç±»
+
+/**
+ * è½½å…·çŠ¶æ€ç±»
+ * å®šä¹‰ä¸€ä¸ªæ¥å£ä»¥å°è£…ä¸Contextçš„ä¸€ä¸ªç‰¹å®šçŠ¶æ€ç›¸å…³çš„è¡Œä¸º
+ */
+
 class Vehicle_State : public DPObject
 {
+	/**
+	 * å®šä¹‰çŠ¶æ€è¡Œä¸º
+	 * @return void
+	 */
 public:
 	virtual void Handle(Context* pContext) = 0;
 };
-
+/**
+ * ç­‰å¾…çŠ¶æ€ç±»
+ * å°†è½½å…·çš„çŠ¶æ€ç½®ä¸ºç­‰å¾…
+ * @return void
+ */
 class Waiting : public Vehicle_State
 {
 public:
 	virtual void Handle(Context* pContext)
 	{
-		std::cout << "µ±Ç°ÔØ¾ßÎªµÈ´ı×´Ì¬£¡" << std::endl;
+		std::cout << "å½“å‰è½½å…·ä¸ºç­‰å¾…çŠ¶æ€ï¼" << std::endl;
 	}
 };
-
+/**
+ * ç­‰å¾…çŠ¶æ€ç±»
+ * å°†è½½å…·çš„çŠ¶æ€ç½®ä¸ºç­‰å¾…
+ * @return void
+ */
 class Running : public Vehicle_State
 {
 public:
 	virtual void Handle(Context* pContext)
 	{
-		std::cout << "µ±Ç°ÔØ¾ßÎªÔËĞĞ×´Ì¬£¡" << std::endl;
+		std::cout << "å½“å‰è½½å…·ä¸ºè¿è¡ŒçŠ¶æ€ï¼" << std::endl;
 	}
 };
 
+/**
+ * Contextç±»å®šä¹‰å®¢æˆ·ç«¯æ„Ÿå…´è¶£çš„æ¥å£
+ * ç»´æŠ¤ä¸€ä¸ªConcreteStateå­ç±»çš„å®ä¾‹ï¼Œè¿™ä¸ªå®ä¾‹å®šä¹‰å½“å‰çŠ¶æ€
+ */
 class Context
 {
 public:
 	Context(Vehicle_State* pState) : m_pState(pState) {}
+	/**
+	 * è°ƒç”¨handleæ“ä½œä½¿ç”¨çš„å‡½æ•°request
+	 * @return void
+	 */
 	void Request()
 	{
 		if (m_pState)
@@ -41,6 +69,12 @@ public:
 			m_pState->Handle(this);
 		}
 	}
+	/**
+	 * çŠ¶æ€è½¬æ¢
+	 * æ¥æ”¶çŠ¶æ€ç±»ï¼Œå°†æ­¤æ—¶çŠ¶æ€è½¬æ¢ä¸ºéœ€è¦è½¬æ¢æˆçš„çŠ¶æ€
+	 * @param pState éœ€è¦è½¬æ¢æˆçš„çŠ¶æ€ç±»
+	 * @return void
+	 */
 	void ChangeState(Vehicle_State* pState)
 	{
 		m_pState = pState;
@@ -49,119 +83,115 @@ private:
 	Vehicle_State* m_pState;
 };
 
-class Storage {//´æ´¢×´Ì¬ÓÃ
+class Storage {//å­˜å‚¨çŠ¶æ€ç”¨
 public:
-	int n_state = 0;//³õÊ¼×´Ì¬ÖÃÎª0£¬¼´µÈ´ı×´Ì¬
+	int n_state = 0;//åˆå§‹çŠ¶æ€ç½®ä¸º0ï¼Œå³ç­‰å¾…çŠ¶æ€
 }storage;
 
 
 class Vehicle : public CommandReceiver {
 private:
-	//¼ÇÂ¼µÄ×Ö·û´®
+	//è®°å½•çš„å­—ç¬¦ä¸²
 	std::string str;
-	/*¹¹Ôìº¯Êı
-	* ¹¹Ôìº¯ÊıÎªprivate£¬ÓÃÓÚÊµÏÖµ¥Àı£¬tagÎª"Vehicle"
+	/*æ„é€ å‡½æ•°
+	* æ„é€ å‡½æ•°ä¸ºprivateï¼Œç”¨äºå®ç°å•ä¾‹ï¼Œtagä¸º"Vehicle"
 	* @return void
 	*/
 	Vehicle() : CommandReceiver("vehicle") {}
 protected:
-	/*Ö´ĞĞÖ¸Áî
-	* ÖØÔØ¸¸ÀàÖ´ĞĞÖ¸ÁîµÄ´¿Ğéº¯Êı£¬¸ù¾İÊäÈëµÄÃüÁîÖ´ĞĞÏàÓ¦²Ù×÷
-	* @param cmd ÓÃ»§ÊäÈëµÄÖ¸ÁîÄÚÈİ
-	* @return bool Ö¸Áî¸ñÊ½ÊÇ·ñÕıÈ·
+	/*æ‰§è¡ŒæŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»æ‰§è¡ŒæŒ‡ä»¤çš„çº¯è™šå‡½æ•°ï¼Œæ ¹æ®è¾“å…¥çš„å‘½ä»¤æ‰§è¡Œç›¸åº”æ“ä½œ
+	* @param cmd ç”¨æˆ·è¾“å…¥çš„æŒ‡ä»¤å†…å®¹
+	* @return bool æŒ‡ä»¤æ ¼å¼æ˜¯å¦æ­£ç¡®
 	*/
 	bool executeCommand(std::string cmd) {
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "all") {
-			int ord;
-			std::cout << "Äú¿ÉÒÔÔÚ´Ë²Ù×÷ÖĞÌí¼ÓÔØ¾ßÖÖÀà£¨½ûÖ¹Ìí¼ÓÁ½´ÎÍ¬ÖÖÔØ¾ß¡£ÇëÌîĞ´¶ÔÓ¦±àºÅÅ¶~£©" << std::endl;
-			std::cout << "1.11Â·¹«½»³µ		2.ÀÂ³µ		3.ÍĞÂíË¹Ğ¡»ğ³µ" << std::endl;
+			string ord;
+			std::cout << "æ‚¨å¯ä»¥åœ¨æ­¤æ“ä½œä¸­æ·»åŠ è½½å…·ç§ç±»ï¼ˆç¦æ­¢æ·»åŠ ä¸¤æ¬¡åŒç§è½½å…·ã€‚è¯·å¡«å†™å¯¹åº”ç¼–å·å“¦~ï¼‰" << std::endl;
+			std::cout << "1.11è·¯å…¬äº¤è½¦		2.ç¼†è½¦		3.æ‰˜é©¬æ–¯å°ç«è½¦" << std::endl;
 			std::cin >> ord;
 			getchar();
-			switch (ord) {
-			case 1: {
-				Flyweight* pw = Fac.GetFlyWeight("W");//»ñÈ¡W¶ÔÓ¦µÄÄ£¿é£¬Ïàµ±ÓÚÓÃÊôĞÔÁĞ±í¸ø¹Ì¶¨²¿·Ö´©ÉÏÒÂ·ş
-				std::cout << "11Â·¹«½»³µÒÑ³É¹¦¼ÓÈëÔØ¾ß¿â£¡" << std::endl;
-				std::cout << "µ±Ç°¿É¹©¹²ÏíµÄÔØ¾ßÖÖÀàÓĞ:" << Fac.countN() << "ÖÖ!" << std::endl;
+			if(ord=="1"){
+				Flyweight* pw = Fac.GetFlyWeight("W");//è·å–Wå¯¹åº”çš„æ¨¡å—ï¼Œç›¸å½“äºç”¨å±æ€§åˆ—è¡¨ç»™å›ºå®šéƒ¨åˆ†ç©¿ä¸Šè¡£æœ
+				std::cout << "11è·¯å…¬äº¤è½¦å·²æˆåŠŸåŠ å…¥è½½å…·åº“ï¼" << std::endl;
+				std::cout << "å½“å‰å¯ä¾›å…±äº«çš„è½½å…·ç§ç±»æœ‰:" << Fac.countN() << "ç§!" << std::endl;
 				delete pw;
-			}break;
-			case 2: {
-				Flyweight* pc = Fac.GetFlyWeight("C");//»ñÈ¡C¶ÔÓ¦µÄÄ£¿é
-				std::cout << "ÀÂ³µÒÑ³É¹¦¼ÓÈëÔØ¾ß¿â£¡" << std::endl;
-				std::cout << "µ±Ç°¿É¹©¹²ÏíµÄÔØ¾ßÖÖÀàÓĞ:" << Fac.countN() << "ÖÖ!" << std::endl;
-				delete pc;
-			}break;
-			case 3: {
-				Flyweight* pp = Fac.GetFlyWeight("P");
-				std::cout << "ÍĞÂíË¹Ğ¡»ğ³µÒÑ³É¹¦¼ÓÈëÔØ¾ß¿â£¡" << std::endl;
-				std::cout << "µ±Ç°¿É¹©¹²ÏíµÄÔØ¾ßÖÖÀàÓĞ:" << Fac.countN() << "ÖÖ!" << std::endl;
-				delete pp;
-			}break;
-			default: {
-				cout << "ÊäÈëÖ¸Áî´íÎó£¡" << endl;
 			}
+			else if(ord=="2"){
+				Flyweight* pc = Fac.GetFlyWeight("C");//è·å–Cå¯¹åº”çš„æ¨¡å—
+				std::cout << "ç¼†è½¦å·²æˆåŠŸåŠ å…¥è½½å…·åº“ï¼" << std::endl;
+				std::cout << "å½“å‰å¯ä¾›å…±äº«çš„è½½å…·ç§ç±»æœ‰:" << Fac.countN() << "ç§!" << std::endl;
+				delete pc;
+			}
+			else if (ord == "3") {
+				Flyweight* pp = Fac.GetFlyWeight("P");
+				std::cout << "æ‰˜é©¬æ–¯å°ç«è½¦å·²æˆåŠŸåŠ å…¥è½½å…·åº“ï¼" << std::endl;
+				std::cout << "å½“å‰å¯ä¾›å…±äº«çš„è½½å…·ç§ç±»æœ‰:" << Fac.countN() << "ç§!" << std::endl;
+				delete pp;
+			}
+			else{
+				cout << "è¾“å…¥æŒ‡ä»¤é”™è¯¯ï¼" << endl;
 			}
 			return true;
 		}
 		else if (subCmd == "state") {
-			int ord = 0;
+			string ord;
 			if (storage.n_state == 0)
 			{
-				std::cout << "µ±Ç°ÔØ¾ßµÄ×´Ì¬ÎªµÈ´ı×´Ì¬£»" << std::endl;
+				std::cout << "å½“å‰è½½å…·çš„çŠ¶æ€ä¸ºç­‰å¾…çŠ¶æ€ï¼›" << std::endl;
 			}
 			else if (storage.n_state == 1)
 			{
-				std::cout << "µ±Ç°ÔØ¾ßµÄ×´Ì¬ÎªÔËĞĞ×´Ì¬£»" << std::endl;
+				std::cout << "å½“å‰è½½å…·çš„çŠ¶æ€ä¸ºè¿è¡ŒçŠ¶æ€ï¼›" << std::endl;
 			}
-			std::cout << "Èç¹ûÄãÏëÈÃÔØ¾ß×´Ì¬ÎªÔËĞĞÇë°´1£¬ÖÃÎªµÈ´ıÇë°´0." << std::endl;
+			std::cout << "å¦‚æœä½ æƒ³è®©è½½å…·çŠ¶æ€ä¸ºè¿è¡Œè¯·æŒ‰1ï¼Œç½®ä¸ºç­‰å¾…è¯·æŒ‰0." << std::endl;
 			cin >> ord;
 			getchar();
-			switch (ord) {
-			case 0: {
+			if (ord == "0") {
 				Vehicle_State* wait = new Waiting();
 				Context* pContext = new Context(wait);
-				storage.n_state = 0;//ÖÃÎªµÈ´ı×´Ì¬
+				storage.n_state = 0;//ç½®ä¸ºç­‰å¾…çŠ¶æ€
 				pContext->Request();
 				delete wait;
 				delete pContext;
-			}break;
-			case 1: {
+			}
+			else if (ord == "1") {
 				Vehicle_State* run = new Running();
 				Context* pContext = new Context(run);
-				storage.n_state = 1;//ÖÃÎªÔËĞĞ×´Ì¬
+				storage.n_state = 1;//ç½®ä¸ºè¿è¡ŒçŠ¶æ€
 				pContext->Request();
 				delete run;
 				delete pContext;
-			}break;
-			default: {
-				cout << "ÊäÈëÖ¸Áî´íÎó£¡" << endl;
 			}
+			else{
+				cout << "è¾“å…¥æŒ‡ä»¤é”™è¯¯ï¼" << endl;
 			}
 			return true;
 		}
 		return false;
 	}
-	/*´òÓ¡¿ÉÓÃÖ¸Áî
-	* ÖØÔØ¸¸ÀàĞéº¯Êı£¬¸ù¾İlevel´òÓ¡¶ÔÓ¦¸ñÊ½µÄÖ¸Áî£¬ÒÔ¼°¿ÉÓÃ×ÓÖ¸Áî
-	* @param level µ±Ç°ReciverÔÚReciverÊ÷ÖĞµÄ²ã¼¶
+	/*æ‰“å°å¯ç”¨æŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»è™šå‡½æ•°ï¼Œæ ¹æ®levelæ‰“å°å¯¹åº”æ ¼å¼çš„æŒ‡ä»¤ï¼Œä»¥åŠå¯ç”¨å­æŒ‡ä»¤
+	* @param level å½“å‰Reciveråœ¨Reciveræ ‘ä¸­çš„å±‚çº§
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		__super::printHelp(level);				//µ÷ÓÃ¸¸ÀàµÄÄ¬ÈÏprintHelpº¯Êı£¬µİ¹éÊä³öµ±Ç°¼°×Ó½ÓÊÕÆ÷µÄtag
-		level++;								//½«×ÓÖ¸ÁîÏÔÊ¾µ½ÏÂÒ»²ã
+		__super::printHelp(level);				//è°ƒç”¨çˆ¶ç±»çš„é»˜è®¤printHelpå‡½æ•°ï¼Œé€’å½’è¾“å‡ºå½“å‰åŠå­æ¥æ”¶å™¨çš„tag
+		level++;								//å°†å­æŒ‡ä»¤æ˜¾ç¤ºåˆ°ä¸‹ä¸€å±‚
 		std::string head(level * 3, '-');
-		std::cout << head + "all" << std::endl;	//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "all" << std::endl;	//è¾“å‡ºå­æŒ‡ä»¤
 		std::cout << head + "state" << std::endl;
 	}
 public:
-	//±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊıÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°å¤åˆ¶æ„é€ å‡½æ•°ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	Vehicle(const Vehicle&) = delete;
-	//±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°æ‹·è´èµ‹å€¼æ“ä½œç¬¦ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	Vehicle& operator=(const Vehicle&) = delete;
-	/*»ñÈ¡µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
-	* »ñÈ¡È«¾ÖÎ¨Ò»µ±Ç°½ÓÊÕÆ÷µÄÊµÀıµÄÒıÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àı¡£
-	* @return Mountain& µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
+	/*è·å–å½“å‰æ¥æ”¶å™¨çš„å¼•ç”¨
+	* è·å–å…¨å±€å”¯ä¸€å½“å‰æ¥æ”¶å™¨çš„å®ä¾‹çš„å¼•ç”¨ï¼Œç”¨äºå®ç°å•ä¾‹ã€‚
+	* @return Mountain& å½“å‰æ¥æ”¶å™¨çš„å¼•ç”¨
 	*/
 	static Vehicle& getInstance() {
 		static Vehicle reciver;
