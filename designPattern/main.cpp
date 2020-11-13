@@ -6,6 +6,8 @@
 #include "VisitorClasses.h"
 #include "TicketBuyer.h"
 #include "TestPlan.h"
+#include "CIceZoo.h"
+#include "CIcecream.h"
 
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发
@@ -154,6 +156,12 @@ protected:
 				ExhibitPlanFactory factory;
 				createPlan(factory);
 				std::cout << "参观冰雕展览已加入计划，指令为exhibit" << std::endl;
+				return true;
+			}
+			if (cmd == "iceZoo") {
+				IceZooFactory factory;
+				createPlan(factory);
+				std::cout << "冰雪动物园已加入计划，指令为iceZoo" << std::endl;
 				return true;
 			}
 			return false;

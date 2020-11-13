@@ -130,6 +130,8 @@
     <ClInclude Include="BaseClasses.h" />
     <ClInclude Include="Booking.h" />
     <ClInclude Include="caculate.h" />
+    <ClInclude Include="CIcecream.h" />
+    <ClInclude Include="CIceZoo.h" />
     <ClInclude Include="Consult.h" />
     <ClInclude Include="FCurrency.h" />
     <ClInclude Include="FlyWeight.h" />
