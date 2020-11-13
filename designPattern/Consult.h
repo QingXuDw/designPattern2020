@@ -1,7 +1,8 @@
-#ifndef _CONSULT_H_
-#define _CONSULT_H_
+#pragma once
 
 #include<iostream>
+#include"BaseClasses.h"
+
 using namespace std;
 
 /**
@@ -178,5 +179,3 @@ private:
 	}
  
 };
-
-#endif

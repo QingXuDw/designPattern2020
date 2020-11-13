@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include"BaseClasses.h"
+
 using namespace std;
 
 /**

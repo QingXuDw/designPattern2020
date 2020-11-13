@@ -1,16 +1,17 @@
 #pragma once
-#include"BaseClasses.h"
 
+#include"BaseClasses.h"
 #include"Consult.h"
 #include"Adapter.h"
+
 //游客中心 （ 咨询--外观模式 / 外币兑换--适配器模式 ）
-class TouristCenter : public CommandReceiver {
+class TouristCenter: public CommandReciver{
 private:
 	/*构造函数
 	* 构造函数为private，用于实现单例，tag为"tourist"
 	* @return void
 	*/
-	TouristCenter() : CommandReceiver("tourist") {}
+	TouristCenter() : CommandReciver("tourist") {}
 
 protected:
 	bool executeCommand(std::string cmd) {
@@ -18,13 +19,11 @@ protected:
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "consult") {
-			std::cout << "请选择要咨询的内容（1为游乐项目，2为园区设施，3为饮食住宿， 0为返回）：\n";
 			Facade* pFacade = new Facade();
 			pFacade->start();
 			return true;
 		}
 		else if (subCmd == "currency") {
-			std::cout << "请输入要兑换的货币种类以及数量（以空格分隔, 以\"quit\"结束）：\n";
 			Adapter* pAdapter = new Adapter();
 			pAdapter->start();
 			return true;
