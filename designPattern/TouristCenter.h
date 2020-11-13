@@ -3,11 +3,11 @@
 
 #include"Consult.h"
 #include"Adapter.h"
-//ÓÎ¿ÍÖĞĞÄ £¨ ×ÉÑ¯--Íâ¹ÛÄ£Ê½ / Íâ±Ò¶Ò»»--ÊÊÅäÆ÷Ä£Ê½ £©
+//æ¸¸å®¢ä¸­å¿ƒ ï¼ˆ å’¨è¯¢--å¤–è§‚æ¨¡å¼ / å¤–å¸å…‘æ¢--é€‚é…å™¨æ¨¡å¼ ï¼‰
 class TouristCenter : public CommandReceiver {
 private:
-	/*¹¹Ôìº¯Êı
-	* ¹¹Ôìº¯ÊıÎªprivate£¬ÓÃÓÚÊµÏÖµ¥Àı£¬tagÎª"tourist"
+	/*æ„é€ å‡½æ•°
+	* æ„é€ å‡½æ•°ä¸ºprivateï¼Œç”¨äºå®ç°å•ä¾‹ï¼Œtagä¸º"tourist"
 	* @return void
 	*/
 	TouristCenter() : CommandReceiver("tourist") {}
@@ -18,13 +18,11 @@ protected:
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "consult") {
-			std::cout << "ÇëÑ¡ÔñÒª×ÉÑ¯µÄÄÚÈİ£¨1ÎªÓÎÀÖÏîÄ¿£¬2ÎªÔ°ÇøÉèÊ©£¬3ÎªÒûÊ³×¡ËŞ£¬ 0Îª·µ»Ø£©£º\n";
 			Facade* pFacade = new Facade();
 			pFacade->start();
 			return true;
 		}
 		else if (subCmd == "currency") {
-			std::cout << "ÇëÊäÈëÒª¶Ò»»µÄ»õ±ÒÖÖÀàÒÔ¼°ÊıÁ¿£¨ÒÔ¿Õ¸ñ·Ö¸ô, ÒÔ\"quit\"½áÊø£©£º\n";
 			Adapter* pAdapter = new Adapter();
 			pAdapter->start();
 			return true;
@@ -33,29 +31,29 @@ protected:
 			return false;
 	}
 public:
-	//±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊıÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°å¤åˆ¶æ„é€ å‡½æ•°ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	TouristCenter(const TouristCenter&) = delete;
-	//±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°æ‹·è´èµ‹å€¼æ“ä½œç¬¦ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	TouristCenter& operator=(const TouristCenter&) = delete;
-	/*»ñÈ¡µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
-	* »ñÈ¡È«¾ÖÎ¨Ò»µ±Ç°½ÓÊÕÆ÷µÄÊµÀıµÄÒıÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àı¡£
-	* @return PlanManager& µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
+	/*è·å–å½“å‰æ¥æ”¶å™¨çš„å¼•ç”¨
+	* è·å–å…¨å±€å”¯ä¸€å½“å‰æ¥æ”¶å™¨çš„å®ä¾‹çš„å¼•ç”¨ï¼Œç”¨äºå®ç°å•ä¾‹ã€‚
+	* @return PlanManager& å½“å‰æ¥æ”¶å™¨çš„å¼•ç”¨
 	*/
 	static TouristCenter& getInstance() {
 		static TouristCenter reciver;
 		return reciver;
 	}
-	/*´òÓ¡¿ÉÓÃÖ¸Áî
-	* ÖØÔØ¸¸ÀàĞéº¯Êı£¬¸ù¾İlevel´òÓ¡¶ÔÓ¦¸ñÊ½µÄÖ¸Áî£¬ÒÔ¼°¿ÉÓÃ×ÓÖ¸Áî
-	* @param level µ±Ç°ReciverÔÚReciverÊ÷ÖĞµÄ²ã¼¶
+	/*æ‰“å°å¯ç”¨æŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»è™šå‡½æ•°ï¼Œæ ¹æ®levelæ‰“å°å¯¹åº”æ ¼å¼çš„æŒ‡ä»¤ï¼Œä»¥åŠå¯ç”¨å­æŒ‡ä»¤
+	* @param level å½“å‰Reciveråœ¨Reciveræ ‘ä¸­çš„å±‚çº§
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		__super::printHelp(level);				//µ÷ÓÃ¸¸ÀàµÄÄ¬ÈÏprintHelpº¯Êı£¬µİ¹éÊä³öµ±Ç°¼°×Ó½ÓÊÕÆ÷µÄtag
-		level++;								//½«×ÓÖ¸ÁîÏÔÊ¾µ½ÏÂÒ»²ã
+		__super::printHelp(level);				//è°ƒç”¨çˆ¶ç±»çš„é»˜è®¤printHelpå‡½æ•°ï¼Œé€’å½’è¾“å‡ºå½“å‰åŠå­æ¥æ”¶å™¨çš„tag
+		level++;								//å°†å­æŒ‡ä»¤æ˜¾ç¤ºåˆ°ä¸‹ä¸€å±‚
 		std::string head(level * 3, '-');
-		std::cout << head + "consult" << std::endl;						//Êä³ö×ÓÖ¸Áî
-		std::cout << head + "currency" << std::endl;					//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "consult" << std::endl;						//è¾“å‡ºå­æŒ‡ä»¤
+		std::cout << head + "currency" << std::endl;					//è¾“å‡ºå­æŒ‡ä»¤
 
 	}
 };
