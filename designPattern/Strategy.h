@@ -140,7 +140,7 @@ public:
 	*/
 	Description* makeDescription() {
 		Description* des = new Description();
-		des->content = "this is a test Plan";
+		des->content = "登雪山模块实现了策略模式，具体代码见Strategy.h";
 		return des;
 	}
 	/*生成目标地点

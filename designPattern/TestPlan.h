@@ -82,7 +82,9 @@ public:
 	*/
 	Description* makeDescription() {
 		Description* des = new Description();
-		des->content = "this is a test Plan";
+		des->content = "这是一个由抽象计划工厂派生的具体计划工厂的产品——testPlan，\n\
+			是工厂模式和抽象工厂模式的应用，\n\
+			父类在TravelPlan.h中，子类在TestPlan中";
 		return des;
 	}
 	/*生成目标地点

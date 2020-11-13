@@ -205,6 +205,7 @@ public:
 		std::cout << head + "---" + "mountain" << std::endl;					//输出子指令
 		std::cout << head + "---" + "cave   (冰封鬼窟)" << std::endl;			//输出子指令
 		std::cout << head + "---" + "exhibit   (冰雕展览)" << std::endl;		//输出子指令
+		std::cout << head + "---" + "iceZoo   (冰雪动物园)" << std::endl;		//输出子指令
 		std::cout << head + "getDescription -p:计划在列表中的位置" << std::endl;//输出子指令
 	}
 	/*析构函数

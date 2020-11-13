@@ -268,7 +268,7 @@ public:
 	*/
 	Description* makeDescription() {
 		Description* des = new Description();
-		des->content = "冰封鬼窟";
+		des->content = "冰封鬼窟实现了装饰模式和访问者模式，具体代码见VisitorClasses.h";
 		return des;
 	}
 	/*生成目标地点
