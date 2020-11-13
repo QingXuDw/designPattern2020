@@ -13,7 +13,7 @@ class Booking :public DPObject
 public:
 	Ticket_officer* ticket_officer;
 	ConcreteCommand* concreteCommand;
-	Description* description;
+	Description_Booking* description;
 	CommandReceiver* spot;
 
 	Ticket_officer* make_Ticket_officer()
@@ -26,11 +26,23 @@ public:
 		ConcreteCommand* concreteCommand = new ConcreteCommand(ticket_officer);
 		return concreteCommand;
 	}
-	Description* makeDescription(std::string cmd) {
-		Description* des = new Description();
-		if (cmd == "man") des->content = "男士票";
-		if (cmd == "woman") des->content = "女士票";
-		if (cmd == "child") des->content = "儿童票";
+	Description_Booking* makeDescription(std::string cmd) {
+		Description_Booking* des = new Description_Booking();
+		if (cmd == "man") 
+		{
+			des->content = "男士票";
+			des->identifier = 1000;
+		}
+		if (cmd == "woman")
+		{
+			des->content = "女士票";
+			des->identifier = 500;
+		}
+		if (cmd == "child")
+		{
+			des->content = "儿童票";
+			des->identifier = 100;
+		}
 		return des;
 	}
 
@@ -101,9 +113,9 @@ protected:
 			removeBlank(cmd);
 			if (paramTag1 == "-p") {
 				int pos = std::stoi(cmd);
-				if (bookingList[pos]->description->content == "儿童票") std::cout << "儿童票在一级设施游玩" << std::endl;
-				if (bookingList[pos]->description->content == "女士票") std::cout << "女士票在二级设施游玩" << std::endl;
-				if (bookingList[pos]->description->content == "男士票") std::cout << "男士票在三级设施游玩" << std::endl;
+				child_play(bookingList[pos]->description);
+				woman_play(bookingList[pos]->description);
+				man_play(bookingList[pos]->description);
 				return true;
 			}
 			cmd = paramTag1 + " " + cmd;
@@ -121,6 +133,18 @@ protected:
 			return true;
 		}
 		return false;
+	}
+	void child_play(Description_Booking* des)
+	{
+		if (des->identifier > 0 && des->identifier <= 300) std::cout << "儿童票在一级设施游玩" << std::endl;
+	}
+	void woman_play(Description_Booking* des)
+	{
+		if (des->identifier > 300 && des->identifier <= 800) std::cout << "女士票在二级设施游玩" << std::endl;
+	}
+	void man_play(Description_Booking* des)
+	{
+		if (des->identifier > 800) std::cout << "男士票在三级设施游玩" << std::endl;
 	}
 public:
 	Ticket_Buyer(const Ticket_Buyer&) = delete;
