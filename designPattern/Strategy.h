@@ -3,26 +3,26 @@
 #include"BaseClasses.h"
 #include"TravelPlan.h"
 #define  free_ptr(p) \
-	if(p) delete p; p = NULL;//ÊÍ·ÅÖ¸ÕëÓÃ
+	if(p) delete p; p = NULL;//é‡Šæ”¾æŒ‡é’ˆç”¨
 
 /**
-* ²ßÂÔÄ£Ê½ÈÃÄã¿ÉÒÔ¶¯Ì¬µÄ¸Ä±ä¶ÔÏóµÄĞĞÎª£¬¶¯Ì¬ĞŞ¸Ä²ßÂÔ
-* ´ËÀıÎªµÇÉ½Ñ¡ÓÃµÄÔØ¾ß×÷Îª²ßÂÔ
+* ç­–ç•¥æ¨¡å¼è®©ä½ å¯ä»¥åŠ¨æ€çš„æ”¹å˜å¯¹è±¡çš„è¡Œä¸ºï¼ŒåŠ¨æ€ä¿®æ”¹ç­–ç•¥
+* æ­¤ä¾‹ä¸ºç™»å±±é€‰ç”¨çš„è½½å…·ä½œä¸ºç­–ç•¥
 */
 
 class Mountaineering : public DPObject
 {
 public:
 	/**
-	 * ³éÏó²ßÂÔÀàµÇÉ½
+	 * æŠ½è±¡ç­–ç•¥ç±»ç™»å±±
 	 * @return void
 	 */
 	virtual ~Mountaineering() {};
 	virtual void choose() = 0;
 };
 /**
- * ²½ĞĞ²ßÂÔÀà
- * ²ÉÓÃ²½ĞĞ(11Â·¹«½»³µµÄ²ßÂÔ)
+ * æ­¥è¡Œç­–ç•¥ç±»
+ * é‡‡ç”¨æ­¥è¡Œ(11è·¯å…¬äº¤è½¦çš„ç­–ç•¥)
  * @return void
  */
 
@@ -33,8 +33,8 @@ public:
 	};
 };
 /**
- * ÀÂ³µ²ßÂÔÀà
- * ²ÉÓÃÀÂ³µ²ßÂÔÉÏÉ½
+ * ç¼†è½¦ç­–ç•¥ç±»
+ * é‡‡ç”¨ç¼†è½¦ç­–ç•¥ä¸Šå±±
  * @return void
  */
 class Cable_car : public Mountaineering {
@@ -44,8 +44,8 @@ public:
 	};
 };
 /**
- * Ğ¡»ğ³µ²ßÂÔÀà
- * ²ÉÓÃĞ¡»ğ³µ²ßÂÔÉÏÉ½
+ * å°ç«è½¦ç­–ç•¥ç±»
+ * é‡‡ç”¨å°ç«è½¦ç­–ç•¥ä¸Šå±±
  * @return void
  */
 class Puddle_jumper : public Mountaineering {
@@ -55,8 +55,8 @@ public:
 	};
 };
 /**
-* µÇÉ½»·¾³Àà
-* ×÷Îª²ßÂÔÀàµÄÒıÓÃ¸ø¿Í»§¶Ëµ÷ÓÃ
+* ç™»å±±ç¯å¢ƒç±»
+* ä½œä¸ºç­–ç•¥ç±»çš„å¼•ç”¨ç»™å®¢æˆ·ç«¯è°ƒç”¨
 */
 
 class MountainMode : public DPObject {
@@ -64,7 +64,7 @@ public:
 	MountainMode(Mountaineering* mountain) : m_mountain(mountain) {};
 	~MountainMode() { free_ptr(m_mountain); }
 	/**
-	 * µ÷ÓÃ¸÷ÖÖ²ßÂÔÀàÖĞµÄchoose²Ù×÷
+	 * è°ƒç”¨å„ç§ç­–ç•¥ç±»ä¸­çš„chooseæ“ä½œ
 	 * @return void
 	 */
 	void choose() {
@@ -77,28 +77,28 @@ private:
 
 class Mountain : public CommandReceiver {
 private:
-	//¼ÇÂ¼µÄ×Ö·û´®
+	//è®°å½•çš„å­—ç¬¦ä¸²
 	std::string str;
-	/*¹¹Ôìº¯Êı
-	* ¹¹Ôìº¯ÊıÎªprivate£¬ÓÃÓÚÊµÏÖµ¥Àı£¬tagÎª"choose"
+	/*æ„é€ å‡½æ•°
+	* æ„é€ å‡½æ•°ä¸ºprivateï¼Œç”¨äºå®ç°å•ä¾‹ï¼Œtagä¸º"choose"
 	* @return void
 	*/
 	Mountain() : CommandReceiver("mountain") {}
 protected:
-	/*Ö´ĞĞÖ¸Áî
-	* ÖØÔØ¸¸ÀàÖ´ĞĞÖ¸ÁîµÄ´¿Ğéº¯Êı£¬¸ù¾İÊäÈëµÄÃüÁîÖ´ĞĞÏàÓ¦²Ù×÷
-	* @param cmd ÓÃ»§ÊäÈëµÄÖ¸ÁîÄÚÈİ
-	* @return bool Ö¸Áî¸ñÊ½ÊÇ·ñÕıÈ·
+	/*æ‰§è¡ŒæŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»æ‰§è¡ŒæŒ‡ä»¤çš„çº¯è™šå‡½æ•°ï¼Œæ ¹æ®è¾“å…¥çš„å‘½ä»¤æ‰§è¡Œç›¸åº”æ“ä½œ
+	* @param cmd ç”¨æˆ·è¾“å…¥çš„æŒ‡ä»¤å†…å®¹
+	* @return bool æŒ‡ä»¤æ ¼å¼æ˜¯å¦æ­£ç¡®
 	*/
 	bool executeCommand(std::string cmd) {
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "choose") {
 			int ord = 0;			
-			std::cout << "»¶Ó­ÄãÀ´µÇÉ½£¬Ñ¡Ò»ÖÖÉÏÉ½µÄ·½Ê½°É£¡(ÇëÊäÈë¶ÔÓ¦±àºÅ.)" << std::endl;
-			std::cout << "1.11Â·¹«½»ÉÏÉ½	2.³ËÀÂ³µÉÏÉ½	3.Æï»¶¿ìµÄĞ¡»ğ³µÉÏÉ½Å¶~" << std::endl;
+			std::cout << "æ¬¢è¿ä½ æ¥ç™»å±±ï¼Œé€‰ä¸€ç§ä¸Šå±±çš„æ–¹å¼å§ï¼(è¯·è¾“å…¥å¯¹åº”ç¼–å·.)" << std::endl;
+			std::cout << "1.11è·¯å…¬äº¤ä¸Šå±±	2.ä¹˜ç¼†è½¦ä¸Šå±±	3.éª‘æ¬¢å¿«çš„å°ç«è½¦ä¸Šå±±å“¦~" << std::endl;
 			std::cin >> ord;
-			getchar();//ÍÌµô»»ĞĞ·û
+			getchar();//åæ‰æ¢è¡Œç¬¦
 			switch (ord) {
 			case 1: {
 				MountainMode* walk = new MountainMode(new Walking());
@@ -117,32 +117,32 @@ protected:
 			}break;
 			default:
 			{
-				std::cout << "Sorry£¬ÄãÊäÈëÁË´íÎóµÄ±àºÅÇëÖØÍ·ÔÙÀ´£¡" << std::endl;
+				std::cout << "Sorryï¼Œä½ è¾“å…¥äº†é”™è¯¯çš„ç¼–å·è¯·é‡å¤´å†æ¥ï¼" << std::endl;
 			}
 			}
 			return true;
 		}
 		return false;
 	}
-	/*´òÓ¡¿ÉÓÃÖ¸Áî
-	* ÖØÔØ¸¸ÀàĞéº¯Êı£¬¸ù¾İlevel´òÓ¡¶ÔÓ¦¸ñÊ½µÄÖ¸Áî£¬ÒÔ¼°¿ÉÓÃ×ÓÖ¸Áî
-	* @param level µ±Ç°ReciverÔÚReciverÊ÷ÖĞµÄ²ã¼¶
+	/*æ‰“å°å¯ç”¨æŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»è™šå‡½æ•°ï¼Œæ ¹æ®levelæ‰“å°å¯¹åº”æ ¼å¼çš„æŒ‡ä»¤ï¼Œä»¥åŠå¯ç”¨å­æŒ‡ä»¤
+	* @param level å½“å‰Reciveråœ¨Reciveræ ‘ä¸­çš„å±‚çº§
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		__super::printHelp(level);				//µ÷ÓÃ¸¸ÀàµÄÄ¬ÈÏprintHelpº¯Êı£¬µİ¹éÊä³öµ±Ç°¼°×Ó½ÓÊÕÆ÷µÄtag
-		level++;								//½«×ÓÖ¸ÁîÏÔÊ¾µ½ÏÂÒ»²ã
+		__super::printHelp(level);				//è°ƒç”¨çˆ¶ç±»çš„é»˜è®¤printHelpå‡½æ•°ï¼Œé€’å½’è¾“å‡ºå½“å‰åŠå­æ¥æ”¶å™¨çš„tag
+		level++;								//å°†å­æŒ‡ä»¤æ˜¾ç¤ºåˆ°ä¸‹ä¸€å±‚
 		std::string head(level * 3, '-');
-		std::cout << head + "choose" << std::endl;	//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "choose" << std::endl;	//è¾“å‡ºå­æŒ‡ä»¤
 	}
 public:
-	//±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊıÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°å¤åˆ¶æ„é€ å‡½æ•°ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	Mountain(const Mountain&) = delete;
-	//±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°æ‹·è´èµ‹å€¼æ“ä½œç¬¦ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	Mountain& operator=(const Mountain&) = delete;
-	/*»ñÈ¡µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
-	* »ñÈ¡È«¾ÖÎ¨Ò»µ±Ç°½ÓÊÕÆ÷µÄÊµÀıµÄÒıÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àı¡£
-	* @return Mountain& µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
+	/*è·å–å½“å‰æ¥æ”¶å™¨çš„å¼•ç”¨
+	* è·å–å…¨å±€å”¯ä¸€å½“å‰æ¥æ”¶å™¨çš„å®ä¾‹çš„å¼•ç”¨ï¼Œç”¨äºå®ç°å•ä¾‹ã€‚
+	* @return Mountain& å½“å‰æ¥æ”¶å™¨çš„å¼•ç”¨
 	*/
 	static Mountain& getInstance() {
 		static Mountain reciver;
@@ -153,24 +153,24 @@ public:
 
 class MountainPlanFactory : public AbstractPlanFactory {
 public:
-	/*Éú³ÉÂ·¾¶
-	* @return Path* Éú³ÉµÄÂ·¾¶
+	/*ç”Ÿæˆè·¯å¾„
+	* @return Path* ç”Ÿæˆçš„è·¯å¾„
 	*/
 	Path* makePath() {
 		Path* path = new Path();
 		path->vehicle = "car";
 		return path;
 	}
-	/*Éú³ÉÃèÊö
-	* @return Path* Éú³ÉµÄÃèÊö
+	/*ç”Ÿæˆæè¿°
+	* @return Path* ç”Ÿæˆçš„æè¿°
 	*/
 	Description* makeDescription() {
 		Description* des = new Description();
 		des->content = "this is a test Plan";
 		return des;
 	}
-	/*Éú³ÉÄ¿±êµØµã
-	* @return Path* Éú³ÉµÄÄ¿±êµØµã
+	/*ç”Ÿæˆç›®æ ‡åœ°ç‚¹
+	* @return Path* ç”Ÿæˆçš„ç›®æ ‡åœ°ç‚¹
 	*/
 	Spot* makeSpot() {
 		Spot& spot = Mountain::getInstance();
