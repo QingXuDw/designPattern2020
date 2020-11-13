@@ -99,7 +99,7 @@ protected:
 			if (sorder.length()==3&&sorder[0]>='0'&&sorder[0]<='4'&&sorder[1] >= '0'&&sorder[1] <= '1'&&sorder[2] >= '0'&&sorder[2] <= '1') {  //用户正确输入冰激凌代码
 				int iballtype = static_cast<int>(sorder[0]-'0');
 				int ibiscuittype = static_cast<int>(sorder[1]-'0');
-				nic=CIcecream(CIcecream::icBallType(iballtype), CIcecream::icBiscuitType(ibiscuittype), (bool)sorder[0]);
+				nic=CIcecream(CIcecream::icBallType(iballtype), CIcecream::icBiscuitType(ibiscuittype), (bool)(sorder[2]-'0'));
 				nic.icType();
 			}
 			else if (sorder.length() == 1&&sorder[0]=='9') {  //用户离开冰激凌店
