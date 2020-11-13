@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <windows.h>
+#include "BaseClasses.h"
 #include"TravelPlan.h"
 
 using namespace std;
@@ -196,14 +197,14 @@ public:
 /*冰封鬼窟接收器
 * 继承于指令接收器
 */
-class GhostCaveReceiver:public CommandReciver
+class GhostCaveReceiver:public CommandReceiver
 {
 private:
     /*构造函数
 	* 构造函数为private，用于实现单例，tag为"cave"
 	* @return void
 	*/
-	GhostCaveReceiver() : CommandReciver("cave") {}
+	GhostCaveReceiver() : CommandReceiver("cave") {}
 
 protected:
 	/*执行指令
@@ -229,7 +230,7 @@ protected:
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		CommandReciver::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
+		CommandReceiver::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
 		level++;								//将子指令显示到下一层
 		std::string head(level * 3, '-');	
 		std::cout << head + "go" << std::endl;	//输出子指令
@@ -282,14 +283,14 @@ public:
 /*展览接收器
 * 继承于指令接收器，实现参观冰雕展览
 */
-class ExhibitReceiver:public CommandReciver
+class ExhibitReceiver:public CommandReceiver
 {
 private:
     /*构造函数
 	* 构造函数为private，用于实现单例，tag为"exhibit"
 	* @return void
 	*/
-	ExhibitReceiver() : CommandReciver("exhibit") {}
+	ExhibitReceiver() : CommandReceiver("exhibit") {}
 
 protected:
 	/*执行指令
@@ -315,7 +316,7 @@ protected:
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		CommandReciver::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
+		CommandReceiver::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
 		level++;								//将子指令显示到下一层
 		std::string head(level * 3, '-');	
 		std::cout << head + "go" << std::endl;	//输出子指令
@@ -368,14 +369,14 @@ public:
 /*装饰器接收器
 * 继承于指令接收器，实现对冰封鬼窟的装饰
 */
-class DecoratorReceiver:public CommandReciver
+class DecoratorReceiver:public CommandReceiver
 {
 private:
     /*构造函数
 	* 构造函数为private，用于实现单例，tag为"decorate"
 	* @return void
 	*/
-	DecoratorReceiver() : CommandReciver("decorate") {
+	DecoratorReceiver() : CommandReceiver("decorate") {
 		mainCave=new GhostCave();
 	}
 	
@@ -522,7 +523,7 @@ protected:
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		CommandReciver::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
+		CommandReceiver::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
 		level++;								//将子指令显示到下一层
 		std::string head(level * 3, '-');	
 		//std::cout << head + "go" << std::endl;	//输出子指令
