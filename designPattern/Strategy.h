@@ -2,45 +2,71 @@
 #include <iostream>
 #include"BaseClasses.h"
 #include"TravelPlan.h"
-using namespace std;
 #define  free_ptr(p) \
-	if(p) delete p; p = NULL;//释放指针
-/*
-策略模式让你可以动态的改变对象的行为，动态修改策略
+	if(p) delete p; p = NULL;//释放指针用
+
+/**
+* 策略模式让你可以动态的改变对象的行为，动态修改策略
+* 此例为登山选用的载具作为策略
 */
-//抽象策略类登山
+
 class Mountaineering : public DPObject
 {
 public:
+	/**
+	 * 抽象策略类登山
+	 * @return void
+	 */
 	virtual ~Mountaineering() {};
 	virtual void choose() = 0;
 };
-//步行模式
+/**
+ * 步行策略类
+ * 采用步行(11路公交车的策略)
+ * @return void
+ */
+
 class Walking : public Mountaineering {
 public:
 	void choose() {
 		std::cout << "You have chose the walking strategy" << std::endl;
 	};
 };
-//缆车模式
+/**
+ * 缆车策略类
+ * 采用缆车策略上山
+ * @return void
+ */
 class Cable_car : public Mountaineering {
 public:
 	void choose() {
 		std::cout << "You have chose the Cable car strategy" << std::endl;
 	};
 };
-//小火车模式
+/**
+ * 小火车策略类
+ * 采用小火车策略上山
+ * @return void
+ */
 class Puddle_jumper : public Mountaineering {
 public:
 	void choose() {
 		std::cout << "You have chose the puddle_jumper strategy" << std::endl;
 	};
 };
-//登山环境类
+/**
+* 登山环境类
+* 作为策略类的引用给客户端调用
+*/
+
 class MountainMode : public DPObject {
 public:
 	MountainMode(Mountaineering* mountain) : m_mountain(mountain) {};
 	~MountainMode() { free_ptr(m_mountain); }
+	/**
+	 * 调用各种策略类中的choose操作
+	 * @return void
+	 */
 	void choose() {
 		m_mountain->choose();
 	};
@@ -68,11 +94,11 @@ protected:
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "choose") {
-			int ord = 0;
+			int ord = 0;			
 			std::cout << "欢迎你来登山，选一种上山的方式吧！(请输入对应编号.)" << std::endl;
 			std::cout << "1.11路公交上山	2.乘缆车上山	3.骑欢快的小火车上山哦~" << std::endl;
 			std::cin >> ord;
-			getchar();
+			getchar();//吞掉换行符
 			switch (ord) {
 			case 1: {
 				MountainMode* walk = new MountainMode(new Walking());

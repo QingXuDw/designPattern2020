@@ -3,15 +3,31 @@
 #include"TravelPlan.h"
 #include"Flyweight.h"
 using namespace std;
-//状态模式实现
-class Context;
-//载具状态
+/**
+ * 状态模式的实现
+ */
+
+class Context;//提前声明Context类
+
+/**
+ * 载具状态类
+ * 定义一个接口以封装与Context的一个特定状态相关的行为
+ */
+
 class Vehicle_State : public DPObject
 {
+	/**
+	 * 定义状态行为
+	 * @return void
+	 */
 public:
 	virtual void Handle(Context* pContext) = 0;
 };
-
+/**
+ * 等待状态类
+ * 将载具的状态置为等待
+ * @return void
+ */
 class Waiting : public Vehicle_State
 {
 public:
@@ -20,7 +36,11 @@ public:
 		std::cout << "当前载具为等待状态！" << std::endl;
 	}
 };
-
+/**
+ * 等待状态类
+ * 将载具的状态置为等待
+ * @return void
+ */
 class Running : public Vehicle_State
 {
 public:
@@ -30,10 +50,18 @@ public:
 	}
 };
 
+/**
+ * Context类定义客户端感兴趣的接口
+ * 维护一个ConcreteState子类的实例，这个实例定义当前状态
+ */
 class Context
 {
 public:
 	Context(Vehicle_State* pState) : m_pState(pState) {}
+	/**
+	 * 调用handle操作使用的函数request
+	 * @return void
+	 */
 	void Request()
 	{
 		if (m_pState)
@@ -41,6 +69,12 @@ public:
 			m_pState->Handle(this);
 		}
 	}
+	/**
+	 * 状态转换
+	 * 接收状态类，将此时状态转换为需要转换成的状态
+	 * @param pState 需要转换成的状态类
+	 * @return void
+	 */
 	void ChangeState(Vehicle_State* pState)
 	{
 		m_pState = pState;
@@ -74,38 +108,36 @@ protected:
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd == "all") {
-			int ord;
+			string ord;
 			std::cout << "您可以在此操作中添加载具种类（禁止添加两次同种载具。请填写对应编号哦~）" << std::endl;
 			std::cout << "1.11路公交车		2.缆车		3.托马斯小火车" << std::endl;
 			std::cin >> ord;
 			getchar();
-			switch (ord) {
-			case 1: {
+			if(ord=="1"){
 				Flyweight* pw = Fac.GetFlyWeight("W");//获取W对应的模块，相当于用属性列表给固定部分穿上衣服
 				std::cout << "11路公交车已成功加入载具库！" << std::endl;
 				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
 				delete pw;
-			}break;
-			case 2: {
+			}
+			else if(ord=="2"){
 				Flyweight* pc = Fac.GetFlyWeight("C");//获取C对应的模块
 				std::cout << "缆车已成功加入载具库！" << std::endl;
 				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
 				delete pc;
-			}break;
-			case 3: {
+			}
+			else if (ord == "3") {
 				Flyweight* pp = Fac.GetFlyWeight("P");
 				std::cout << "托马斯小火车已成功加入载具库！" << std::endl;
 				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
 				delete pp;
-			}break;
-			default: {
-				cout << "输入指令错误！" << endl;
 			}
+			else{
+				cout << "输入指令错误！" << endl;
 			}
 			return true;
 		}
 		else if (subCmd == "state") {
-			int ord = 0;
+			string ord;
 			if (storage.n_state == 0)
 			{
 				std::cout << "当前载具的状态为等待状态；" << std::endl;
@@ -117,26 +149,24 @@ protected:
 			std::cout << "如果你想让载具状态为运行请按1，置为等待请按0." << std::endl;
 			cin >> ord;
 			getchar();
-			switch (ord) {
-			case 0: {
+			if (ord == "0") {
 				Vehicle_State* wait = new Waiting();
 				Context* pContext = new Context(wait);
 				storage.n_state = 0;//置为等待状态
 				pContext->Request();
 				delete wait;
 				delete pContext;
-			}break;
-			case 1: {
+			}
+			else if (ord == "1") {
 				Vehicle_State* run = new Running();
 				Context* pContext = new Context(run);
 				storage.n_state = 1;//置为运行状态
 				pContext->Request();
 				delete run;
 				delete pContext;
-			}break;
-			default: {
-				cout << "输入指令错误！" << endl;
 			}
+			else{
+				cout << "输入指令错误！" << endl;
 			}
 			return true;
 		}
