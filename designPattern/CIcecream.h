@@ -82,6 +82,9 @@ protected:
 	bool executeCommand(std::string cmd) {
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
+		if (subCmd != "") {
+			return false;
+		}
 		string sorder;  //用户输入的代码
 		CIcecream::icBallType oball = CIcecream::icBallType(0);  //默认款的冰激凌
 		CIcecream::icBiscuitType obiscuit = CIcecream::icBiscuitType(0);
