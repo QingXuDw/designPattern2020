@@ -8,6 +8,8 @@
 #include "TestPlan.h"
 #include "CIceZoo.h"
 #include "CIcecream.h"
+#include "Snowman.h"
+#include"MediatorModel.h"
 
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发
@@ -204,7 +206,7 @@ public:
 		std::cout << head + "---" + "testSpot" << std::endl;					//输出子指令
 		std::cout << head + "---" + "mountain" << std::endl;					//输出子指令
 		std::cout << head + "---" + "cave   (冰封鬼窟)" << std::endl;			//输出子指令
-		std::cout << head + "---" + "exhibit   (冰雕展览)" << std::endl;		//输出子指令
+
 		std::cout << head + "---" + "iceZoo   (冰雪动物园)" << std::endl;		//输出子指令
 		std::cout << head + "getDescription -p:计划在列表中的位置" << std::endl;//输出子指令
 	}
@@ -227,6 +229,8 @@ int main() {
 	mainReciver.addReciver(&PlanManager::getInstance());	//添加计划管理器到主接收器下面
 	mainReciver.addReciver(&ShoppingManager::getInstance());
 	mainReciver.addReciver(&Vehicle::getInstance());
+	mainReciver.addReciver(&SnowmanManager::getInstance());
+	mainReciver.addReciver(&MediatorManager::getInstance());
 	mainReciver.addReciver(&DecoratorReceiver::getInstance());
 	mainReciver.addReciver(&Ticket_Buyer::getInstance());
 	mainReciver.addReciver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
