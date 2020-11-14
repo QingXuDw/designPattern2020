@@ -66,6 +66,9 @@ protected:
 	bool executeCommand(std::string cmd) {
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
+		if (subCmd != "") {
+			return false;
+		}
 		CIceZoo* zoo1 = new CIceZoo;
 		CIceZoo::CIterator* itr = new CIceZoo::CIterator(zoo1);
 		cout << "»¶Ó­ÓÎÀÀ±ùÑ©¶¯ÎïÔ°£¡" << endl;
