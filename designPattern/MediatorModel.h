@@ -90,8 +90,10 @@ protected:
 			cout << "房东-中介-游客已构建！" << endl;
 			return true;
 		}
-		if (subCmd == "sendmessage") {
+		else if (subCmd == "sendmessage") {
 			std::string paramTag1 = sliceCommand(cmd);
+			if ((paramTag1.length() != 1) || (paramTag1[0] != '1'&&paramTag1[0] != '2'))
+				return false;
 			int a1 = std::stoi(paramTag1);
 			removeBlank(cmd);
 
@@ -106,7 +108,10 @@ protected:
 				pCol2->send(paramTag2);
 			return true;
 		}
-		return false;
+		else {
+			return false;
+		}
+		
 	}
 	virtual void printHelp(int level) {
 		__super::printHelp(level);

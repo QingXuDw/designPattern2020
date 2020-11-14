@@ -191,15 +191,23 @@ protected:
 				return false;
 			int a[4];
 			std::string paramTag1 = sliceCommand(cmd);
+			if ((paramTag1.length() != 1) || (paramTag1[0] != '1'&&paramTag1[0] != '2'))
+				return false;
 			a[0] = std::stoi(paramTag1);
 			removeBlank(cmd);
 			std::string paramTag2 = sliceCommand(cmd);
+			if ((paramTag2.length() != 1) || (paramTag2[0] != '1'&&paramTag2[0] != '2'))
+				return false;
 			a[1] = std::stoi(paramTag2);
 			removeBlank(cmd);
 			std::string paramTag3 = sliceCommand(cmd);
+			if ((paramTag3.length() != 1) || (paramTag3[0] != '1'&&paramTag3[0] != '2'))
+				return false;
 			a[2] = std::stoi(paramTag3);
 			removeBlank(cmd);
 			std::string paramTag4 = sliceCommand(cmd);
+			if ((paramTag4.length() != 1) || (paramTag4[0] != '1'&&paramTag4[0] != '2'))
+				return false;
 			a[3] = std::stoi(paramTag4);
 			removeBlank(cmd);
 			if ((a[0] != 1 && a[0] != 2) || (a[1] != 1 && a[1] != 2) || (a[2] != 1 && a[2] != 2) || (a[3] != 1 && a[3] != 2))
