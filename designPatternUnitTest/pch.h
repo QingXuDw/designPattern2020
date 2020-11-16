@@ -17,12 +17,12 @@
 *																					*
 *								TestCase测试用例										*
 *																					*
-*					继承自TestCase的子类可以作为TEST_F()宏的第一个参数						*
-*		为保证正常测试流程，子类禁止重载构造函数或析构函数，构造函数和析构函数的工作应交给			*
+*					继承自TestCase的子类可以作为TEST_F()宏的第一个参数					*
+*		为保证正常测试流程，子类禁止重载构造函数或析构函数，构造函数和析构函数的工作应交给		*
 *		SetUp/SetUpUseCase和TearDown/TearDownUseCase进行。							*
 *																					*
-*		其中SetUpUseCase/TearDownUseCase函数以测试单元组为单位（同名测试用例的全部测			*
-*		试单元为一测试单元组），在测试单元组执行前/后执行，SetUp/TearDown函数以测试单元			*
+*		其中SetUpUseCase/TearDownUseCase函数以测试单元组为单位（同名测试用例的全部测		*
+*		试单元为一测试单元组），在测试单元组执行前/后执行，SetUp/TearDown函数以测试单元		*
 *		为单位，在每一个测试单元前/后执行，具体执行情况见TestCaseTest测试用例。				*
 *																					*
 *	为了保证测试单元的相对独立，测试用例中出现的对象请通过声明指针搭配new/delete控制生命周期		*
