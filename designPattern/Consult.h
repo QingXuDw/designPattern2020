@@ -1,120 +1,181 @@
-#ifndef _CONSULT_H_
-#define _CONSULT_H_
+#pragma once
 
 #include<iostream>
+#include"BaseClasses.h"
+
 using namespace std;
 
-class Subsystem1 : public DPObject
+/**
+ * 园区游玩项目类
+ * 作为咨询内容的一部分，用于向用户介绍园区游玩项目的各类信息
+ */
+class ParkPlaying : public DPObject
 {
 public:
-	Subsystem1() {};
-	~Subsystem1() {};
-
+	/**
+	 * 位置介绍
+	 * 向用户介绍园区游玩项目的位置
+	 * @return void
+	 */
 	void Location() {
-		cout << "冰封鬼窟位于园区北部" << endl;
+		cout << "  冰封鬼窟位于园区北部" << endl;
+		cout << "  登山请前往园区南部" << endl;
 	}
 };
 
-class Subsystem2 : public DPObject
+/**
+ * 园区设施类
+ * 作为咨询内容的一部分，用于向用户介绍园区各类设施的各类信息
+ */
+class ParkFacility : public DPObject
 {
 public:
-	Subsystem2() {};
-	~Subsystem2() {};
-
+	/**
+	 * 位置介绍
+	 * 向用户介绍园区内各类设施项目的位置
+	 * @return void
+	 */
 	void Location() {
-		cout << "登山请前往园区南部" << endl;
+		cout << "  卫生间位置请参考园区地图" << endl;
 	}
 };
 
-class Subsystem3 : public DPObject
+/**
+ * 园区餐饮类
+ * 作为咨询内容的一部分，用于向用户介绍园区内餐厅的各类信息
+ */
+class ParkEating : public DPObject
 {
 public:
-	Subsystem3() {};
-	~Subsystem3() {};
-
+	/**
+	 * 位置介绍
+	 * 向用户介绍园区内餐厅的位置
+	 * @return void
+	 */
 	void Location() {
-		cout << "卫生间位置请参考园区地图" << endl;
+		cout << "  餐厅位于园区西北部" << endl;
 	}
 };
 
-class Subsystem4 : public DPObject
+/**
+ * 园区住宿类
+ * 作为咨询内容的一部分，用于向用户介绍园区内酒店旅馆的各类信息
+ */
+class ParkHousing : public DPObject
 {
 public:
-	Subsystem4() {};
-	~Subsystem4() {};
-
+	/**
+	 * 位置介绍
+	 * 向用户介绍园区内酒店旅馆的位置
+	 * @return void
+	 */
 	void Location() {
-		cout << "餐厅位于园区西北部" << endl;
+		cout << "  酒店位于园区东南部" << endl;
 	}
 };
 
+/**
+ * 外观类
+ * 作为咨询处的主体，帮助用户仅通过此类就可了解到园区内所有内容的信息
+ */
 class Facade : public DPObject
 {
 public:
-	Facade() {
-		this->_subsys1 = new Subsystem1();
-		this->_subsys2 = new Subsystem2();
-		this->_subsys3 = new Subsystem3();
-		this->_subsys4 = new Subsystem4();
+	/**
+	 * 外观类构造函数
+	 * 在创建外观类的对象的同时分别生成园内各内容类的对象
+	 */
+	Facade(){
+		this->_parkPlaying = new ParkPlaying();
+		this->_parkFacility = new ParkFacility();
+		this->_parkEating = new ParkEating();
+		this->_parkHousing = new ParkHousing();
 	}
 
+	/**
+	 * 游玩项目查询
+	 * 调用游玩项目位置查询
+	 * @return void
+	 */
 	void ConsultPlay() {
-		this->_subsys1->Location();
-		this->_subsys2->Location();
-		//this->_subsys3->Location();
-		//this->_subsys4->Location();
+		this->_parkPlaying->Location();
 	}
+
+	/**
+	 * 园内设施查询
+	 * 调用园内设施位置查询
+	 * @return void
+	 */
 	void ConsultFacility() {
-		this->_subsys3->Location();
-	}
-	void ConsultEatLive() {
-		this->_subsys4->Location();
+		this->_parkFacility->Location();
 	}
 
+	/**
+	 * 园内餐饮查询
+	 * 调用园内餐饮位置查询
+	 * @return void
+	 */
+	void ConsultEating() {
+		this->_parkEating->Location();
+	}
+
+	/**
+	 * 园内住宿查询
+	 * 调用园内住宿位置查询
+	 * @return void
+	 */
+	void ConsultHousing() {
+		this->_parkHousing->Location();
+	}
+	
+	/**
+	 * 咨询启动
+	 * 用于生成对应的用户界面，接收并处理用户的输入，正确调用相应的函数
+	 * @return void
+	 */
 	void start() {
-		int c;
-		string d;
-		while (cin >> c) {
+		string c;	//用户键入的咨询命令
+		string d;	//用于接收多余的字符
+		cout << "请选择要咨询的内容（1为游乐项目，2为园区设施，3为园区餐饮，4为园区住宿，0为返回）：\n";	//对用户输入命令的提示
+		while (cin >> c) {		//循环读取命令以实现外币兑换功能可多次使用
 			getline(cin, d);
-			if (cin.fail())  break;
-			switch (c) {
-			case 1:
+			if (c == "1")			//咨询游玩项目
 				ConsultPlay();
-				break;
-			case 2:
+			else if (c == "2")		//咨询园内设施
 				ConsultFacility();
-				break;
-			case 3:
-				ConsultEatLive();
-				break;
-			case 0:
+			else if (c == "3")		//咨询园内餐饮
+				ConsultEating();
+			else if (c == "4")		//咨询园内住宿
+				ConsultHousing();
+			else if (c == "0") {	//当用户决定退出时跳出循环并给予提示
+				cout << "成功退出咨询处！" << endl;
 				return;
-			default:
-				cout << "输入有误，请重新输入！\n";
-				break;
 			}
+			else					//当命令非法时的提示
+				cout << "输入有误，请重新输入！\n";
 		}
-
 	}
 
 private:
-	Subsystem1* _subsys1;
-	Subsystem2* _subsys2;
-	Subsystem3* _subsys3;
-	Subsystem4* _subsys4;
+	ParkPlaying* _parkPlaying;
+	ParkFacility* _parkFacility;
+	ParkEating* _parkEating;
+	ParkHousing* _parkHousing;
 
+	/**
+	 * 外观类析构函数
+	 * 在对象生命周期结束后分别删除并释放园内各内容对象的空间
+	 */
 	~Facade() {
-		delete this->_subsys1;
-		delete this->_subsys2;
-		delete this->_subsys3;
-		delete this->_subsys4;
+		delete this->_parkPlaying;
+		delete this->_parkFacility;
+		delete this->_parkEating;
+		delete this->_parkHousing;
 
-		this->_subsys1 = NULL;
-		this->_subsys2 = NULL;
-		this->_subsys3 = NULL;
-		this->_subsys4 = NULL;
+		this->_parkPlaying = NULL;
+		this->_parkFacility = NULL;
+		this->_parkEating = NULL;
+		this->_parkHousing = NULL;
 	}
-
+ 
 };
-
-#endif

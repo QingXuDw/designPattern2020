@@ -7,17 +7,18 @@
 #include <sstream>
 #include "BaseClasses.h"
 #include "TravelPlan.h"
+#include "CIcecream.h"
 
-/*shopping ½á¹¹Ìå¶¨ÒåÁËshoppingµÄÏàÓ¦ÃèÊö
+/*shopping ç»“æ„ä½“å®šä¹‰äº†shoppingçš„ç›¸åº”æè¿°
 */
 struct Shopping : public DPObject 
 {
 public:
-	Path* path;//ÏàÓ¦µÄÂ·¾¶
-	Description* description;//ÏàÓ¦µÄÃèÊö
+	Path* path;//ç›¸åº”çš„è·¯å¾„
+	Description* description;//ç›¸åº”çš„æè¿°
 	Spot* spot;
-	/*Îö¹¹º¯Êı
-	* ÓÃÓÚ·ÀÖ¹ÄÚ´æĞ¹Â¶£¬µİ¹éÊÍ·Å¶ÔÏó
+	/*ææ„å‡½æ•°
+	* ç”¨äºé˜²æ­¢å†…å­˜æ³„éœ²ï¼Œé€’å½’é‡Šæ”¾å¯¹è±¡
 	*/
 	~Shopping() 
 	{
@@ -26,51 +27,51 @@ public:
 	}
 };
 
-/*²úÆ·µÄ¶¨¼Û½á¹¹Ìå
-* ÉÌµêÖĞµÄ¸÷¸öÎïÆ·¶¼ÔÚÕâÀï½øĞĞ¶¨¼Û
-* ÒÔÏÂ¸÷¸öÉÌÆ·»á¶Ô¶¨¼Û½øĞĞÏàÓ¦µÄÌáÊ¾
+/*äº§å“çš„å®šä»·ç»“æ„ä½“
+* å•†åº—ä¸­çš„å„ä¸ªç‰©å“éƒ½åœ¨è¿™é‡Œè¿›è¡Œå®šä»·
+* ä»¥ä¸‹å„ä¸ªå•†å“ä¼šå¯¹å®šä»·è¿›è¡Œç›¸åº”çš„æç¤º
 */
 struct Price : public DPObject
 {
-	constexpr int static juicePrice = 10;//¹ûÖ­µÄ¼Û¸ñ
-	constexpr int static yogertPrice = 8;//ËáÄÌµÄ¼Û¸ñ
-	constexpr int static CandiesPrice = 2;//ÌÇ¹ûµÄ¼Û¸ñ
-	constexpr int static equipmentRentingPrice = 100;//×âÁŞÒ»Ì××°±¸µÄ¼Û¸ñ
+	constexpr int static juicePrice = 10;//æœæ±çš„ä»·æ ¼
+	constexpr int static yogertPrice = 8;//é…¸å¥¶çš„ä»·æ ¼
+	constexpr int static CandiesPrice = 2;//ç³–æœçš„ä»·æ ¼
+	constexpr int static equipmentRentingPrice = 100;//ç§Ÿèµä¸€å¥—è£…å¤‡çš„ä»·æ ¼
 }Price;
 
 /***************************************************************/
-/***************ÂòÎïÆ·Factory and Abstruct Factory **************/
+/***************ä¹°ç‰©å“Factory and Abstruct Factory **************/
 /***************************************************************/
 
-/*´¿Ğéº¯Êı£º»õÎïµÄ³éÏó¹¤³§
- * °üÀ¨ÉÌÆ·µÄ¶¨¼Û ºÍÉÌÆ·µÄĞÅÏ¢µÄÃèÊö
+/*çº¯è™šå‡½æ•°ï¼šè´§ç‰©çš„æŠ½è±¡å·¥å‚
+ * åŒ…æ‹¬å•†å“çš„å®šä»· å’Œå•†å“çš„ä¿¡æ¯çš„æè¿°
  */
 class Abstract_goods : public DPObject
 {
 public:
-	int price;//ÎïÆ·µÄ¼Û¸ñ
-	/*Îö¹¹º¯Êı
-	*ÊÍ·ÅÀàµÄÊµÀıºÍÀàÖĞÔ¤¶¨ÒåµÄÊı¾İºÍ±äÁ¿
+	int price;//ç‰©å“çš„ä»·æ ¼
+	/*ææ„å‡½æ•°
+	*é‡Šæ”¾ç±»çš„å®ä¾‹å’Œç±»ä¸­é¢„å®šä¹‰çš„æ•°æ®å’Œå˜é‡
 	*/
 	virtual ~Abstract_goods() {};
-	/*ÉÌÆ·¼Û¸ñÏÔÊ¾
-	 * ÏÔÊ¾¶ÔÓ¦µÄÉÌÆ·µÄ¼Û¸ñ
+	/*å•†å“ä»·æ ¼æ˜¾ç¤º
+	 * æ˜¾ç¤ºå¯¹åº”çš„å•†å“çš„ä»·æ ¼
 	*/
 	virtual void typePrice() = 0;
-	virtual std::string type() const = 0;//ÉÌÆ·ĞÅÏ¢
+	virtual std::string type() const = 0;//å•†å“ä¿¡æ¯
 };
 
-/*¹ûÖ­¹¤³§Àà
- *¼Ì³Ğ³éÏó¹¤³§Àà:ÖØĞ´ÆäÖĞµÄĞéº¯Êı
- *¿ÉÒÔ´´½¨¶à¸ö¾ßÌå²úÆ·ÀàµÄÊµÀı
+/*æœæ±å·¥å‚ç±»
+ *ç»§æ‰¿æŠ½è±¡å·¥å‚ç±»:é‡å†™å…¶ä¸­çš„è™šå‡½æ•°
+ *å¯ä»¥åˆ›å»ºå¤šä¸ªå…·ä½“äº§å“ç±»çš„å®ä¾‹
  */
 class Juice : public Abstract_goods
 {
 public:
-	int price = Price.juicePrice;//¹ûÖ­µÄ¼Û¸ñ
+	int price = Price.juicePrice;//æœæ±çš„ä»·æ ¼
 
-	/*¼Û¸ñº¯Êı
-	*¸ù¾İ²úÆ·¶¨¼ÛÊä³öÏàÓ¦µÄ²úÆ·¼Û¸ñ
+	/*ä»·æ ¼å‡½æ•°
+	*æ ¹æ®äº§å“å®šä»·è¾“å‡ºç›¸åº”çš„äº§å“ä»·æ ¼
 	*/
 	void typePrice() override
 	{
@@ -78,8 +79,8 @@ public:
 		return;
 	}
 
-	/*ÃèÊöº¯Êı
-	*¶Ô¹Ë¿ÍÑ¡ÔñµÄÉÌÆ·½øĞĞÃèÊö²¢·µ»Ø
+	/*æè¿°å‡½æ•°
+	*å¯¹é¡¾å®¢é€‰æ‹©çš„å•†å“è¿›è¡Œæè¿°å¹¶è¿”å›
 	*/
 	std::string type() const override 
 	{
@@ -92,16 +93,16 @@ public:
 
 };
 
-/*ÌÇ¹û¹¤³§Àà
- *¼Ì³Ğ³éÏó¹¤³§Àà :ÖØĞ´ÆäÖĞµÄĞéº¯Êı
- *¿ÉÒÔ´´½¨¶à¸ö¾ßÌå²úÆ·ÀàµÄÊµÀı
+/*ç³–æœå·¥å‚ç±»
+ *ç»§æ‰¿æŠ½è±¡å·¥å‚ç±» :é‡å†™å…¶ä¸­çš„è™šå‡½æ•°
+ *å¯ä»¥åˆ›å»ºå¤šä¸ªå…·ä½“äº§å“ç±»çš„å®ä¾‹
  */
 class Candies : public Abstract_goods 
 {
-	int price = Price.CandiesPrice;//ÌÇ¹ûµÄ¼Û¸ñ
+	int price = Price.CandiesPrice;//ç³–æœçš„ä»·æ ¼
 
-	/*¼Û¸ñº¯Êı
-	*¸ù¾İ²úÆ·¶¨¼ÛÊä³öÏàÓ¦µÄ²úÆ·¼Û¸ñ
+	/*ä»·æ ¼å‡½æ•°
+	*æ ¹æ®äº§å“å®šä»·è¾“å‡ºç›¸åº”çš„äº§å“ä»·æ ¼
 	*/
 	void typePrice() override
 	{
@@ -109,8 +110,8 @@ class Candies : public Abstract_goods
 		return;
 	}
 
-	/*ÃèÊöº¯Êı
-	*¶Ô¹Ë¿ÍÑ¡ÔñµÄÉÌÆ·½øĞĞÃèÊö²¢·µ»Ø
+	/*æè¿°å‡½æ•°
+	*å¯¹é¡¾å®¢é€‰æ‹©çš„å•†å“è¿›è¡Œæè¿°å¹¶è¿”å›
 	*/
 	std::string type() const override 
 	{
@@ -122,16 +123,16 @@ class Candies : public Abstract_goods
 	}
 };
 
-/*ËáÄÌ¹¤³§Àà
- *¼Ì³Ğ³éÏó¹¤³§Àà:ÖØĞ´ÆäÖĞµÄĞéº¯Êı
- *¿ÉÒÔ´´½¨¶à¸ö¾ßÌå²úÆ·ÀàµÄÊµÀı
+/*é…¸å¥¶å·¥å‚ç±»
+ *ç»§æ‰¿æŠ½è±¡å·¥å‚ç±»:é‡å†™å…¶ä¸­çš„è™šå‡½æ•°
+ *å¯ä»¥åˆ›å»ºå¤šä¸ªå…·ä½“äº§å“ç±»çš„å®ä¾‹
  */
-class Yogert :public Abstract_goods//ËáÄÌ¹¤³§ ¼Ì³Ğ³éÏó²úÆ·Àà
+class Yogert :public Abstract_goods//é…¸å¥¶å·¥å‚ ç»§æ‰¿æŠ½è±¡äº§å“ç±»
 {
-	int price = Price.yogertPrice;//ËáÄÌµÄ¼Û¸ñ
+	int price = Price.yogertPrice;//é…¸å¥¶çš„ä»·æ ¼
 
-	/*¼Û¸ñº¯Êı
-	*¸ù¾İ²úÆ·¶¨¼ÛÊä³öÏàÓ¦µÄ²úÆ·¼Û¸ñ
+	/*ä»·æ ¼å‡½æ•°
+	*æ ¹æ®äº§å“å®šä»·è¾“å‡ºç›¸åº”çš„äº§å“ä»·æ ¼
 	*/
 	void typePrice() override
 	{
@@ -139,8 +140,8 @@ class Yogert :public Abstract_goods//ËáÄÌ¹¤³§ ¼Ì³Ğ³éÏó²úÆ·Àà
 		return;
 	}
 
-	/*ÃèÊöº¯Êı
-	*¶Ô¹Ë¿ÍÑ¡ÔñµÄÉÌÆ·½øĞĞÃèÊö²¢·µ»Ø
+	/*æè¿°å‡½æ•°
+	*å¯¹é¡¾å®¢é€‰æ‹©çš„å•†å“è¿›è¡Œæè¿°å¹¶è¿”å›
 	*/
 	std::string type() const override
 	{
@@ -152,69 +153,69 @@ class Yogert :public Abstract_goods//ËáÄÌ¹¤³§ ¼Ì³Ğ³éÏó²úÆ·Àà
 	}
 };
 
-/*´¿Ğéº¯Êı£º¿ÚÎ¶³éÏó¹¤³§
- * °üÀ¨¿ÚÎ¶ÀàĞÍµÄÑ¡Ôñ ºÍ¿ÚÎ¶µÄÃèÊö
+/*çº¯è™šå‡½æ•°ï¼šå£å‘³æŠ½è±¡å·¥å‚
+ * åŒ…æ‹¬å£å‘³ç±»å‹çš„é€‰æ‹© å’Œå£å‘³çš„æè¿°
  */
 class Abstract_flavor : public DPObject
 {
 
 public:
-	/*Îö¹¹º¯Êı
-	*ÊÍ·ÅÀàµÄÊµÀıºÍÀàÖĞÔ¤¶¨ÒåµÄÊı¾İºÍ±äÁ¿
+	/*ææ„å‡½æ•°
+	*é‡Šæ”¾ç±»çš„å®ä¾‹å’Œç±»ä¸­é¢„å®šä¹‰çš„æ•°æ®å’Œå˜é‡
 	*/
 	virtual ~Abstract_flavor() {};
-	/*Ğéº¯Êı£ºÑ¡Ôñ¿ÚÎ¶
-	*¸ù¾İ¿Í»§µÄÊäÈëÀ´¾ö¶¨´´½¨µÄ¿ÚÎ¶¹¤³§ÀàĞÍ
-	*²¢·µ»ØÏàÓ¦µÄÀàĞÍ*/
+	/*è™šå‡½æ•°ï¼šé€‰æ‹©å£å‘³
+	*æ ¹æ®å®¢æˆ·çš„è¾“å…¥æ¥å†³å®šåˆ›å»ºçš„å£å‘³å·¥å‚ç±»å‹
+	*å¹¶è¿”å›ç›¸åº”çš„ç±»å‹*/
 	virtual std::string selectflavor() const = 0;
-	/*Ğéº¯Êı£ºÃèÊöÉÌÆ·
-	 *@Abstract_goods &goodsType ÒıÓÃµÄÉÌÆ·ÀàĞÍ
-	 *¶ÔÕû¸öÉÌÆ·½øĞĞÃèÊö²¢·µ»ØÃèÊö
+	/*è™šå‡½æ•°ï¼šæè¿°å•†å“
+	 *@Abstract_goods &goodsType å¼•ç”¨çš„å•†å“ç±»å‹
+	 *å¯¹æ•´ä¸ªå•†å“è¿›è¡Œæè¿°å¹¶è¿”å›æè¿°
 	 */
 	virtual std::string describeGoods(const Abstract_goods &goodsType) const = 0;
 };
-/*Æ»¹û¿ÚÎ¶Àà
- *¼Ì³Ğ³éÏó¿ÚÎ¶Àà:ÖØĞ´ÆäÖĞµÄĞéº¯Êı
- *¿ÉÒÔ´´½¨¶à¸ö¾ßÌå²úÆ·ÀàµÄÊµÀı
+/*è‹¹æœå£å‘³ç±»
+ *ç»§æ‰¿æŠ½è±¡å£å‘³ç±»:é‡å†™å…¶ä¸­çš„è™šå‡½æ•°
+ *å¯ä»¥åˆ›å»ºå¤šä¸ªå…·ä½“äº§å“ç±»çš„å®ä¾‹
  */
 class Apple : public Abstract_flavor
 {
 public:
-	/*Ñ¡Ôñ¿ÚÎ¶
-	*ÖØĞ´¿ÚÎ¶ÀàÖĞµÄº¯Êı£¬µ±¿Í»§Ñ¡ÔñÆ»¹û¿ÚÎ¶Ê±ºò£¬½«³éÏó¹¤³§¶¨ÒåÎªÆ»¹û¿ÚÎ¶µÄ¹¤³§
-	*·µ»ØÏàÓ¦µÄĞÅÏ¢ÎªÆ»¹û¿ÚÎ¶*/
+	/*é€‰æ‹©å£å‘³
+	*é‡å†™å£å‘³ç±»ä¸­çš„å‡½æ•°ï¼Œå½“å®¢æˆ·é€‰æ‹©è‹¹æœå£å‘³æ—¶å€™ï¼Œå°†æŠ½è±¡å·¥å‚å®šä¹‰ä¸ºè‹¹æœå£å‘³çš„å·¥å‚
+	*è¿”å›ç›¸åº”çš„ä¿¡æ¯ä¸ºè‹¹æœå£å‘³*/
 	std::string selectflavor() const override
 	{
 		return "The customer choose an apple one.";
 	}
-	/*ÃèÊöÉÌÆ·
-	*@Abstract_goods &goodsType ÒıÓÃÉÌÆ·¹¤³§ÖĞµÄÉÌÆ·ÀàĞÍ
-	*ÖØĞ´³éÏó¿ÚÎ¶ÀàÖĞµÄº¯Êı£¬½«Æ»¹û¹¤³§Óë¸ÃÉÌÆ·µÄÃû³Æ½øĞĞÁ¬½Ó
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÕûÌåÃèÊö*/
+	/*æè¿°å•†å“
+	*@Abstract_goods &goodsType å¼•ç”¨å•†å“å·¥å‚ä¸­çš„å•†å“ç±»å‹
+	*é‡å†™æŠ½è±¡å£å‘³ç±»ä¸­çš„å‡½æ•°ï¼Œå°†è‹¹æœå·¥å‚ä¸è¯¥å•†å“çš„åç§°è¿›è¡Œè¿æ¥
+	*è¿”å›ç›¸åº”çš„å•†å“æ•´ä½“æè¿°*/
 	std::string describeGoods(const Abstract_goods &goodsType) const override
 	{
 		const std::string result = goodsType.type();
 		return "Here is your apple " + result + " ";
 	}
 };
-/*³È×Ó¿ÚÎ¶Àà
- *¼Ì³Ğ³éÏó¿ÚÎ¶Àà:ÖØĞ´ÆäÖĞµÄĞéº¯Êı
- *¿ÉÒÔ´´½¨¶à¸ö¾ßÌå²úÆ·ÀàµÄÊµÀı
+/*æ©™å­å£å‘³ç±»
+ *ç»§æ‰¿æŠ½è±¡å£å‘³ç±»:é‡å†™å…¶ä¸­çš„è™šå‡½æ•°
+ *å¯ä»¥åˆ›å»ºå¤šä¸ªå…·ä½“äº§å“ç±»çš„å®ä¾‹
  */
 class Orange : public Abstract_flavor
 {
 public:
-	/*Ñ¡Ôñ¿ÚÎ¶
-	*ÖØĞ´¿ÚÎ¶ÀàÖĞµÄº¯Êı£¬µ±¿Í»§Ñ¡Ôñ³È×Ó¿ÚÎ¶Ê±ºò£¬½«³éÏó¹¤³§¶¨ÒåÎª³È×Ó¿ÚÎ¶µÄ¹¤³§
-	*·µ»ØÏàÓ¦µÄĞÅÏ¢ÎªÆ»¹û¿ÚÎ¶*/
+	/*é€‰æ‹©å£å‘³
+	*é‡å†™å£å‘³ç±»ä¸­çš„å‡½æ•°ï¼Œå½“å®¢æˆ·é€‰æ‹©æ©™å­å£å‘³æ—¶å€™ï¼Œå°†æŠ½è±¡å·¥å‚å®šä¹‰ä¸ºæ©™å­å£å‘³çš„å·¥å‚
+	*è¿”å›ç›¸åº”çš„ä¿¡æ¯ä¸ºè‹¹æœå£å‘³*/
 	std::string selectflavor() const override
 	{
 		return "The customer choose an Orange one.";
 	}
-	/*ÃèÊöÉÌÆ·
-	*Abstract_goods &goodsType ÒıÓÃÉÌÆ·¹¤³§ÖĞµÄÉÌÆ·ÀàĞÍ
-	*ÖØĞ´³éÏó¿ÚÎ¶ÀàÖĞµÄº¯Êı£¬½«³È×Ó¹¤³§Óë¸ÃÉÌÆ·µÄÃû³Æ½øĞĞÁ¬½Ó
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÕûÌåÃèÊö*/
+	/*æè¿°å•†å“
+	*Abstract_goods &goodsType å¼•ç”¨å•†å“å·¥å‚ä¸­çš„å•†å“ç±»å‹
+	*é‡å†™æŠ½è±¡å£å‘³ç±»ä¸­çš„å‡½æ•°ï¼Œå°†æ©™å­å·¥å‚ä¸è¯¥å•†å“çš„åç§°è¿›è¡Œè¿æ¥
+	*è¿”å›ç›¸åº”çš„å•†å“æ•´ä½“æè¿°*/
 	std::string describeGoods(const Abstract_goods &goodsType) const override
 	{
 		const std::string result = goodsType.type();
@@ -222,39 +223,39 @@ public:
 	}
 };
 
-/*ÉÌÆ·Àà
-*´´½¨¼ÈÓĞ¿ÚÎ¶ÊôĞÔÓÖÓĞÉÌÆ·ÀàĞÍµÄÉÌÆ·
+/*å•†å“ç±»
+*åˆ›å»ºæ—¢æœ‰å£å‘³å±æ€§åˆæœ‰å•†å“ç±»å‹çš„å•†å“
 */
 class Get_goods : public DPObject 
-{//³éÏó¹¤³§ Éú²úÓĞÁ½¸öÊôĞÔµÄ²úÆ·
+{//æŠ½è±¡å·¥å‚ ç”Ÿäº§æœ‰ä¸¤ä¸ªå±æ€§çš„äº§å“
 public:
-	/*ÉÌÆ·ÀàĞÍĞéº¯Êı
-	*µ÷ÓÃAbstract_goods ÖĞ»ñµÃÉÌÆ·µÄÊôĞÔ
+	/*å•†å“ç±»å‹è™šå‡½æ•°
+	*è°ƒç”¨Abstract_goods ä¸­è·å¾—å•†å“çš„å±æ€§
 	*/
 	virtual Abstract_goods *getGoodsType() const = 0;
-	/*¿ÚÎ¶ÀàĞÍĞéº¯Êı
-	 *µ÷ÓÃAbstract_goods ÖĞ»ñµÃÉÌÆ·µÄÊôĞÔ
+	/*å£å‘³ç±»å‹è™šå‡½æ•°
+	 *è°ƒç”¨Abstract_goods ä¸­è·å¾—å•†å“çš„å±æ€§
 	 */
 	virtual Abstract_flavor *getGoodsflavor() const = 0;
 };
-/*Æ»¹ûÖ­Àà
-*´´½¨Æ»¹ûÖ­
+/*è‹¹æœæ±ç±»
+*åˆ›å»ºè‹¹æœæ±
 */
 class  Get_apple_juice : public Get_goods
 {
 
 public:
-	/*»ñµÃÉÌÆ·µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·ÀàĞÍÉèÎª¹ûÖ­
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å•†å“çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“ç±»å‹è®¾ä¸ºæœæ±
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_goods *getGoodsType() const override
 	{
 		std::cout << "There is a juice facotory here,from goods facotory. " << std::endl;
 		return new Juice();
 	}
-	/*»ñµÃ¿ÚÎ¶µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·¿ÚÎ¶ÉèÎªÆ»¹û
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å£å‘³çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“å£å‘³è®¾ä¸ºè‹¹æœ
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_flavor *getGoodsflavor() const override
 	{
 		std::cout << "There is an Apple flavor factory here,from flavor factory." << std::endl;
@@ -262,24 +263,24 @@ public:
 	}
 };
 
-/*Æ»¹ûÌÇÀà
-*´´½¨Æ»¹ûÌÇ
+/*è‹¹æœç³–ç±»
+*åˆ›å»ºè‹¹æœç³–
 */
 
 class Get_apple_candies : public Get_goods
 {
 public:
-	/*»ñµÃÉÌÆ·µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·ÀàĞÍÉèÎªÌÇ¹û
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å•†å“çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“ç±»å‹è®¾ä¸ºç³–æœ
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_goods *getGoodsType() const override
 	{
 		std::cout << "There is a candies facotory here,from goods facotory. " << std::endl;
 		return  new Candies();
 	}
-	/*»ñµÃ¿ÚÎ¶µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·¿ÚÎ¶ÉèÎªÆ»¹û	
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å£å‘³çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“å£å‘³è®¾ä¸ºè‹¹æœ	
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_flavor *getGoodsflavor() const override
 	{
 		std::cout << "There is a apple facotory here,from flavor facotory. " << std::endl;
@@ -287,23 +288,23 @@ public:
 	}
 };
 
-/*Æ»¹ûËáÄÌÀà
-*´´½¨Æ»¹ûËáÄÌ
+/*è‹¹æœé…¸å¥¶ç±»
+*åˆ›å»ºè‹¹æœé…¸å¥¶
 */
 class Get_apple_yogert : public Get_goods
 {
 public:
-	/*»ñµÃÉÌÆ·µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·ÀàĞÍÉèÎªËáÄÌ
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å•†å“çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“ç±»å‹è®¾ä¸ºé…¸å¥¶
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_goods *getGoodsType() const override
 	{
 		std::cout << "There is a yogert facotory here,from goods facotory. " << std::endl;
 		return  new Yogert();
 	}
-	/*»ñµÃ¿ÚÎ¶µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·¿ÚÎ¶ÉèÎªÆ»¹û
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å£å‘³çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“å£å‘³è®¾ä¸ºè‹¹æœ
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_flavor *getGoodsflavor() const override
 	{
 		std::cout << "There is a apple facotory here,from flavor facotory. " << std::endl;
@@ -311,48 +312,48 @@ public:
 	}
 };
 
-/*³ÈÎ¶ÌÇ¹ûÀà
-*´´½¨³ÈÎ¶ÌÇ¹û
+/*æ©™å‘³ç³–æœç±»
+*åˆ›å»ºæ©™å‘³ç³–æœ
 */
 
 class Get_orange_candies : public Get_goods
 {
 public:
-	/*»ñµÃÉÌÆ·µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·ÀàĞÍÉèÎªÌÇ¹û
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å•†å“çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“ç±»å‹è®¾ä¸ºç³–æœ
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_goods *getGoodsType() const override
 	{
 		std::cout << "There is a Candies facotory here,from goods facotory. " << std::endl;
 		return  new Candies();
 	}
-	/*»ñµÃ¿ÚÎ¶µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·¿ÚÎ¶ÉèÎª³ÈÎ¶
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å£å‘³çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“å£å‘³è®¾ä¸ºæ©™å‘³
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_flavor *getGoodsflavor() const override
 	{
 		std::cout << "There is a orange facotory here,from flavor facotory. " << std::endl;
 		return new Orange();
 	}
 };
-/*³ÈÖ­Àà
-*´´½¨³ÈÖ­
+/*æ©™æ±ç±»
+*åˆ›å»ºæ©™æ±
 */
 
 class Get_orange_juice : public Get_goods
 {
 public:
-	/*»ñµÃÉÌÆ·µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·ÀàĞÍÉèÎª¹ûÖ­
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å•†å“çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“ç±»å‹è®¾ä¸ºæœæ±
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_goods *getGoodsType() const override
 	{
 		std::cout << "There is a juice facotory here,from goods facotory. " << std::endl;
 		return  new Juice();
 	}
-	/*»ñµÃ¿ÚÎ¶µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·¿ÚÎ¶ÉèÎª³ÈÎ¶
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å£å‘³çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“å£å‘³è®¾ä¸ºæ©™å‘³
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_flavor *getGoodsflavor() const override
 	{
 		std::cout << "There is a orange facotory here,from flavor facotory. " << std::endl;
@@ -360,24 +361,24 @@ public:
 	}
 };
 
-/*³ÈÎ¶ËáÄÌÀà
-*´´½¨³ÈÎ¶ËáÄÌ
+/*æ©™å‘³é…¸å¥¶ç±»
+*åˆ›å»ºæ©™å‘³é…¸å¥¶
 */
 
 class Get_orange_yogert : public Get_goods
 {
 public:
-	/*»ñµÃÉÌÆ·µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·ÀàĞÍÉèÎªËáÄÌ
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å•†å“çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“ç±»å‹è®¾ä¸ºé…¸å¥¶
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_goods *getGoodsType() const override
 	{
 		std::cout << "There is a yogert facotory here,from goods facotory. " << std::endl;
 		return  new Yogert();
 	}
-	/*»ñµÃ¿ÚÎ¶µÄÀàĞÍ
-	*ÖØĞ´Ğéº¯Êı£º½«ÉÌÆ·¿ÚÎ¶ÉèÎª³ÈÎ¶
-	*·µ»ØÏàÓ¦µÄÉÌÆ·ÀàĞÍ*/
+	/*è·å¾—å£å‘³çš„ç±»å‹
+	*é‡å†™è™šå‡½æ•°ï¼šå°†å•†å“å£å‘³è®¾ä¸ºæ©™å‘³
+	*è¿”å›ç›¸åº”çš„å•†å“ç±»å‹*/
 	Abstract_flavor *getGoodsflavor() const override
 	{
 		std::cout << "There is a orange facotory here,from flavor facotory. " << std::endl;
@@ -388,34 +389,34 @@ public:
 
 
 /******************************************************************/
-/*********************bridge ×âÓÃ³ÉÌ×µÄ¶«Î÷*************************/
+/*********************bridge ç§Ÿç”¨æˆå¥—çš„ä¸œè¥¿*************************/
 /******************************************************************/
-/*³éÏóÀàÆ÷²Ä£º
-*ÃèÊö¿ÉÒÔ×âÓÃµÄËùÓĞÆ÷²Ä
-*ÎªËùÓĞ¿ÉÒÔ×âÓÃµÄÆ÷²ÄµÄ¸¸Àà
+/*æŠ½è±¡ç±»å™¨æï¼š
+*æè¿°å¯ä»¥ç§Ÿç”¨çš„æ‰€æœ‰å™¨æ
+*ä¸ºæ‰€æœ‰å¯ä»¥ç§Ÿç”¨çš„å™¨æçš„çˆ¶ç±»
 */
 class Abstruct_equipment : public DPObject
 {
 public:
-	/*Îö¹¹º¯Êı
-	*ÊÍ·ÅÀàµÄÊµÀıºÍÀàÖĞÔ¤¶¨ÒåµÄÊı¾İºÍ±äÁ¿
+	/*ææ„å‡½æ•°
+	*é‡Šæ”¾ç±»çš„å®ä¾‹å’Œç±»ä¸­é¢„å®šä¹‰çš„æ•°æ®å’Œå˜é‡
 	*/
 	virtual ~Abstruct_equipment() {}
-	/*×âÓÃ²Ù×÷
-	*ÓÃÓÚ¶¨Òå¿ÉÒÔ½øĞĞµÄ×âÓÃ²Ù×÷
-	*·µ»Ø½«Òª½øĞĞµÄ²Ù×÷
+	/*ç§Ÿç”¨æ“ä½œ
+	*ç”¨äºå®šä¹‰å¯ä»¥è¿›è¡Œçš„ç§Ÿç”¨æ“ä½œ
+	*è¿”å›å°†è¦è¿›è¡Œçš„æ“ä½œ
 	*/
 	virtual std::string renting() const = 0;
 };
 
-/*Ñ©ÕÈÀà
-*¼Ì³ĞÆ÷²Ä¸¸Àà:¶ÔÕÈ½øĞĞ×âÁŞ²Ù×÷
+/*é›ªæ–ç±»
+*ç»§æ‰¿å™¨æçˆ¶ç±»:å¯¹æ–è¿›è¡Œç§Ÿèµæ“ä½œ
 */
 class Sticks : public Abstruct_equipment
 {
 public:
-	/*×âÓÃ²Ù×÷
-	*ÖØĞ´¸¸ÀàÖĞµÄrent º¯Êı×âÓÃÑ©ÕÈ
+	/*ç§Ÿç”¨æ“ä½œ
+	*é‡å†™çˆ¶ç±»ä¸­çš„rent å‡½æ•°ç§Ÿç”¨é›ªæ–
 	*/
 	std::string renting() const override
 	{
@@ -423,14 +424,14 @@ public:
 	}
 };
 
-/*»¬°åÀà
-*¼Ì³ĞÆ÷²Ä¸¸Àà£ºÍê³É¶Ô°åµÄ×âÁŞ²Ù×÷
+/*æ»‘æ¿ç±»
+*ç»§æ‰¿å™¨æçˆ¶ç±»ï¼šå®Œæˆå¯¹æ¿çš„ç§Ÿèµæ“ä½œ
 */
 class Board : public Abstruct_equipment
 {
 public:
-	/*×âÓÃ²Ù×÷
-	*ÖØĞ´¸¸ÀàÖĞµÄrent º¯Êı×âÓÃ°å
+	/*ç§Ÿç”¨æ“ä½œ
+	*é‡å†™çˆ¶ç±»ä¸­çš„rent å‡½æ•°ç§Ÿç”¨æ¿
 	*/
 	std::string renting() const override
 	{
@@ -438,9 +439,9 @@ public:
 	}
 };
 
-/*Suit ¶¨ÒåÁËÁ½¸öÀàÖ®¼äµÄ½Ó¿Ú
-ËüÎ¬»¤¶ÔÊµÏÖ¶ÔÏóµÄÒıÓÃ
-²¢½«ËùÓĞÊµ¼Ê¹¤×÷Î¯ÍĞ¸ø´Ë¶ÔÏó¡£*/
+/*Suit å®šä¹‰äº†ä¸¤ä¸ªç±»ä¹‹é—´çš„æ¥å£
+å®ƒç»´æŠ¤å¯¹å®ç°å¯¹è±¡çš„å¼•ç”¨
+å¹¶å°†æ‰€æœ‰å®é™…å·¥ä½œå§”æ‰˜ç»™æ­¤å¯¹è±¡ã€‚*/
 class Suit : public DPObject
 {
 
@@ -459,8 +460,8 @@ public:
 	}
 };
 
-/*Extend_suit ¶ÔÁ½¸öÀàÖ®¼äµÄ²Ù×÷½øĞĞÁËÏàÓ¦µÄÀ©Õ¹
-*¶ÔÓ¦ÊÖÕÈºÍ°åµÄÆ¥Åä²Ù×÷
+/*Extend_suit å¯¹ä¸¤ä¸ªç±»ä¹‹é—´çš„æ“ä½œè¿›è¡Œäº†ç›¸åº”çš„æ‰©å±•
+*å¯¹åº”æ‰‹æ–å’Œæ¿çš„åŒ¹é…æ“ä½œ
 */
 class Extend_suit : public Suit 
 {
@@ -479,7 +480,7 @@ public:
 
 
 /************************************************************************
-*							ShoppingMallÄ£¿é							*
+*							ShoppingMallæ¨¡å—							*
 *************************************************************************/
 
 
@@ -487,17 +488,17 @@ class ShoppingManager : public  CommandReceiver
 {
 
 private:
-	/*¹¹Ôìº¯Êı
-	* ¹¹Ôìº¯ÊıÎªprivate£¬ÓÃÓÚÊµÏÖµ¥Àı£¬tagÎª"shop"
+	/*æ„é€ å‡½æ•°
+	* æ„é€ å‡½æ•°ä¸ºprivateï¼Œç”¨äºå®ç°å•ä¾‹ï¼Œtagä¸º"shop"
 	* @return void
 	*/
 	ShoppingManager() : CommandReceiver("shop") {}
 
-	//´´½¨¹ºÎïÁĞ±í
+	//åˆ›å»ºè´­ç‰©åˆ—è¡¨
 	std::vector<Shopping*> ShoppingList;
 
-	/*ÓÃ»§×âÓÃÆ÷²Ä
-	* µ÷ÓÃsuit.Together·½·¨£¬½«Æ÷²ÄÅä¶Ô
+	/*ç”¨æˆ·ç§Ÿç”¨å™¨æ
+	* è°ƒç”¨suit.Togetheræ–¹æ³•ï¼Œå°†å™¨æé…å¯¹
 	* @return void
 	*/
 	void Client_equipment(const Suit& suit)
@@ -505,16 +506,16 @@ private:
 		std::cout << suit.getTogether();
 	}
 
-	/*ÓÃ»§¹ºÂòÎïÆ·
-	* @param factory µ÷ÓÃGet_goods·½·¨Í¨¹ı³éÏó¹¤³§²úÉú²úÆ·
+	/*ç”¨æˆ·è´­ä¹°ç‰©å“
+	* @param factory è°ƒç”¨Get_goodsæ–¹æ³•é€šè¿‡æŠ½è±¡å·¥å‚äº§ç”Ÿäº§å“
 	* @return void
 	*/
 	void Client_goods(const Get_goods &factory)
 	{
 		const Abstract_goods *product_a = factory.getGoodsType();
-		//Í¨¹ı³éÏó¹¤³§´´½¨¾ßÌåµÄÎïÆ·
+		//é€šè¿‡æŠ½è±¡å·¥å‚åˆ›å»ºå…·ä½“çš„ç‰©å“
 		const Abstract_flavor *product_b = factory.getGoodsflavor();
-		//Í¨¹ı³éÏó¹¤³§´´½¨¾ßÌåµÄ¿ÚÎ¶
+		//é€šè¿‡æŠ½è±¡å·¥å‚åˆ›å»ºå…·ä½“çš„å£å‘³
 		std::cout << product_b->selectflavor() << "\n";
 		std::cout << product_b->describeGoods(*product_a) << "\n";
 		delete product_a;
@@ -522,135 +523,142 @@ private:
 	}
 protected:
 
-	/*ÓÃ»§¿ÉÊäÈëÖ¸Áî
-	*¸ù¾İÓÃ»§µÄĞèÒª´´½¨ÏàÓ¦µÄ¶ÔÏó²¢Íê³É
-	* @param op ÓÃ»§½«½øĞĞ×â/Âò·şÎñ
-	* @param obj ÓÃ»§½«Òª»ñµÃµÄ¾ßÌå¶ÔÏó
+	/*ç”¨æˆ·å¯è¾“å…¥æŒ‡ä»¤
+	*æ ¹æ®ç”¨æˆ·çš„éœ€è¦åˆ›å»ºç›¸åº”çš„å¯¹è±¡å¹¶å®Œæˆ
+	* @param op ç”¨æˆ·å°†è¿›è¡Œç§Ÿ/ä¹°æœåŠ¡
+	* @param obj ç”¨æˆ·å°†è¦è·å¾—çš„å…·ä½“å¯¹è±¡
 	* @return void
 	*/
 	void ClientOption(std::string op, std::string obj)
 	{
-		//ÅĞ¶ÏÊÇ·ñÎªbuy µÄÖ¸Áî
+		//åˆ¤æ–­æ˜¯å¦ä¸ºbuy çš„æŒ‡ä»¤
 		if (op == "buy")
 		{
-			if (obj == "AppleJuice")//ÓÃ»§Ñ¡Ôñ
+			if (obj == "AppleJuice")//ç”¨æˆ·é€‰æ‹©
 			{
-				Get_apple_juice *objAppleJuice = new Get_apple_juice();//´´½¨¹ûÖ­µÄ¹¤³§ºÍÆ»¹ûÎ¶µÄ¹¤³§
-				std::cout << "Client:I'd like some apple juice.\n";//¼ìÑé´´½¨ÊÇ·ñ³É¹¦
-				Client_goods(*objAppleJuice);//´´Ôì¿Í»§ĞèÒªµÄÏàÓ¦µÄ¶ÔÏó
+				Get_apple_juice *objAppleJuice = new Get_apple_juice();//åˆ›å»ºæœæ±çš„å·¥å‚å’Œè‹¹æœå‘³çš„å·¥å‚
+				std::cout << "Client:I'd like some apple juice.\n";//æ£€éªŒåˆ›å»ºæ˜¯å¦æˆåŠŸ
+				Client_goods(*objAppleJuice);//åˆ›é€ å®¢æˆ·éœ€è¦çš„ç›¸åº”çš„å¯¹è±¡
 				delete objAppleJuice;
 			}
-			else if (obj == "OrangeJuice")//ÓÃ»§Ñ¡Ôñ
+			else if (obj == "OrangeJuice")//ç”¨æˆ·é€‰æ‹©
 			{
-				Get_orange_juice*objOrangeJuice = new Get_orange_juice();//´´½¨¹ûÖ­µÄ¹¤³§ºÍ³È×ÓÎ¶µÄ¹¤³§
-				std::cout << "Client:I'd like some orange juice.\n";//¼ìÑé´´½¨ÊÇ·ñ³É¹¦
-				Client_goods(*objOrangeJuice);//´´Ôì¿Í»§ĞèÒªµÄÏàÓ¦µÄ¶ÔÏó
+				Get_orange_juice*objOrangeJuice = new Get_orange_juice();//åˆ›å»ºæœæ±çš„å·¥å‚å’Œæ©™å­å‘³çš„å·¥å‚
+				std::cout << "Client:I'd like some orange juice.\n";//æ£€éªŒåˆ›å»ºæ˜¯å¦æˆåŠŸ
+				Client_goods(*objOrangeJuice);//åˆ›é€ å®¢æˆ·éœ€è¦çš„ç›¸åº”çš„å¯¹è±¡
 				delete objOrangeJuice;
 			}
-			else if (obj == "AppleYogert")//ÓÃ»§Ñ¡Ôñ
+			else if (obj == "AppleYogert")//ç”¨æˆ·é€‰æ‹©
 			{
-				Get_apple_yogert*objAppleYogert = new Get_apple_yogert();//´´ÔìËáÄÌ¹¤³§ºÍÆ»¹ûÎ¶µÄ¹¤³§
-				std::cout << "Client:I'd like some apple yougert.\n";//¼ìÑé´´½¨ÊÇ·ñ³É¹¦
-				Client_goods(*objAppleYogert);//´´Ôì¿Í»§ĞèÒªµÄÏàÓ¦µÄ¶ÔÏó
+				Get_apple_yogert*objAppleYogert = new Get_apple_yogert();//åˆ›é€ é…¸å¥¶å·¥å‚å’Œè‹¹æœå‘³çš„å·¥å‚
+				std::cout << "Client:I'd like some apple yougert.\n";//æ£€éªŒåˆ›å»ºæ˜¯å¦æˆåŠŸ
+				Client_goods(*objAppleYogert);//åˆ›é€ å®¢æˆ·éœ€è¦çš„ç›¸åº”çš„å¯¹è±¡
 				delete objAppleYogert;
 			}
-			else if (obj == "OrangeYogert")//ÓÃ»§Ñ¡Ôñ
+			else if (obj == "OrangeYogert")//ç”¨æˆ·é€‰æ‹©
 			{
-				Get_orange_yogert*objOrangeYogert = new Get_orange_yogert();//´´ÔìËáÄÌ¹¤³§ºÍ³ÈÎ¶¹¤³§
-				std::cout << "Client:I'd like some orange yogert.\n";//¼ìÑé´´½¨ÊÇ·ñ³É¹¦
-				Client_goods(*objOrangeYogert);//´´Ôì¿Í»§ĞèÒªµÄÏàÓ¦µÄ¶ÔÏó
+				Get_orange_yogert*objOrangeYogert = new Get_orange_yogert();//åˆ›é€ é…¸å¥¶å·¥å‚å’Œæ©™å‘³å·¥å‚
+				std::cout << "Client:I'd like some orange yogert.\n";//æ£€éªŒåˆ›å»ºæ˜¯å¦æˆåŠŸ
+				Client_goods(*objOrangeYogert);//åˆ›é€ å®¢æˆ·éœ€è¦çš„ç›¸åº”çš„å¯¹è±¡
 				delete objOrangeYogert;
 			}
-			else if (obj == "AppleCandies")//ÓÃ»§Ñ¡Ôñ
+			else if (obj == "AppleCandies")//ç”¨æˆ·é€‰æ‹©
 			{
-				Get_apple_candies*objAppleCandies = new Get_apple_candies();//´´½¨ÌÇ¹û¹¤³§ºÍÆ»¹ûÎ¶¹¤³§
-				std::cout << "Client:I'd like some apple candies.\n";//¼ìÑé´´½¨ÊÇ·ñ³É¹¦
-				Client_goods(*objAppleCandies);//´´Ôì¿Í»§ĞèÒªµÄÏàÓ¦µÄ¶ÔÏó
+				Get_apple_candies*objAppleCandies = new Get_apple_candies();//åˆ›å»ºç³–æœå·¥å‚å’Œè‹¹æœå‘³å·¥å‚
+				std::cout << "Client:I'd like some apple candies.\n";//æ£€éªŒåˆ›å»ºæ˜¯å¦æˆåŠŸ
+				Client_goods(*objAppleCandies);//åˆ›é€ å®¢æˆ·éœ€è¦çš„ç›¸åº”çš„å¯¹è±¡
 				delete objAppleCandies;
 			}
 			else if (obj == "OrangeCandies")
 			{
-				Get_orange_candies*objOrangeCandies = new Get_orange_candies();//´´½¨ÌÇ¹û¹¤³§ºÍ³ÈÎ¶¹¤³§
-				std::cout << "Client:I'd like some orange candies.\n";//¼ìÑé´´½¨ÊÇ·ñ³É¹¦
-				Client_goods(*objOrangeCandies);//´´Ôì¿Í»§ĞèÒªµÄÏàÓ¦µÄ¶ÔÏó
+				Get_orange_candies*objOrangeCandies = new Get_orange_candies();//åˆ›å»ºç³–æœå·¥å‚å’Œæ©™å‘³å·¥å‚
+				std::cout << "Client:I'd like some orange candies.\n";//æ£€éªŒåˆ›å»ºæ˜¯å¦æˆåŠŸ
+				Client_goods(*objOrangeCandies);//åˆ›é€ å®¢æˆ·éœ€è¦çš„ç›¸åº”çš„å¯¹è±¡
 				delete objOrangeCandies;
 			}
 
 			else
 			{
-				std::cout << "Wrong Input,Please input again!" << std::endl;//Î´¼ì²âµÄÃüÁî±¨´í²¢ÌáĞÑÖØĞÂÊäÈë
+				std::cout << "Wrong Input,Please input again!" << std::endl;//æœªæ£€æµ‹çš„å‘½ä»¤æŠ¥é”™å¹¶æé†’é‡æ–°è¾“å…¥
 			}
 		}
 
-		else if (op == "rent")//Èç¹û½«Òª½øĞĞµÄ²Ù×÷Îª×âÁŞµÄ²Ù×÷
+		else if (op == "rent")//å¦‚æœå°†è¦è¿›è¡Œçš„æ“ä½œä¸ºç§Ÿèµçš„æ“ä½œ
 		{
-			if (obj == "sticks")//Ê¶±ğÏàÓ¦µÄÖ¸Áî
+			if (obj == "sticks")//è¯†åˆ«ç›¸åº”çš„æŒ‡ä»¤
 			{
-				Abstruct_equipment*equipment = new Sticks;//´Ó³éÏó¹¤³§´´Ôì¶ÔÏó
-				Suit* suit = new Extend_suit(equipment);//µ÷ÓÃsuit ·½·¨½«ÆäĞèÒªµÄ¶«Î÷½øĞĞÅä¶Ô
-				Client_equipment(*suit);//Êä³öÏàÓ¦µÄÅä¶ÔĞÅÏ¢
+				Abstruct_equipment*equipment = new Sticks;//ä»æŠ½è±¡å·¥å‚åˆ›é€ å¯¹è±¡
+				Suit* suit = new Extend_suit(equipment);//è°ƒç”¨suit æ–¹æ³•å°†å…¶éœ€è¦çš„ä¸œè¥¿è¿›è¡Œé…å¯¹
+				Client_equipment(*suit);//è¾“å‡ºç›¸åº”çš„é…å¯¹ä¿¡æ¯
 				delete equipment;
 				delete suit;
 			}
 			else if (obj == "board")
 			{
-				Abstruct_equipment* equipment = new Board;    //´Ó³éÏó¹¤³§´´Ôì¶ÔÏó
-				Suit *suit = new Extend_suit(equipment);//µ÷ÓÃsuit ·½·¨½«ÆäĞèÒªµÄ¶«Î÷½øĞĞÅä¶Ô
-				Client_equipment(*suit);//Êä³öÏàÓ¦µÄÅä¶ÔĞÅÏ¢
+				Abstruct_equipment* equipment = new Board;    //ä»æŠ½è±¡å·¥å‚åˆ›é€ å¯¹è±¡
+				Suit *suit = new Extend_suit(equipment);//è°ƒç”¨suit æ–¹æ³•å°†å…¶éœ€è¦çš„ä¸œè¥¿è¿›è¡Œé…å¯¹
+				Client_equipment(*suit);//è¾“å‡ºç›¸åº”çš„é…å¯¹ä¿¡æ¯
 				delete equipment;
 				delete suit;
 			}
 			else
 			{
-				std::cout << "Wrong Input,Please input again!" << std::endl;//´íÎóÊäÈëÌáÊ¾²¢ÌáĞÑÖØĞÂÊäÈë
+				std::cout << "Wrong Input,Please input again!" << std::endl;//é”™è¯¯è¾“å…¥æç¤ºå¹¶æé†’é‡æ–°è¾“å…¥
 			}
 		}
 
 
-	}
+class ShoppingManager : public MacroCommandReceiver
+{
 
-	/*Ö´ĞĞÖ¸Áî
-	* ÖØÔØ¸¸ÀàÖ´ĞĞÖ¸ÁîµÄ´¿Ğéº¯Êı£¬¸ù¾İÊäÈëµÄÃüÁîÖ´ĞĞÏàÓ¦²Ù×÷
-	* @param cmd ÓÃ»§ÊäÈëµÄÖ¸ÁîÄÚÈİ
-	* @return bool Ö¸Áî¸ñÊ½ÊÇ·ñÕıÈ·
+private:
+	ShoppingManager() : MacroCommandReceiver("shop") {
+		this->addReciver(&(IcecreamManager::getInstance()));
+	}
+	std::vector<Shopping*> ShoppingList;
+
+	/*æ‰§è¡ŒæŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»æ‰§è¡ŒæŒ‡ä»¤çš„çº¯è™šå‡½æ•°ï¼Œæ ¹æ®è¾“å…¥çš„å‘½ä»¤æ‰§è¡Œç›¸åº”æ“ä½œ
+	* @param cmd ç”¨æˆ·è¾“å…¥çš„æŒ‡ä»¤å†…å®¹
+	* @return bool æŒ‡ä»¤æ ¼å¼æ˜¯å¦æ­£ç¡®
 	*/
 	bool executeCommand(std::string cmd) {
-		std::string subCmd = sliceCommand(cmd);//¶ÔÃüÁî½øĞĞÇĞ¸î
+		std::string subCmd = sliceCommand(cmd);//å¯¹å‘½ä»¤è¿›è¡Œåˆ‡å‰²
 		removeBlank(cmd);
-		//Èç¹ûtag Îªbuy
+		//å¦‚æœtag ä¸ºbuy
 		if (subCmd == "buy")
 		{
-			if (cmd == "AppleJuice")//tag ="AppleJuice" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "AppleJuice")//tag ="AppleJuice" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("buy", "AppleJuice");
 				std::cout << std::endl;
 				return true;
 			}
-			if (cmd == "OrangeJuice")//tag ="OrangeJuicee" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "OrangeJuice")//tag ="OrangeJuicee" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("buy", "OrangeJuice");
 				std::cout << std::endl;
 				return true;
 			}
-			if (cmd == "AppleYogert")//tag ="AppleYogert" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "AppleYogert")//tag ="AppleYogert" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("buy", "AppleYogert");
 				std::cout << std::endl;
 				return true;
 			}
-			if (cmd == "OrangeYogert")//tag ="OrangeYogert" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "OrangeYogert")//tag ="OrangeYogert" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("buy", "OrangeYogert");
 				std::cout << std::endl;
 				return true;
 			}
-			if (cmd == "AppleCandies")//tag ="AppleCandies" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "AppleCandies")//tag ="AppleCandies" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("buy", "AppleCandies");
 				std::cout << std::endl;
 				return true;
 			}
-			if (cmd == "OrangeCandies")//tag ="OrangeCandies" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "OrangeCandies")//tag ="OrangeCandies" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("buy", "OrangeCandies");
 				std::cout << std::endl;
@@ -658,14 +666,14 @@ protected:
 			}
 			return false;
 		}
-		if (subCmd == "rent")//Èç¹ûtag Îª"rent"
+		if (subCmd == "rent")//å¦‚æœtag ä¸º"rent"
 		{
-			if (cmd == "sticks")//tag="sticks" ¶ÔÓ¦¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "sticks")//tag="sticks" å¯¹åº”å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("rent", "sticks");
 				return true;
 			}
-			if (cmd == "board")//tag="board" ¶ÔÓ¦ÏàÓ¦µÄÓÃ»§²Ù×÷
+			if (cmd == "board")//tag="board" å¯¹åº”ç›¸åº”çš„ç”¨æˆ·æ“ä½œ
 			{
 				ClientOption("rent", "board");
 				return true;
@@ -677,45 +685,41 @@ protected:
 		return false;
 	}
 public:
-	//±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊıÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°å¤åˆ¶æ„é€ å‡½æ•°ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	ShoppingManager(const ShoppingManager&) = delete;
-	//±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	//æ ‡è®°æ‹·è´èµ‹å€¼æ“ä½œç¬¦ä¸ºåˆ é™¤ï¼Œç”¨äºå®ç°å•ä¾‹
 	ShoppingManager& operator=(const ShoppingManager&) = delete;
 
-	/*»ñÈ¡Ö÷½ÓÊÕÆ÷ÒıÓÃ
-	* »ñÈ¡È«¾ÖÎ¨Ò»Ö÷½ÓÊÕÆ÷µÄÊµÀıµÄÒıÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àı¡£
-	* @return MainReciver& Ö÷½ÓÊÕÆ÷µÄÒıÓÃ
+	/*è·å–ä¸»æ¥æ”¶å™¨å¼•ç”¨
+	* è·å–å…¨å±€å”¯ä¸€ä¸»æ¥æ”¶å™¨çš„å®ä¾‹çš„å¼•ç”¨ï¼Œç”¨äºå®ç°å•ä¾‹ã€‚
+	* @return MainReciver& ä¸»æ¥æ”¶å™¨çš„å¼•ç”¨
 	*/
 	static ShoppingManager& getInstance()
 	{
 		static ShoppingManager reciver;
 		return reciver;
 	}
-	/*´òÓ¡¿ÉÓÃÖ¸Áî
-	* ÖØÔØ¸¸ÀàĞéº¯Êı£¬¸ù¾İlevel´òÓ¡¶ÔÓ¦¸ñÊ½µÄÖ¸Áî£¬ÒÔ¼°¿ÉÓÃ×ÓÖ¸Áî
-	* @param level µ±Ç°ReciverÔÚReciverÊ÷ÖĞµÄ²ã¼¶
+	/*æ‰“å°å¯ç”¨æŒ‡ä»¤
+	* é‡è½½çˆ¶ç±»è™šå‡½æ•°ï¼Œæ ¹æ®levelæ‰“å°å¯¹åº”æ ¼å¼çš„æŒ‡ä»¤ï¼Œä»¥åŠå¯ç”¨å­æŒ‡ä»¤
+	* @param level å½“å‰Reciveråœ¨Reciveræ ‘ä¸­çš„å±‚çº§
 	* @return void
 	*/
 	virtual void printHelp(int level)
 	{
-		CommandReceiver::printHelp(level);
-		level++;								//µ÷ÓÃ¸¸ÀàµÄÄ¬ÈÏprintHelpº¯Êı£¬µİ¹éÊä³öµ±Ç°¼°×Ó½ÓÊÕÆ÷µÄtag
-		std::string head(level * 3, '-');		//½«×ÓÖ¸ÁîÏÔÊ¾µ½ÏÂÒ»²ã
-		std::cout << head + "buy" << std::endl;		//Êä³öµÚÒ»²ã×ÓÃüÁî
-		std::cout << head + "---" + "AppleJuice" << std::endl;		//Êä³öµÚ¶ş²ã×ÓÃüÁî						
-		std::cout << head + "---" + "AppleYogert" << std::endl;		//Êä³öµÚ¶ş²ã×ÓÃüÁî
-		std::cout << head + "---" + "AppleCandies" << std::endl;		//Êä³öµÚ¶ş²ã×ÓÃüÁî
-		std::cout << head + "---" + "OrangeJuice" << std::endl;		//Êä³öµÚ¶ş²ã×ÓÃüÁî
-		std::cout << head + "---" + "OrangeYogert" << std::endl;		//Êä³öµÚ¶ş²ã×ÓÃüÁî
-		std::cout << head + "---" + "OrangeCandies" << std::endl;	//Êä³öµÚ¶ş²ã×ÓÃüÁî
-		std::cout << head + "rent" << std::endl;					//Êä³öµÚÒ»²ãrent ×ÓÃüÁî
-		std::cout << head + "---" + "sticks" << std::endl;           //Êä³öµÚ¶ş²ã×ÓÃüÁî
-		std::cout << head + "---" + "board" << std::endl;			//Êä³öµÚ¶ş²ã×ÓÃüÁî
+		MacroCommandReceiver::printHelp(level);
+		level++;
+		std::string head(level * 3, '-');		//å°†å­æŒ‡ä»¤æ˜¾ç¤ºåˆ°ä¸‹ä¸€å±‚
+		std::cout << head + "buy" << std::endl;		//è¾“å‡ºç¬¬ä¸€å±‚å­å‘½ä»¤
+		std::cout << head + "---" + "AppleJuice" << std::endl;		//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤						
+		std::cout << head + "---" + "AppleYogert" << std::endl;		//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
+		std::cout << head + "---" + "AppleCandies" << std::endl;		//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
+		std::cout << head + "---" + "OrangeJuice" << std::endl;		//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
+		std::cout << head + "---" + "OrangeYogert" << std::endl;		//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
+		std::cout << head + "---" + "OrangeCandies" << std::endl;	//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
+		std::cout << head + "rent" << std::endl;					//è¾“å‡ºç¬¬ä¸€å±‚rent å­å‘½ä»¤
+		std::cout << head + "---" + "sticks" << std::endl;           //è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
+		std::cout << head + "---" + "board" << std::endl;			//è¾“å‡ºç¬¬äºŒå±‚å­å‘½ä»¤
 	}
-
-	/*Îö¹¹º¯Êı
-	* ÓÃÓÚ·ÀÖ¹ÄÚ´æĞ¹Â¶£¬µİ¹éÊÍ·ÅshoppingList ÖĞµÄ¶ÔÏó
-	*/
 	~ShoppingManager()
 	{
 		for (int i = 0; i < ShoppingList.size(); i++)

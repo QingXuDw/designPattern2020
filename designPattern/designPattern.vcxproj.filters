@@ -65,5 +65,17 @@
     <ClInclude Include="TestPlan.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CIcecream.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CIceZoo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MediatorModel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Snowman.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
