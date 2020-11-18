@@ -15,12 +15,12 @@ namespace wjy {
 		{
 			std::cout << "TearDownTestCase" << std::endl;
 		}
-		virtual void SetUp()
+		virtual void SetUp() override
 		{
 			str = new std::string("abaaba");
 			std::cout << "SetUp" << std::endl;	
 		}
-		virtual void TearDown()
+		virtual void TearDown() override
 		{
 			std::cout << "TearDown" << std::endl;
 			S_DELETE(str);
