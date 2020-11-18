@@ -33,7 +33,11 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="..\designPattern\Strategy.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ShoppingMallTest_zzy.h" />
+    <ClInclude Include="StateTest_zzy.h" />
+    <ClInclude Include="StrategyTest_zzy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />
