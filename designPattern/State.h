@@ -114,32 +114,19 @@ protected:
 			std::cin >> ord;
 			getchar();
 			if (ord == "1") {
-				Flyweight* pw = Fac.GetFlyWeight("W");//获取W对应的模块，相当于用属性列表给固定部分穿上衣服
+				Fac.GetFlyWeight("W");//获取W对应的模块，相当于用属性列表给固定部分穿上衣服
 				std::cout << "11路公交车已成功加入载具库！" << std::endl;
 				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
-				if (pw != nullptr)
-				{
-					pw = NULL;
-					delete pw;
-				}
 			}
 			else if (ord == "2") {
-				Flyweight* pc = Fac.GetFlyWeight("C");//获取C对应的模块
+				Fac.GetFlyWeight("C");//获取C对应的模块
 				std::cout << "缆车已成功加入载具库！" << std::endl;
 				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
-				if (pc != nullptr) {
-					pc = NULL;
-					delete pc;
-				}
 			}
 			else if (ord == "3") {
-				Flyweight* pp = Fac.GetFlyWeight("P");
+				Fac.GetFlyWeight("P");
 				std::cout << "托马斯小火车已成功加入载具库！" << std::endl;
 				std::cout << "当前可供共享的载具种类有:" << Fac.countN() << "种!" << std::endl;
-				if (pp != nullptr) {
-					pp = NULL;
-					delete pp;
-				}
 			}
 			else {
 				cout << "输入指令错误！" << endl;
