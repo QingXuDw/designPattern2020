@@ -7,6 +7,68 @@
 
 #include "gtest/gtest.h"
 #include "../designPattern/BaseClasses.h"
+#include <thread>
+#include <Windows.h>
+
+#define DP_TEST_F_THREAD_CLASS_NAME(test_case_name, test_name) \
+	test_case_name##_##test_name##_##Thread
+#define DP_TEST_F_THREAD_CLASS_PASS(test_case_name, test_name) \
+	test_case_name##_##test_name##_##Thread##_##Pass
+#define DP_TEST_F_THREAD_CLASS_RUN(test_case_name, test_name) \
+	test_case_name##_##test_name##_##Thread##_##Run
+#define DP_TEST_F_THREAD_CLASS_FUNC(test_case_name, test_name) \
+	test_case_name##_##test_name##_##Thread##_##Func
+/*在子线程中测试（性能调教）
+* 用于目标代码有可能出现死循环、超时、阻塞、死锁等情况的测试，当子线程运行超时时将会调用EXPECT_TRUE报错。
+* 可以通过调整检测周期优化性能，合适的周期与电脑性能和系统调度方式有关。
+* @param test_case_name 测试用例名（类名）
+* @param test_name 测试单元名（类似TEST_F）
+* @param period 检测周期，通常而言预计执行时间越短周期越短，预计执行时间越长周期越长。
+* @param max_time 时间限制（单位ms）
+*/
+#define DP_TEST_F_THREAD_FULL_PARAM(test_case_name, test_name, period, max_time) \
+class DP_TEST_F_THREAD_CLASS_NAME(test_case_name, test_name) : public test_case_name {\
+protected:\
+	bool DP_TEST_F_THREAD_CLASS_PASS(test_case_name, test_name) = false;\
+public:\
+	void DP_TEST_F_THREAD_CLASS_RUN(test_case_name, test_name)();\
+	void DP_TEST_F_THREAD_CLASS_FUNC(test_case_name, test_name)() { \
+		DP_TEST_F_THREAD_CLASS_RUN(test_case_name, test_name)();\
+		DP_TEST_F_THREAD_CLASS_PASS(test_case_name, test_name) = true; \
+	} \
+};\
+TEST_F(DP_TEST_F_THREAD_CLASS_NAME(test_case_name, test_name), test_name){ \
+	int count = 0; \
+	std::thread cThread(&DP_TEST_F_THREAD_CLASS_NAME(test_case_name, test_name)::DP_TEST_F_THREAD_CLASS_FUNC(test_case_name, test_name), this); \
+	cThread.detach(); \
+	while (!DP_TEST_F_THREAD_CLASS_PASS(test_case_name, test_name)) { \
+		count++; \
+		Sleep(period); \
+		if (count * period > max_time) { \
+			EXPECT_TRUE(DP_TEST_F_THREAD_CLASS_PASS(test_case_name, test_name)); \
+			break; \
+		} \
+	} \
+} \
+void DP_TEST_F_THREAD_CLASS_NAME(test_case_name, test_name)::DP_TEST_F_THREAD_CLASS_RUN(test_case_name, test_name)()
+
+/*在子线程中测试（用法类似TEST_F)
+* 用于目标代码有可能出现死循环、超时、阻塞、死锁等情况的测试，当子线程运行超时时将会调用EXPECT_TRUE报错，默认超时检测周期为50ms。
+* @param test_case_name 测试用例名（类名）
+* @param test_name 测试单元名（类似TEST_F）
+* @param max_time 时间限制（单位ms）
+*/
+#define DP_F_TIME(test_case_name, test_name, max_time) \
+	DP_TEST_F_THREAD_FULL_PARAM(test_case_name, test_name, 25, max_time)
+
+/*线程安全的测试（用法类似TEST_F)
+* 开辟一个子线程测试代码，用于目标代码不太可能出现死循环、超时、阻塞、死锁等情况的测试，
+* 当子线程运行超时时将会调用EXPECT_TRUE报错，默认超时时间为10000ms
+* @param test_case_name 测试用例名（类名）
+* @param test_name 测试单元名（类似TEST_F）
+*/
+#define DP_F(test_case_name, test_name) \
+	DP_TEST_F_THREAD_FULL_PARAM(test_case_name, test_name, 10, 1000)
 /*安全释放一个指针
 * 释放指针前检查指针指向的对象是否已经被释放，释放后设置指针指向nullptr
 * @param ptr 待释放的指针
