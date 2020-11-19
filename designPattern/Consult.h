@@ -19,7 +19,9 @@ public:
 	 */
 	void Location() {
 		cout << "  冰封鬼窟位于园区北部" << endl;
-		cout << "  登山请前往园区南部" << endl;
+		cout << "  登山体验位于园区南部" << endl;
+		cout << "  动物园位于园区南部" << endl;
+		cout << "  冰雕展览位于园区东北部部" << endl;
 	}
 };
 
@@ -70,7 +72,7 @@ public:
 	 * @return void
 	 */
 	void Location() {
-		cout << "  酒店位于园区东南部" << endl;
+		cout << "  酒店位于园区西部" << endl;
 	}
 };
 
@@ -156,12 +158,6 @@ public:
 		}
 	}
 
-private:
-	ParkPlaying* _parkPlaying;
-	ParkFacility* _parkFacility;
-	ParkEating* _parkEating;
-	ParkHousing* _parkHousing;
-
 	/**
 	 * 外观类析构函数
 	 * 在对象生命周期结束后分别删除并释放园内各内容对象的空间
@@ -177,5 +173,11 @@ private:
 		this->_parkEating = NULL;
 		this->_parkHousing = NULL;
 	}
+
+private:
+	ParkPlaying* _parkPlaying;
+	ParkFacility* _parkFacility;
+	ParkEating* _parkEating;
+	ParkHousing* _parkHousing;
  
 };
