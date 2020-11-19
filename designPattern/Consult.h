@@ -156,12 +156,6 @@ public:
 		}
 	}
 
-private:
-	ParkPlaying* _parkPlaying;
-	ParkFacility* _parkFacility;
-	ParkEating* _parkEating;
-	ParkHousing* _parkHousing;
-
 	/**
 	 * 外观类析构函数
 	 * 在对象生命周期结束后分别删除并释放园内各内容对象的空间
@@ -177,5 +171,11 @@ private:
 		this->_parkEating = NULL;
 		this->_parkHousing = NULL;
 	}
+
+private:
+	ParkPlaying* _parkPlaying;
+	ParkFacility* _parkFacility;
+	ParkEating* _parkEating;
+	ParkHousing* _parkHousing;
  
 };
