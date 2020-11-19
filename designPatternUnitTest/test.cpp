@@ -3,6 +3,9 @@
 #include "BookingTest_wjy.h"
 #include "TicketBuyerTest_wjy.h"
 #include "ShoppingMallTest_wjy.h"
+#include"VisitorClassesTest_wsq.h"
+#include"StateTest_wsq.h"
+#include"SnowmanTest_wsq.h"
 
 
 int main(int argc, char **argv) {
