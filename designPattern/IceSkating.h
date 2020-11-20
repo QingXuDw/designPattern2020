@@ -450,7 +450,7 @@ public:
             std::cout<<"输入w、a、s、d进行移动，其他输入视为停止。O代表自己，X代表其他人。"<<std::endl;
             update();
             printFeild();
-            ch=getch();
+            ch=getchar();
             if(ch=='w'||ch=='W'){
                 if(dir[0]){
                     player.move(0);
