@@ -98,7 +98,7 @@ namespace zgx {
 		getline(sout, result1);
 		getline(sout, result2);
 		EXPECT_STREQ(result1.c_str(), "  冰封鬼窟位于园区北部");
-		EXPECT_STREQ(result2.c_str(), "  登山请前往园区南部");
+		EXPECT_STREQ(result2.c_str(), "  登山体验位于园区南部");
 
 	}
 
@@ -120,7 +120,7 @@ namespace zgx {
 		p_facade->ConsultHousing();
 		std::string result;
 		getline(sout, result);
-		EXPECT_STREQ(result.c_str(), "  酒店位于园区东南部");
+		EXPECT_STREQ(result.c_str(), "  酒店位于园区西部");
 	}
 
 	TEST_F(FacadeTest, start) {
