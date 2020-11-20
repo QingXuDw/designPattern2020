@@ -720,7 +720,7 @@ private:
 					std::cout<<"无效指令请检查输入的指令格式"<<std::endl;
 					std::cin.clear();                     //清理cin错误标记
 					std::string tmpbuf;                   //帮助读取掉输入的无效行
-					getline(cin,tmpbuf);
+					getline(std::cin,tmpbuf);
 				}
         }
     }
