@@ -83,5 +83,8 @@
     <ClInclude Include="TicketChecking.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="IceSkating.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
