@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
-#include <pthread.h>
-#include <windows.h>
+#include <thread>
+#include <chrono>
 #include <conio.h>
 #include <ctime>
 #include "BaseClasses.h"
@@ -33,7 +33,7 @@ class Skater : public DPObject
 	* @param Name 用户输入的姓名
 	* @return bool 
 	*/
-    virtual bool isName(string Name) = 0;
+    virtual bool isName(std::string Name) = 0;
     /*
 	* 滑冰者的移动逻辑
     * @param rand 
@@ -140,7 +140,7 @@ class SelfSkater : public Skater
     * @param name
 	* @return bool
 	*/
-    bool isName(string name){
+    bool isName(std::string name){
         return false;
     }
 };
@@ -152,7 +152,7 @@ class OtherSkater : public Skater
 {
     private:
     //该滑冰者的姓名
-    string name;
+    std::string name;
     //保存该滑冰者当前移动的方向
     int direction;
 
@@ -162,7 +162,7 @@ class OtherSkater : public Skater
 	* 完成该滑冰者位置、姓名、移动方向的初始化
 	* @return void
 	*/
-    OtherSkater(string Name){
+    OtherSkater(std::string Name){
         srand((unsigned)time(0)*1001);
         direction=rand()%4;
         name=Name;
@@ -187,7 +187,7 @@ class OtherSkater : public Skater
     * @param name
 	* @return bool
 	*/
-    bool isName(string Name){
+    bool isName(std::string Name){
         if(name==Name){
             return true;
         }
@@ -222,7 +222,7 @@ class NullSkater : public Skater
 	* 空对象直接返回true
 	* @return bool
 	*/
-    bool isName(string Name){
+    bool isName(std::string Name){
         return true;
     }
     /*
@@ -238,8 +238,8 @@ class NullSkater : public Skater
     void getState(){
         std::cout<<"场内不存在叫这个名字的游客！"<<std::endl;
     }
-    
 };
+
 /*
 * 事件-总线模式中的总线
 * 用于实现整个滑冰场的事件分发以及，并集中处理与滑冰者(订阅者)之间的消息传递
@@ -314,7 +314,9 @@ public:
 		return instance;
 	}
 
-    //保存EventBus是否运行的状态值，用于控制定时器事件线程的停止
+    //保存EventBus是否自动运行的状态值，用于控制定时器事件线程的停止
+    bool isAutoRunning=false;
+    //保存用户自己是否移动的状态，用于切换自动/主动运行状态
     bool isRunning=false;
 
     /*
@@ -351,10 +353,6 @@ public:
 	* @return void
 	*/
     void update(){
-        if(!isRunning){
-            pthread_exit(nullptr);  //结束线程
-            return;
-        }
         for(int i=2;i<22;i++){
             for(int j=2;j<88;j++){
                 field[i][j]=' ';
@@ -442,10 +440,11 @@ public:
 	* @return void
 	*/
     void play(){
+        isRunning=true;      //切换到主动移动状态
         char ch;
         SelfSkater& player=SelfSkater::getInstance();
         bool* dir;
-        
+
         while(1){
             dir=getMovableDir(player.getX(),player.getY());
             std::cout<<"输入w、a、s、d进行移动，其他输入视为停止。O代表自己，X代表其他人。"<<std::endl;
@@ -484,13 +483,14 @@ public:
         }
         system("cls");
         delete[] dir;
+        isRunning=false; 
     }
     /*
 	* 实现查找滑冰场中朋友的功能
     * @param fname  要查找的朋友姓名
 	* @return void
 	*/
-    void searchFriend(string fname){
+    void searchFriend(std::string fname){
         int i;
         for(i=0;i<15;i++){
             if(skaters[i]->isName(fname)){
@@ -504,7 +504,7 @@ public:
     * @param name 新加入的朋友姓名
 	* @return void
 	*/
-    void addSkater(string name){
+    void addSkater(std::string name){
         skaters[cnt+1]=skaters[cnt];
         skaters[cnt]= new OtherSkater(name);
         if(skaters[cnt]==NULL){
@@ -544,18 +544,22 @@ void OtherSkater::move(int rand){
     if(ran<7){
         if(direction==0&&dir[0]){
             x--;
+            delete[] dir;
             return;
         }
         if(direction==1&&dir[1]){
             x++;
+            delete[] dir;
             return;
         }
         if(direction==2&&dir[2]){
             y--;
+            delete[] dir;
             return;
         }
         if(direction==3&&dir[3]){
             y++;
+            delete[] dir;
             return;
         }
     }
@@ -585,14 +589,19 @@ void OtherSkater::move(int rand){
             break;
         }
     default:
-        if(dir[2]){
-            y--;
-            direction=2;
+        if(dir[3]){
+            y++;
+            direction=3;
             break;
         }
         if(dir[1]){
             x++;
             direction=1;
+            break;
+        }
+        if(dir[2]){
+            y--;
+            direction=2;
             break;
         }
         if(dir[0]){
@@ -605,7 +614,7 @@ void OtherSkater::move(int rand){
 }
 
 /*滑冰场工厂
-* 用于实现滑冰项目主体逻辑
+* 用于实现滑冰项目主体逻辑并控制滑冰场线程
 */
 class SkaterFactory : public DPObject
 {
@@ -619,12 +628,14 @@ private:
     * 定时器函数
 	* 用于产生每秒一次的事件，仅可被run调用产生新线程
 	* @return void*
-	*/
-    static void* Timer(void* args){
+    */
+    static void Timer(){
         EventBus& mainSkatingManager =EventBus::getInstance();
-        while(1){
+        while(mainSkatingManager.isAutoRunning){
+            while(mainSkatingManager.isRunning){}
             mainSkatingManager.update();
-            Sleep(1000);
+            std::chrono::milliseconds dura(1000);
+            std::this_thread::sleep_for(dura);
         }
     }
 
@@ -646,14 +657,13 @@ private:
 	* @return void
 	*/
     void run(){
-        pthread_t id;
-        int ret = pthread_create(&id, nullptr, Timer, nullptr); //创建滑冰场自动刷新线程
-        if (ret != 0)
-        {
-           std::cout << "进程创建错误: error_code=" << ret << std::endl;
-        }
+        std::thread timer(Timer);   //创建滑冰场自动刷新线程
+        timer.detach();
+        //pthread_t id;
+        //int ret = pthread_create(&id, nullptr, Timer, nullptr); //创建滑冰场自动刷新线程
+
         EventBus& mainSkatingManager =EventBus::getInstance();
-        mainSkatingManager.isRunning=true;
+        mainSkatingManager.isAutoRunning=true;
         //滑冰指令逻辑开始
         std::cout<<"*********************************************************************"<<std::endl;
 		std::cout<<"****************************** 冰湖滑冰场 ***************************"<<std::endl;
@@ -668,17 +678,18 @@ private:
 				if(std::cin>>order){
 					std::cin.get();
                     if(order==1){
-                        mainSkatingManager.isRunning=false;
+                        mainSkatingManager.isAutoRunning=false;
 						std::cout<<"已返回"<<std::endl<<std::endl;
 						break;
 					}
 					if(order==2){
                         system("cls");
                         mainSkatingManager.play();
+                        
 						continue;
 					}
 					if(order==3){
-                        string name;
+                        std::string name;
                         std::cout<<std::endl<<"请输入要找的朋友姓名：";
                         std::cin>>name;
                         std::cout<<std::endl;
@@ -691,7 +702,7 @@ private:
                             std::cout<<std::endl<<"滑冰场已经无法容纳更多游客！"<<std::endl;
                         }
                         else{
-                            string name;
+                            std::string name;
                             std::cout<<std::endl<<"请输入邀请的朋友姓名：";
                             std::cin>>name;
                             mainSkatingManager.addSkater(name);
@@ -708,7 +719,7 @@ private:
 				else{
 					std::cout<<"无效指令请检查输入的指令格式"<<std::endl;
 					std::cin.clear();                     //清理cin错误标记
-					string tmpbuf;                   //帮助读取掉输入的无效行
+					std::string tmpbuf;                   //帮助读取掉输入的无效行
 					getline(cin,tmpbuf);
 				}
         }
