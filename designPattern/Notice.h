@@ -4,8 +4,6 @@
 #include<queue>
 #include"BaseClasses.h"
 
-using namespace std;
-
 /**
  * 黑板交互者类
  * 包含可以向黑板提供消息和可以从中读取消息的对象操作
@@ -18,11 +16,11 @@ public:
 	 * @param queue<string> msg 需要进行修改的消息队列
 	 * @return void
 	 */
-	void addNotice(queue<string > &msg) {
-		string content;			//消息写入者提供的消息内容字符串
-		cout << "请输入您需要添加的公告内容(请勿换行)：\n";
-		getline(cin, content);
-		cout << "  添加完成！" << endl;
+	void addNotice(std::queue<std::string > &msg) {
+		std::string content;			//消息写入者提供的消息内容字符串
+		std::cout << "请输入您需要添加的公告内容(请勿换行)：\n";
+		getline(std::cin, content);
+		std::cout << "  添加完成！" << std::endl;
 		msg.push(content);		//添加消息到队列
 	}
 
@@ -32,17 +30,17 @@ public:
 	 * @param queue<string> msg 需要进行修改的消息队列
 	 * @return void
 	 */
-	void getNotice(queue<string > &msg) {
-		queue<string> output = msg;		//复制一份队列
+	void getNotice(std::queue<std::string > &msg) {
+		std::queue<std::string> output = msg;		//复制一份队列
 		int len = msg.size();			//获取队列长度
 		if (len == 0)			//对于空队列的判断处理
-			cout << "  抱歉，目前公告栏为空！" << endl;
+			std::cout << "  抱歉，目前公告栏为空！" << std::endl;
 		else {					//对于非空队列则通过不断读取复制队列并弹出的操作遍历输出队列中的消息内容
 			for (int i = 0; i < len; i++) {
-				cout << "  公告" << i + 1 << ": " << output.front() << endl;
+				std::cout << "  公告" << i + 1 << ": " << output.front() << std::endl;
 				output.pop();
 			}
-			cout << "  以上为目前的全部公告！" << endl;
+			std::cout << "  以上为目前的全部公告！" << std::endl;
 		}
 	}
 };
@@ -59,13 +57,13 @@ public:
 	 * @return void
 	 */
 	void start() {
-		string c;	//用户键入的咨询命令
-		string d;	//用于接收多余的字符
+		std::string c;	//用户键入的咨询命令
+		std::string d;	//用于接收多余的字符
 
 		while (1) {		//循环读取命令以实现公告栏读写功能的多次使用
-			cout << "请输入您的身份（1为工作人员，2为游客，0为返回）：";	//对用户输入命令的提示
-			cin >> c;
-			getline(cin, d);
+			std::cout << "请输入您的身份（1为工作人员，2为游客，0为返回）：";	//对用户输入命令的提示
+			std::cin >> c;
+			getline(std::cin, d);
 			if (c == "1" ) {
 				BBParticipant *worker = new BBParticipant();	//创建游客对象
 				worker->addNotice(msg);							//游客对象使用读取黑板方法
@@ -75,15 +73,15 @@ public:
 				visitor->getNotice(msg);						//工作人员对象使用写入黑板方法
 			}
 			else if (c == "0") {			//当用户决定退出时跳出循环并给予提示
-				cout << "  成功退出公告栏！" << endl;
+				std::cout << "  成功退出公告栏！" << std::endl;
 				return;
 			}
 			else							//当命令非法时的提示
-				cout << "输入有误，请重新输入！\n";
+				std::cout << "输入有误，请重新输入！\n";
 		}
 	}
 
 private:
-	queue<string> msg;		//存放黑板内容的消息队列
+	std::queue<std::string> msg;		//存放黑板内容的消息队列
 
 };

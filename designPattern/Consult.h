@@ -1,9 +1,6 @@
 #pragma once
 
-#include<iostream>
 #include"BaseClasses.h"
-
-using namespace std;
 
 /**
  * 园区游玩项目类
@@ -18,10 +15,10 @@ public:
 	 * @return void
 	 */
 	void Location() {
-		cout << "  冰封鬼窟位于园区北部" << endl;
-		cout << "  登山体验位于园区南部" << endl;
-		cout << "  动物园位于园区南部" << endl;
-		cout << "  冰雕展览位于园区东北部部" << endl;
+		std::cout << "  冰封鬼窟位于园区北部" << std::endl;
+		std::cout << "  登山体验位于园区南部" << std::endl;
+		std::cout << "  动物园位于园区南部" << std::endl;
+		std::cout << "  冰雕展览位于园区东北部部" << std::endl;
 	}
 };
 
@@ -38,7 +35,7 @@ public:
 	 * @return void
 	 */
 	void Location() {
-		cout << "  卫生间位置请参考园区地图" << endl;
+		std::cout << "  卫生间位置请参考园区地图" << std::endl;
 	}
 };
 
@@ -55,7 +52,7 @@ public:
 	 * @return void
 	 */
 	void Location() {
-		cout << "  餐厅位于园区西北部" << endl;
+		std::cout << "  餐厅位于园区西北部" << std::endl;
 	}
 };
 
@@ -72,7 +69,7 @@ public:
 	 * @return void
 	 */
 	void Location() {
-		cout << "  酒店位于园区西部" << endl;
+		std::cout << "  酒店位于园区西部" << std::endl;
 	}
 };
 
@@ -136,11 +133,11 @@ public:
 	 * @return void
 	 */
 	void start() {
-		string c;	//用户键入的咨询命令
-		string d;	//用于接收多余的字符
-		cout << "请选择要咨询的内容（1为游乐项目，2为园区设施，3为园区餐饮，4为园区住宿，0为返回）：\n";	//对用户输入命令的提示
-		while (cin >> c) {		//循环读取命令以实现外币兑换功能可多次使用
-			getline(cin, d);
+		std::string c;	//用户键入的咨询命令
+		std::string d;	//用于接收多余的字符
+		std::cout << "请选择要咨询的内容（1为游乐项目，2为园区设施，3为园区餐饮，4为园区住宿，0为返回）：\n";	//对用户输入命令的提示
+		while (std::cin >> c) {		//循环读取命令以实现外币兑换功能可多次使用
+			getline(std::cin, d);
 			if (c == "1")			//咨询游玩项目
 				ConsultPlay();
 			else if (c == "2")		//咨询园内设施
@@ -150,11 +147,11 @@ public:
 			else if (c == "4")		//咨询园内住宿
 				ConsultHousing();
 			else if (c == "0") {	//当用户决定退出时跳出循环并给予提示
-				cout << "成功退出咨询处！" << endl;
+				std::cout << "成功退出咨询处！" << std::endl;
 				return;
 			}
 			else					//当命令非法时的提示
-				cout << "输入有误，请重新输入！\n";
+				std::cout << "输入有误，请重新输入！\n";
 		}
 	}
 
