@@ -3,6 +3,12 @@
 #include "BookingTest_wjy.h"
 #include "TicketBuyerTest_wjy.h"
 #include "ShoppingMallTest_wjy.h"
+#include "AdapterTest_zgx.h"
+#include "ConsultTest_zgx.h"
+#include "MediatorModelTest_zgx.h"
+#include "SnowmanTest_zgx.h"
+#include "TestPlanTest_zgx.h"
+#include "TouristCenterTest_zgx.h"
 
 
 int main(int argc, char **argv) {
