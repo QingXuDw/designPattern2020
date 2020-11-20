@@ -36,7 +36,7 @@ public:
 		while (1) {
 			std::cout << "  请输入游客套票的四位编码(以空格分隔)(以quit退出): ";
 			std::cin >> ticketID;
-			getline(cin, d);			//吞没多余的输入内容
+			getline(std::cin, d);			//吞没多余的输入内容
 			if (ticketID == "quit") {	//若用户决定退出系统则给予相应提示并跳出循环
 				std::cout << "成功退出套票查询!" << std::endl;
 				break;
@@ -78,7 +78,7 @@ public:
 	 * @param id 套票编号
 	 * @return string 套票对应的游客类型
 	 */
-	string Filter_TicketType(std::string id) {
+	std::string Filter_TicketType(std::string id) {
 		int status = (int)id[0] - 48;		//将套票编号中关于游客类型的部分由字符串转为整型
 		switch (status) {
 		case 0:
