@@ -136,11 +136,13 @@
     <ClInclude Include="FCurrency.h" />
     <ClInclude Include="FlyWeight.h" />
     <ClInclude Include="MediatorModel.h" />
+    <ClInclude Include="Notice.h" />
     <ClInclude Include="Snowman.h" />
     <ClInclude Include="TestPlan.h" />
     <ClInclude Include="ShoppingMall.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Strategy.h" />
+    <ClInclude Include="TicketChecking.h" />
     <ClInclude Include="TouristCenter.h" />
     <ClInclude Include="TravelPlan.h" />
     <ClInclude Include="VisitorClasses.h" />

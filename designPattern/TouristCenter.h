@@ -3,8 +3,9 @@
 #include"BaseClasses.h"
 #include"Consult.h"
 #include"Adapter.h"
+#include"Notice.h"
 
-//游客中心 （ 咨询--外观模式 / 外币兑换--适配器模式 ）
+//游客中心 （ 咨询--外观模式 / 外币兑换--适配器模式 / 园区公告栏--黑板模式 ）
 class TouristCenter: public CommandReceiver{
 private:
 	/*构造函数
@@ -12,6 +13,9 @@ private:
 	* @return void
 	*/
 	TouristCenter() : CommandReceiver("tourist") {}
+	
+	//创建黑板对象单例，保证数据的持久性
+	Blackboard* pBlackboard = new Blackboard();	
 
 protected:
 	bool executeCommand(std::string cmd) {
@@ -27,6 +31,10 @@ protected:
 			pAdapter->start();
 			return true;
 		}
+		else if (subCmd == "notice") {
+			pBlackboard->start();
+			return true;
+		}
 		else
 			return false;
 	}
@@ -37,7 +45,7 @@ public:
 	TouristCenter& operator=(const TouristCenter&) = delete;
 	/*获取当前接收器的引用
 	* 获取全局唯一当前接收器的实例的引用，用于实现单例。
-	* @return PlanManager& 当前接收器的引用
+	* @return TouristCenter& 当前接收器的引用
 	*/
 	static TouristCenter& getInstance() {
 		static TouristCenter reciver;
@@ -53,7 +61,7 @@ public:
 		level++;								//将子指令显示到下一层
 		std::string head(level * 3, '-');
 		std::cout << head + "consult" << std::endl;						//输出子指令
-		std::cout << head + "currency" << std::endl;					//输出子指令
-
+		std::cout << head + "currency" << std::endl;
+		std::cout << head + "notice" << std::endl;
 	}
 };

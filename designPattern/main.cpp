@@ -9,7 +9,8 @@
 #include "CIceZoo.h"
 #include "CIcecream.h"
 #include "Snowman.h"
-#include"MediatorModel.h"
+#include "MediatorModel.h"
+#include "TicketChecking.h"
 
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发
@@ -233,6 +234,7 @@ int main() {
 	mainReciver.addReciver(&MediatorManager::getInstance());
 	mainReciver.addReciver(&DecoratorReceiver::getInstance());
 	mainReciver.addReciver(&Ticket_Buyer::getInstance());
+	mainReciver.addReciver(&CheckingManager::getInstance());
 	mainReciver.addReciver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
 	mainReciver.run();										//运行
 }
