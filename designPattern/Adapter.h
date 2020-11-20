@@ -1,6 +1,5 @@
 #pragma once
 
-#include<iostream>
 #include<sstream>
 #include "FCurrency.h"
 
@@ -44,70 +43,70 @@ public:
 		float result;	//结果值
 		switch (situ) {	//根据situ的不同以不同方式使用初级接口
 		case 44:	//当命令非法时的提示
-			cout << "请输入正确的命令！\n";
+			std::cout << "请输入正确的命令！\n";
 			break;
 		case 0:		//当命令中转换前后货币相同时的提示
 		case 11:
 		case 22:
 		case 33:
-			cout << "请选择不同的货币！" << endl;
+			std::cout << "请选择不同的货币！" << std::endl;
 			break;
 		case 1:		//美元->英镑
 			mid = dollar->exchange(num, true);
 			result = pound->exchange(mid, false);
-			cout << "兑换完成：" << num << "美元已兑换为" << result << "英镑" << endl;
+			std::cout << "兑换完成：" << num << "美元已兑换为" << result << "英镑" << std::endl;
 			break;
 		case 2:		//美元->日元
 			mid = dollar->exchange(num, true);
 			result = yen->exchange(mid, false);
-			cout << "兑换完成：" << num << "美元已兑换为" << result << "日元" << endl;
+			std::cout << "兑换完成：" << num << "美元已兑换为" << result << "日元" << std::endl;
 			break;
 		case 3:		//美元->人民币
 			result = dollar->exchange(num, true);
-			cout << "兑换完成：" << num << "美元已兑换为" << result << "人民币" << endl;
+			std::cout << "兑换完成：" << num << "美元已兑换为" << result << "人民币" << std::endl;
 			break;
 		case 10:	//英镑->美元
 			mid = pound->exchange(num, true);
 			result = dollar->exchange(mid, false);
-			cout << "兑换完成：" << num << "英镑已兑换为" << result << "美元" << endl;
+			std::cout << "兑换完成：" << num << "英镑已兑换为" << result << "美元" << std::endl;
 			break;
 		case 12:	//英镑->日元
 			mid = pound->exchange(num, true);
 			result = yen->exchange(mid, false);
-			cout << "兑换完成：" << num << "英镑已兑换为" << result << "日元" << endl;
+			std::cout << "兑换完成：" << num << "英镑已兑换为" << result << "日元" << std::endl;
 			break;
 		case 13:	//英镑->人民币
 			result = pound->exchange(num, true);
-			cout << "兑换完成：" << num << "英镑已兑换为" << result << "人民币" << endl;
+			std::cout << "兑换完成：" << num << "英镑已兑换为" << result << "人民币" << std::endl;
 			break;
 		case 20:	//日元->美元
 			mid = yen->exchange(num, true);
 			result = dollar->exchange(mid, false);
-			cout << "兑换完成：" << num << "日元已兑换为" << result << "美元" << endl;
+			std::cout << "兑换完成：" << num << "日元已兑换为" << result << "美元" << std::endl;
 			break;
 		case 21:	//日元->英镑
 			mid = yen->exchange(num, true);
 			result = pound->exchange(mid, false);
-			cout << "兑换完成：" << num << "日元已兑换为" << result << "英镑" << endl;
+			std::cout << "兑换完成：" << num << "日元已兑换为" << result << "英镑" << std::endl;
 			break;
 		case 23:	//日元->人民币
 			result = yen->exchange(num, true);
-			cout << "兑换完成：" << num << "日元已兑换为" << result << "人民币" << endl;
+			std::cout << "兑换完成：" << num << "日元已兑换为" << result << "人民币" << std::endl;
 			break;
 		case 30:	//人民币->美元
 			result = dollar->exchange(num, false);
-			cout << "兑换完成：" << num << "人民币已兑换为" << result << "美元" << endl;
+			std::cout << "兑换完成：" << num << "人民币已兑换为" << result << "美元" << std::endl;
 			break;
 		case 31:	//人民币->英镑
 			result = pound->exchange(num, false);
-			cout << "兑换完成：" << num << "人民币已兑换为" << result << "英镑" << endl;
+			std::cout << "兑换完成：" << num << "人民币已兑换为" << result << "英镑" << std::endl;
 			break;
 		case 32:	//人民币->日元
 			result = yen->exchange(num, false);
-			cout << "兑换完成：" << num << "人民币已兑换为" << result << "日元" << endl;
+			std::cout << "兑换完成：" << num << "人民币已兑换为" << result << "日元" << std::endl;
 			break;
 		default:
-			cout << "请输入正确的命令！\n";
+			std::cout << "请输入正确的命令！\n";
 			return;
 		}
 		return;
@@ -119,7 +118,7 @@ public:
 	 * @param string 货币名称
 	 * @return int 对应的货币编号
 	 */
-	int Transform(string c) {
+	int Transform(std::string c) {
 		if (c == "dollar" || c == "美元")		//同时支持中英文名称
 			return 0;
 		else if (c == "pound" || c == "英镑")
@@ -138,18 +137,18 @@ public:
 	 * @return void
 	 */
 	void start() {
-		string input;		//外币类型
+		std::string input;		//外币类型
 		float num;			//外币数量
-		cout << "请输入要兑换的货币种类以及数量:\n";		//对用户输入命令的提示
-		cout << "(按照\"货币数量 持有货币 需求货币\"的格式, 以\"quit\"结束)\n";
-		cout << "(支持美元、英镑、日元、人民币的相互兑换)" << endl;	
-		while (getline(cin,input)) {	//循环读取命令以实现外币兑换功能可多次使用
+		std::cout << "请输入要兑换的货币种类以及数量:\n";		//对用户输入命令的提示
+		std::cout << "(按照\"货币数量 持有货币 需求货币\"的格式, 以\"quit\"结束)\n";
+		std::cout << "(支持美元、英镑、日元、人民币的相互兑换)" << std::endl;	
+		while (getline(std::cin,input)) {	//循环读取命令以实现外币兑换功能可多次使用
 			if (input == "quit") {		//当用户决定退出时跳出循环并给予提示
-				cout << "成功退出货币兑换！" << endl;
+				std::cout << "成功退出货币兑换！" << std::endl;
 				break;
 			}
-			string from, to;			//转换前后的货币类
-			stringstream ss(input);		//将单行命令转化为流
+			std::string from, to;			//转换前后的货币类
+			std::stringstream ss(input);		//将单行命令转化为流
 			ss >> num >> from >> to;	//从转化的流中获取命令中的三个参数
 			exchange(num, Transform(from)*10+Transform(to));	//将参数按指定格式传递给兑换函数
 		}

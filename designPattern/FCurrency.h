@@ -3,8 +3,6 @@
 #include <iostream>
 #include"BaseClasses.h"
 
-using namespace std;
-
 /**
  * 外币抽象基类
  * 项目中出现的其他指令接受者均继承自此类
