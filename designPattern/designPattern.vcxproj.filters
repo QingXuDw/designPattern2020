@@ -77,5 +77,11 @@
     <ClInclude Include="Snowman.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Notice.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TicketChecking.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
