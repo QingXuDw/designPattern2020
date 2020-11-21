@@ -69,7 +69,11 @@ public:
 		std::cout << "输入指令 help 查看当前可用指令" << std::endl;
 		while (toContinue) {
 			std::cout << ">";
-			std::getline(std::cin, cmd);
+			while (1) {
+				std::getline(std::cin, cmd);
+				if (cmd.size())
+					break;
+			}
 			handleCommand(cmd);
 		}
 	}

@@ -44,7 +44,103 @@ public:
 	virtual std::string type() const = 0;//商品信息
 };
 
+class Clothes {/*服装基类*/
+public:
+	Clothes(std::string name, int sex, int price);
+	~Clothes();
 
+public:
+	std::string _name;/*套装名称*/
+	int _price;/*价格*/
+	int _sex;/*性别*/
+};
+Clothes::Clothes(std::string name, int sex, int price) {
+	_name = name;
+	_sex = sex;
+	_price = price;
+}
+
+Clothes::~Clothes() {
+
+}
+/*查询接口*/
+class ISpecification {
+public:
+	ISpecification();
+	~ISpecification();
+
+	virtual bool isBy(Clothes* iclothes);
+};
+
+ISpecification::ISpecification() {
+
+}
+ISpecification::~ISpecification() {
+
+}
+bool ISpecification::isBy(Clothes* iclothes) {
+	return true;
+}
+/*按性别查询的接口*/
+class SexSpecification :public ISpecification {
+public:
+	SexSpecification(int sex);
+	bool isBy(Clothes* iclothes)override;
+private:
+	int _sex;
+};
+SexSpecification::SexSpecification(int sex) {
+	_sex = sex;
+}
+bool SexSpecification::isBy(Clothes* iclothes) {
+	if (_sex == iclothes->_sex) {
+		return true;
+	}
+	return false;
+}
+/*按照价格小于查询的接口*/
+class PriceThenSpecification :public ISpecification {
+public:
+	PriceThenSpecification(int price);
+	bool isBy(Clothes* iclothes)override;
+private:
+	int _price;
+};
+PriceThenSpecification::PriceThenSpecification(int price) {
+	_price = price;
+};
+bool PriceThenSpecification::isBy(Clothes* iclothes) {
+	if (iclothes->_price <= _price) {
+		return true;
+	}
+	return false;
+};
+/*调用接口*/
+class IUserProviderEx {
+public:
+	virtual std::vector<Clothes*> findUser(ISpecification* spec) = 0;
+};
+/*具体实现接口*/
+class UserProviderEx :public IUserProviderEx {
+public:
+	UserProviderEx(std::vector<Clothes*>clothes);
+	virtual std::vector<Clothes*> findUser(ISpecification* spec)override;
+private:
+	std::vector<Clothes*>_clothes;
+};
+UserProviderEx::UserProviderEx(std::vector<Clothes*> clothes) {
+	_clothes = clothes;
+}
+std::vector<Clothes*>UserProviderEx::findUser(ISpecification* spec) {
+	std::vector<Clothes*> l;
+	int cnt = _clothes.size();
+	for (int i = 0; i < cnt; i++) {
+		if (spec->isBy(_clothes.at(i))) {
+			l.push_back(_clothes.at(i));
+		}
+	}
+	return l;
+}
 //具体的商品类型类
 class Juice : public Abstract_goods
 {
@@ -113,7 +209,7 @@ class Abstract_flavor : public DPObject
 public:
 	virtual ~Abstract_flavor() {};
 	virtual std::string selectflavor() const = 0;
-	virtual std::string describeGoods(const Abstract_goods &goodsType) const = 0;
+	virtual std::string describeGoods(const Abstract_goods& goodsType) const = 0;
 };
 
 /**********************具体的口味类型类******************/
@@ -124,7 +220,7 @@ public:
 	{
 		return "The customer choose an apple one.";
 	}
-	std::string describeGoods(const Abstract_goods &goodsType) const override
+	std::string describeGoods(const Abstract_goods& goodsType) const override
 	{
 		const std::string result = goodsType.type();
 		return "Here is your apple " + result + " ";
@@ -139,7 +235,7 @@ public:
 		return "The customer choose an Orange one.";
 	}
 
-	std::string describeGoods(const Abstract_goods &goodsType) const override
+	std::string describeGoods(const Abstract_goods& goodsType) const override
 	{
 		const std::string result = goodsType.type();
 		return "Here is your orange  " + result + " ";
@@ -159,8 +255,8 @@ public:
 			std::exception();
 
 	}
-	virtual Abstract_goods *getGoodsType() const = 0;
-	virtual Abstract_flavor *getGoodsflavor() const = 0;
+	virtual Abstract_goods* getGoodsType() const = 0;
+	virtual Abstract_flavor* getGoodsflavor() const = 0;
 	Get_goods(const Get_goods&) = delete;
 	Get_goods& operator=(const Get_goods&) = delete;
 private:
@@ -174,11 +270,11 @@ int Get_goods::_count = 0;
 class  Get_apple_juice : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return new Juice();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Apple();
 	}
@@ -187,12 +283,12 @@ public:
 class Get_apple_candies : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 
 		return  new Candies();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Apple();
 	}
@@ -201,11 +297,11 @@ public:
 class Get_apple_yogert : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Yogert();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Apple();
 	}
@@ -214,11 +310,11 @@ public:
 class Get_orange_candies : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Candies();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Orange();
 	}
@@ -227,11 +323,11 @@ public:
 class Get_orange_juice : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Juice();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Orange();
 	}
@@ -240,11 +336,11 @@ public:
 class Get_orange_yogert : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Yogert();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Orange();
 	}
@@ -324,10 +420,10 @@ void Client_equipment(const Suit& suit)
 
 
 
-void Client_goods(const Get_goods &factory)
+void Client_goods(const Get_goods& factory)
 {
-	const Abstract_goods *product_a = factory.getGoodsType();
-	const Abstract_flavor *product_b = factory.getGoodsflavor();
+	const Abstract_goods* product_a = factory.getGoodsType();
+	const Abstract_flavor* product_b = factory.getGoodsflavor();
 	std::cout << product_b->selectflavor() << "\n";
 	std::cout << product_b->describeGoods(*product_a) << "\n";
 	delete product_a;
@@ -358,42 +454,42 @@ void ClientOption(std::string op, std::string obj)
 	{
 		if (obj == "AppleJuice")
 		{
-			Get_apple_juice *objAppleJuice = new Get_apple_juice();
+			Get_apple_juice* objAppleJuice = new Get_apple_juice();
 			std::cout << "Client:I'd like some apple juice.\n";
 			Client_goods(*objAppleJuice);
 			delete objAppleJuice;
 		}
 		else if (obj == "OrangeJuice")
 		{
-			Get_orange_juice*objOrangeJuice = new Get_orange_juice();
+			Get_orange_juice* objOrangeJuice = new Get_orange_juice();
 			std::cout << "Client:I'd like some orange juice.\n";
 			Client_goods(*objOrangeJuice);
 			delete objOrangeJuice;
 		}
 		else if (obj == "AppleYogert")
 		{
-			Get_apple_yogert*objAppleYogert = new Get_apple_yogert();
+			Get_apple_yogert* objAppleYogert = new Get_apple_yogert();
 			std::cout << "Client:I'd like some apple yougert.\n";
 			Client_goods(*objAppleYogert);
 			delete objAppleYogert;
 		}
 		else if (obj == "OrangeYogert")
 		{
-			Get_orange_yogert*objOrangeYogert = new Get_orange_yogert();
+			Get_orange_yogert* objOrangeYogert = new Get_orange_yogert();
 			std::cout << "Client:I'd like some orange yogert.\n";
 			Client_goods(*objOrangeYogert);
 			delete objOrangeYogert;
 		}
 		else if (obj == "AppleCandies")
 		{
-			Get_apple_candies*objAppleCandies = new Get_apple_candies();
+			Get_apple_candies* objAppleCandies = new Get_apple_candies();
 			std::cout << "Client:I'd like some apple candies.\n";
 			Client_goods(*objAppleCandies);
 			delete objAppleCandies;
 		}
 		else if (obj == "OrangeCandies")
 		{
-			Get_orange_candies*objOrangeCandies = new Get_orange_candies();
+			Get_orange_candies* objOrangeCandies = new Get_orange_candies();
 			std::cout << "Client:I'd like some orange candies.\n";
 			Client_goods(*objOrangeCandies);
 			delete objOrangeCandies;
@@ -409,7 +505,7 @@ void ClientOption(std::string op, std::string obj)
 	{
 		if (obj == "sticks")
 		{
-			Abstruct_equipment*equipment = new Sticks;
+			Abstruct_equipment* equipment = new Sticks;
 			Suit* suit = new Suit(equipment);
 			Client_equipment(*suit);
 			delete equipment;
@@ -418,7 +514,7 @@ void ClientOption(std::string op, std::string obj)
 		else if (obj == "board")
 		{
 			Abstruct_equipment* equipment = new Board;
-			Suit *suit = new Extend_suit(equipment);
+			Suit* suit = new Extend_suit(equipment);
 			Client_equipment(*suit);
 			delete equipment;
 			delete suit;
@@ -488,6 +584,64 @@ protected:
 				std::cout << std::endl;
 				return true;
 			}
+			if (cmd == "clothes")
+			{
+				std::vector<Clothes*> clothes;
+
+				Clothes* u1 = new Clothes("北极熊套装", 1, 160);
+				Clothes* u2 = new Clothes("北极熊套装", 0, 170);
+				Clothes* u3 = new Clothes("企鹅套装", 1, 160);
+				Clothes* u4 = new Clothes("企鹅套装", 1, 165);
+				Clothes* u5 = new Clothes("企鹅套装", 0, 175);
+				Clothes* u6 = new Clothes("海豹套装", 0, 180);
+				Clothes* u7 = new Clothes("白雪公主套装", 1, 165);
+				Clothes* u8 = new Clothes("雪夜王子套装", 0, 175);
+				Clothes* u9 = new Clothes("冰雪奇缘套装", 1, 160);
+
+				clothes.push_back(u1);
+				clothes.push_back(u2);
+				clothes.push_back(u3);
+				clothes.push_back(u4);
+				clothes.push_back(u5);
+				clothes.push_back(u6);
+				clothes.push_back(u7);
+				clothes.push_back(u8);
+				clothes.push_back(u9);
+
+				int a, b;
+				std::cout << "请输入您想查询的服装的性别：（0-男装，1-女装）" << std::endl;
+				std::cin >> a;
+				std::cout << "请输入您想查询的服装最高价格：" << std::endl;
+				std::cin >> b;
+				IUserProviderEx* ProviderEx = new UserProviderEx(clothes);
+				ISpecification* s1 = new SexSpecification(a);
+				std::vector<Clothes*>l3 = ProviderEx->findUser(s1);
+
+				int num3 = l3.size();
+				if (num3 == 0)
+				{
+					std::cout << "您输入的性别不存在！" << std::endl;
+				}
+				else
+				{
+					for (int i = 0; i < num3; i++) {
+						std::cout << "名称：" << l3.at(i)->_name.c_str() << "性别：" << l3.at(i)->_sex << "价格：" << l3.at(i)->_price << std::endl;
+					}
+				}
+				ISpecification* s2 = new PriceThenSpecification(b);
+				std::vector<Clothes*>l4 = ProviderEx->findUser(s2);
+				std::cout << std::endl << std::endl;
+				int num4 = l4.size();
+				if (num4 == 0) {
+					std::cout << "您再挣点钱再来吧！" << std::endl;
+				}
+				else {
+					for (int i = 0; i < num4; i++) {
+						std::cout << "名称：" << l4.at(i)->_name.c_str() << "性别：" << l4.at(i)->_sex << "价格：" << l4.at(i)->_price << std::endl;
+					}
+				}
+				return true;
+			}
 			return false;
 		}
 		if (subCmd == "rent")
@@ -530,6 +684,7 @@ public:
 		std::cout << head + "---" + "OrangeJuice" << std::endl;
 		std::cout << head + "---" + "OrangeYogert" << std::endl;
 		std::cout << head + "---" + "OrangeCandies" << std::endl;
+		std::cout << head + "---" + "clothes" << std::endl;
 		std::cout << head + "rent" << std::endl;
 		std::cout << head + "---" + "sticks" << std::endl;
 		std::cout << head + "---" + "board" << std::endl;
