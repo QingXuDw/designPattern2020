@@ -1,8 +1,12 @@
 #pragma once
 #include <iostream>
+<<<<<<< Updated upstream
 #include <windows.h>
 #include <string>
 #include<ostream>
+=======
+#include <Windows.h>
+>>>>>>> Stashed changes
 #include "BaseClasses.h"
 #include"TravelPlan.h"
 
