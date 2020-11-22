@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "../designPattern/FCurrency.h"
 namespace ljq {
+	using namespace std;
 	class DollarTest :public RedirectIO {
 	protected:
 		Dollar* p_dollar;

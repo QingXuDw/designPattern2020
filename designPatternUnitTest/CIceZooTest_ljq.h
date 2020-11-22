@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "../designPattern/CIceZoo.h"
 namespace ljq {
+	using namespace std;
 	class CIceZooTest : public RedirectIO {
 	protected:
 		CIceZoo* p_cIceZoo;

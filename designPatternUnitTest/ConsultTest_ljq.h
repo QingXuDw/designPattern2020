@@ -2,6 +2,7 @@
 #include"pch.h"
 #include "../designPattern/Consult.h"
 namespace ljq {
+	using namespace std;
 	class ParkPlayingTest : public RedirectIO {
 	protected:
 		ParkPlaying* p_parkPlaying;

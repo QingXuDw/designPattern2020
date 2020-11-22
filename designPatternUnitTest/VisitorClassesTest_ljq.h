@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "../designPattern/VisitorClasses.h"
 namespace ljq {
+	using namespace std;
 	class AbstractVisitorTest : public RedirectIO {
 	protected:
 		AbstractVisitor* p_abstractVisitor;

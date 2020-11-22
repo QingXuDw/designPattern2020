@@ -3,6 +3,7 @@
 #include "../designPattern/Adapter.h"
 
 namespace ljq {
+	using namespace std;
 	class AdapterTest : public RedirectIO {
 	protected:
 		Adapter* p_adapter;

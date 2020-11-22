@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 namespace ljq {
+	using namespace std;
 	class  CIcecreamTest : public RedirectIO
 	{
 	protected:
@@ -14,6 +15,7 @@ namespace ljq {
 		}
 		void TearDown() override {
 			RedirectIO::TearDown();
+
 			S_DELETE(p_cIcecream);
 		}
 	};
