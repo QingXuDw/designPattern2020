@@ -399,10 +399,6 @@ void ClientOption(std::string op, std::string obj)
 			Client_goods(*objOrangeCandies);
 			delete objOrangeCandies;
 		}
-		else if (obj == "clothes")
-		{
-
-		}
 		else
 		{
 			std::cout << "Wrong Input,Please input again!" << std::endl;

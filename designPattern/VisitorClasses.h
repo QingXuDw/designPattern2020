@@ -3,10 +3,9 @@
 #include <windows.h>
 #include <string>
 #include<ostream>
-#include <Windows.h>
 #include "BaseClasses.h"
 #include"TravelPlan.h"
-#include"exhibit.h"
+#include"IceExhibit.h"
 
 using namespace std;
 
@@ -42,10 +41,6 @@ public:
 	*/
 	virtual void VisitIceSculptureExhibit() {
 		cout << "欢迎参观冰雕展览！" << endl << endl;
-		cout << "请输入你想查看的冰雕编号：" << endl << endl;
-		exhibit::getInstance().showExhibit();
-		system("pause");
-		
 	}
 };
 
@@ -70,6 +65,7 @@ public:
 	*/
 	void VisitIceSculptureExhibit(){
 		AbstractVisitor::VisitIceSculptureExhibit();
+		exhibit::getInstance().showExhibit();
 		cout<<endl<<"参观结束，将继续踏上行程。"<<endl<<endl;
 		system("pause");
 	}
@@ -91,7 +87,6 @@ public:
 /*实际访问者类
 * 继承抽象访问者类，具体实现访问者行为
 */
-class ConcreteVisitor;
 class IceSculptureExhibit :public Scene
 {
 	/*打印可用指令
@@ -104,34 +99,6 @@ public:
 		visitor->VisitIceSculptureExhibit();
 	}
 };
-
-class ConcreteVisitor :public AbstractVisitor
-{
-public:
-	//显式定义构造函数使用父类默认构造函数
-	ConcreteVisitor() :AbstractVisitor() {};
-
-	/*访问冰封鬼窟
-	* 重载父类虚函数，打印具体探索冰封鬼窟的行动
-	* @return void
-	*/
-	void VisitGhostCave();
-
-	/*冰雕展览类
-* 继承抽象场景类
-*/
-
-/*访问冰雕展览
-* 重载父类虚函数，打印具体参观冰雕展览的行动
-* @return void
-*/
-	void VisitIceSculptureExhibit() {
-		AbstractVisitor::VisitIceSculptureExhibit();
-		cout << endl << "参观结束，将继续踏上行程。" << endl << endl;
-		system("pause");
-	}
-};
-
 
 /*冰封鬼窟类
 * 继承抽象场景类

@@ -109,7 +109,7 @@ std::vector<Clothes*>UserProviderEx::findUser(ISpecification* spec) {
 
 
 /************************************************************************
-*							ShoppingMall模块							*
+*							clothesshop模块							*
 *************************************************************************/
 
 class clothesshop {
@@ -121,7 +121,6 @@ public:
     clothesshop& operator=(const clothesshop&) = delete;
     /*
     * 获取全局唯一的引用，用于实现单例。
-    * @return SkaterFactory& 滑冰场工厂的引用
     */
     static clothesshop& getInstance() {
         static clothesshop instance;

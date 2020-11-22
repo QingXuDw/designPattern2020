@@ -89,7 +89,7 @@
     <ClInclude Include="Clothesshop.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="exhibit.h">
+    <ClInclude Include="IceExhibit.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
