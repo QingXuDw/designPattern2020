@@ -33,7 +33,19 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClInclude Include="..\designPattern\Adapter.h" />
+    <ClInclude Include="..\designPattern\CIcecream.h" />
+    <ClInclude Include="..\designPattern\CIceZoo.h" />
+    <ClInclude Include="..\designPattern\Consult.h" />
+    <ClInclude Include="..\designPattern\FCurrency.h" />
+    <ClInclude Include="..\designPattern\VisitorClasses.h" />
+    <ClInclude Include="AdapterTest_ljq.h" />
+    <ClInclude Include="CicecreamTest_ljq.h" />
+    <ClInclude Include="CIceZooTest_ljq.h" />
+    <ClInclude Include="ConsultTest_ljq.h" />
+    <ClInclude Include="FCurrencyTest_ljq.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="VisitorClassesTest_ljq.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />

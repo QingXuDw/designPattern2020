@@ -74,7 +74,7 @@ protected:
 		cout << "欢迎游览冰雪动物园！" << endl;
 		while (itr->hasNext()) {  //遍历游览动物园
 			cout << "您正在游览" << itr->Next() << "馆；" << endl;
-			Sleep(500);
+			//Sleep(500);
 		}
 		cout << "您已离开冰雪动物园。" << endl;
 		delete(itr);
