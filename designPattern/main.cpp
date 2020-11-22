@@ -12,6 +12,7 @@
 #include "MediatorModel.h"
 #include "TicketChecking.h"
 #include "IceSkating.h"
+#include "Clothesshop.h"
 
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发

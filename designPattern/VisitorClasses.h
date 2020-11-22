@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include "BaseClasses.h"
 #include"TravelPlan.h"
+#include"exhibit.h"
 
 using namespace std;
 
@@ -16,10 +17,7 @@ using namespace std;
 *************************************************************************************/
 
 /*建立一个枚举数组*/
-enum ICETYPE
-{
-	AT_Start = -1, AT_Cat, AT_Dog, AT_Cattle, AT_Sheep, AT_End
-};
+
 /*访问者抽象基类
 * 项目中其他访问者均继承自此类
 */
@@ -45,6 +43,35 @@ public:
 	virtual void VisitIceSculptureExhibit() {
 		cout << "欢迎参观冰雕展览！" << endl << endl;
 		cout << "请输入你想查看的冰雕编号：" << endl << endl;
+		exhibit::getInstance().showExhibit();
+		system("pause");
+		
+	}
+};
+
+/*实际访问者类
+* 继承抽象访问者类，具体实现访问者行为
+*/
+class ConcreteVisitor:public AbstractVisitor
+{
+public:
+	//显式定义构造函数使用父类默认构造函数
+	ConcreteVisitor():AbstractVisitor(){};
+
+	/*访问冰封鬼窟
+	* 重载父类虚函数，打印具体探索冰封鬼窟的行动
+	* @return void
+	*/
+	void VisitGhostCave();
+
+	/*访问冰雕展览
+	* 重载父类虚函数，打印具体参观冰雕展览的行动
+	* @return void
+	*/
+	void VisitIceSculptureExhibit(){
+		AbstractVisitor::VisitIceSculptureExhibit();
+		cout<<endl<<"参观结束，将继续踏上行程。"<<endl<<endl;
+		system("pause");
 	}
 };
 /*抽象场景类
@@ -73,49 +100,11 @@ class IceSculptureExhibit :public Scene
 	* @return void
 	*/
 public:
-	static IceSculptureExhibit* CreateAnIce(ICETYPE typeCode, string name);
-	virtual ~IceSculptureExhibit() {};
-	ICETYPE GetTypeCode() { return m_typeCode; }
-	string GetTypeName() { return m_typeName; }
-	string GetColor() { return m_IceColor; }
-	string GetName() { return m_name; }
-	static IceSculptureExhibit* m_exemplars[4];
-	friend class ConcreteVisitor;
-protected:
-	IceSculptureExhibit(ICETYPE typeCode, string typeName, string strColor, string name);
-	IceSculptureExhibit* Clone(string name);
-	static void showExhibit() {
-		int a;
-		cin >> a;
-		if (a<=AT_Start || a>=AT_End)
-		{
-			cout << "您输入的编号不存在！" << endl;
-		}
-		else
-		{
-			IceSculptureExhibit C;
-			cout << C.m_exemplars[a];
-		}
-	}
-private:
-	static IceSculptureExhibit* ICENUM[4];
-	ICETYPE m_typeCode;
-	string m_IceColor;
-	string m_typeName;
-	string m_name;
-
-public:
-	friend ostream& operator<<(ostream& out, IceSculptureExhibit* myself);
-	IceSculptureExhibit() {};
-
 	void accept(AbstractVisitor* visitor) {
 		visitor->VisitIceSculptureExhibit();
 	}
 };
-ostream& operator <<(ostream& out, IceSculptureExhibit* myself) {
-	out << myself->m_IceColor << ' ' << myself->m_typeName << ' ' << myself->m_name;
-	return out;
-};
+
 class ConcreteVisitor :public AbstractVisitor
 {
 public:
@@ -138,39 +127,11 @@ public:
 */
 	void VisitIceSculptureExhibit() {
 		AbstractVisitor::VisitIceSculptureExhibit();
-		IceSculptureExhibit::showExhibit();
 		cout << endl << "参观结束，将继续踏上行程。" << endl << endl;
 		system("pause");
 	}
 };
-IceSculptureExhibit* IceSculptureExhibit::m_exemplars[] =
-{
-	new IceSculptureExhibit(AT_Cat,"猫","白","哆来A梦"),
-	new IceSculptureExhibit(AT_Dog,"狗","黄","金犬送福"),
-	new IceSculptureExhibit(AT_Cattle,"牛","棕","牛气冲天"),
-	new IceSculptureExhibit(AT_Sheep,"羊","白","三羊开泰"),
-};
-IceSculptureExhibit* IceSculptureExhibit::CreateAnIce(ICETYPE typeCode, string name)
-{
-	if (typeCode <= AT_Start || typeCode >= AT_End)
-		return NULL;
-	else
-	{
-		return m_exemplars[typeCode]->Clone(name);
-	}
 
-}
-IceSculptureExhibit::IceSculptureExhibit(ICETYPE typeCode, string typeName, string strColor, string name)
-{
-	m_name = name;
-	m_typeCode = typeCode;
-	m_typeName = typeName;
-	m_IceColor = strColor;
-}
-IceSculptureExhibit* IceSculptureExhibit::Clone(string name)
-{
-	return new IceSculptureExhibit(m_typeCode, m_typeName, m_IceColor, name);
-}
 
 /*冰封鬼窟类
 * 继承抽象场景类
