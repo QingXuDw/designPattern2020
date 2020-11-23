@@ -9,7 +9,8 @@
 #include "SnowmanTest_zgx.h"
 #include "TestPlanTest_zgx.h"
 #include "TouristCenterTest_zgx.h"
-
+#include"VisitorClassesTest_wsq.h"
+#include"StateTest_wsq.h"
 
 int main(int argc, char **argv) {
 	std::string str;
