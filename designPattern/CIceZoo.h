@@ -4,13 +4,12 @@
 #include <Windows.h>
 #include "BaseClasses.h"
 #include "TravelPlan.h"
-using namespace std;
 
 //参观冰雪动物园，iterator
 class CIceZoo:public DPObject
 {
 protected:
-	vector<string> animallist = {"企鹅","海豹","白鲸","北极熊"};  //动物列表,按参观顺序排列
+	std::vector<std::string> animallist = {"企鹅","海豹","白鲸","北极熊"};  //动物列表,按参观顺序排列
 public:
 	//iterator类，内部类
 	class CIterator:public DPObject
@@ -64,6 +63,7 @@ protected:
 	* @return bool 指令格式是否正确
 	*/
 	bool executeCommand(std::string cmd) {
+		using namespace std;
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd != "") {
