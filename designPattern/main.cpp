@@ -9,7 +9,11 @@
 #include "CIceZoo.h"
 #include "CIcecream.h"
 #include "Snowman.h"
-#include"MediatorModel.h"
+#include "MediatorModel.h"
+#include "TicketChecking.h"
+#include "IceSkating.h"
+#include "Clothesshop.h"
+#include "IceExhibit.h"
 
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发
@@ -166,6 +170,18 @@ protected:
 				std::cout << "冰雪动物园已加入计划，指令为iceZoo" << std::endl;
 				return true;
 			}
+			if (cmd == "iceSkating") {
+				IceSkatingPlanFactory factory;
+				createPlan(factory);
+				std::cout << "溜冰场已加入计划，指令为skate" << std::endl;
+				return true;
+			}
+			if (cmd == "exhibit") {
+				ExhibitPlanFactory factory;
+				createPlan(factory);
+				std::cout << "冰雕展覽已加入计划，指令为exhibit" << std::endl;
+				return true;
+			}
 			return false;
 		}
 		if (subCmd == "getDescription") {
@@ -205,10 +221,11 @@ public:
 		std::cout << head + "create" << std::endl;								//输出子指令
 		std::cout << head + "---" + "testSpot" << std::endl;					//输出子指令
 		std::cout << head + "---" + "mountain" << std::endl;					//输出子指令
-		std::cout << head + "---" + "cave   (冰封鬼窟)" << std::endl;			//输出子指令
-
-		std::cout << head + "---" + "iceZoo   (冰雪动物园)" << std::endl;		//输出子指令
-		std::cout << head + "getDescription -p:计划在列表中的位置" << std::endl;//输出子指令
+		std::cout << head + "---" + "cave   (冰封鬼窟)" << std::endl;				//输出子指令
+		std::cout << head + "---" + "iceZoo   (冰雪动物园)" << std::endl;			//输出子指令
+		std::cout << head + "---" + "iceSkating   (溜冰场)" << std::endl;		//输出子指令
+		std::cout << head + "---" + "exhibit   (冰雕展览)" << std::endl;			//输出子指令
+		std::cout << head + "getDescription -p:计划在列表中的位置" << std::endl;	//输出子指令
 	}
 	/*析构函数
 	* 用于防止内存泄露，递归释放planList中的对象
@@ -233,6 +250,7 @@ int main() {
 	mainReciver.addReciver(&MediatorManager::getInstance());
 	mainReciver.addReciver(&DecoratorReceiver::getInstance());
 	mainReciver.addReciver(&Ticket_Buyer::getInstance());
+	mainReciver.addReciver(&CheckingManager::getInstance());
 	mainReciver.addReciver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
 	mainReciver.run();										//运行
 }

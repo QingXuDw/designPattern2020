@@ -1,5 +1,7 @@
 #pragma once
 #include "pch.h"
+#include "../designPattern/BaseClasses.h"
+	
 
 //用namespace包裹以防止命名冲突
 namespace wjy {
@@ -42,5 +44,27 @@ namespace wjy {
 	{
 		//期待param1与param2相等，当不相等时输出错误位置和详情，程序继续运行
 		EXPECT_EQ(str->size(), 6);
+	}
+
+	/*多线程测试（测试代码运行在子线程中)
+	* 解决测试代码中出现死锁、死循环、阻塞输入等问题（下称卡死）。
+	* 下面是一些简单示例，当stuck == true时代码陷入死循环中，通过DP_F/DP_F_TIME可以正常进行测试，而TEST_F会停止响应
+	* 其中DP_F应该用于不太可能出现卡死的测试代码
+	* DF_F_TIME应该用于有可能出现卡死的测试代码
+	* 尽量不要使用TEST_F，除非卡死后继续后面的测试项没有意义
+	*/
+	class ThreadTest : public TestCase {
+	protected:
+		bool stuck = false;
+	};
+
+	DP_F_TIME(ThreadTest, DPFThread, 100) {
+		do {} while (stuck);
+	}
+	DP_F(ThreadTest, DPF) {
+		do {} while (stuck);
+	}
+	TEST_F(ThreadTest, TestF) {
+		do {} while (stuck);
 	}
 }

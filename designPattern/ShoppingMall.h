@@ -8,6 +8,7 @@
 #include "BaseClasses.h"
 #include "TravelPlan.h"
 #include "CIcecream.h"
+#include "Clothesshop.h"
 
 struct Shopping : public DPObject {
 public:
@@ -113,7 +114,7 @@ class Abstract_flavor : public DPObject
 public:
 	virtual ~Abstract_flavor() {};
 	virtual std::string selectflavor() const = 0;
-	virtual std::string describeGoods(const Abstract_goods &goodsType) const = 0;
+	virtual std::string describeGoods(const Abstract_goods& goodsType) const = 0;
 };
 
 /**********************具体的口味类型类******************/
@@ -124,7 +125,7 @@ public:
 	{
 		return "The customer choose an apple one.";
 	}
-	std::string describeGoods(const Abstract_goods &goodsType) const override
+	std::string describeGoods(const Abstract_goods& goodsType) const override
 	{
 		const std::string result = goodsType.type();
 		return "Here is your apple " + result + " ";
@@ -139,7 +140,7 @@ public:
 		return "The customer choose an Orange one.";
 	}
 
-	std::string describeGoods(const Abstract_goods &goodsType) const override
+	std::string describeGoods(const Abstract_goods& goodsType) const override
 	{
 		const std::string result = goodsType.type();
 		return "Here is your orange  " + result + " ";
@@ -159,8 +160,8 @@ public:
 			std::exception();
 
 	}
-	virtual Abstract_goods *getGoodsType() const = 0;
-	virtual Abstract_flavor *getGoodsflavor() const = 0;
+	virtual Abstract_goods* getGoodsType() const = 0;
+	virtual Abstract_flavor* getGoodsflavor() const = 0;
 	Get_goods(const Get_goods&) = delete;
 	Get_goods& operator=(const Get_goods&) = delete;
 private:
@@ -174,11 +175,11 @@ int Get_goods::_count = 0;
 class  Get_apple_juice : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return new Juice();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Apple();
 	}
@@ -187,12 +188,12 @@ public:
 class Get_apple_candies : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 
 		return  new Candies();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Apple();
 	}
@@ -201,11 +202,11 @@ public:
 class Get_apple_yogert : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Yogert();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Apple();
 	}
@@ -214,11 +215,11 @@ public:
 class Get_orange_candies : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Candies();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Orange();
 	}
@@ -227,11 +228,11 @@ public:
 class Get_orange_juice : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Juice();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Orange();
 	}
@@ -240,11 +241,11 @@ public:
 class Get_orange_yogert : public Get_goods
 {
 public:
-	Abstract_goods *getGoodsType() const override
+	Abstract_goods* getGoodsType() const override
 	{
 		return  new Yogert();
 	}
-	Abstract_flavor *getGoodsflavor() const override
+	Abstract_flavor* getGoodsflavor() const override
 	{
 		return new Orange();
 	}
@@ -324,10 +325,10 @@ void Client_equipment(const Suit& suit)
 
 
 
-void Client_goods(const Get_goods &factory)
+void Client_goods(const Get_goods& factory)
 {
-	const Abstract_goods *product_a = factory.getGoodsType();
-	const Abstract_flavor *product_b = factory.getGoodsflavor();
+	const Abstract_goods* product_a = factory.getGoodsType();
+	const Abstract_flavor* product_b = factory.getGoodsflavor();
 	std::cout << product_b->selectflavor() << "\n";
 	std::cout << product_b->describeGoods(*product_a) << "\n";
 	delete product_a;
@@ -358,47 +359,46 @@ void ClientOption(std::string op, std::string obj)
 	{
 		if (obj == "AppleJuice")
 		{
-			Get_apple_juice *objAppleJuice = new Get_apple_juice();
+			Get_apple_juice* objAppleJuice = new Get_apple_juice();
 			std::cout << "Client:I'd like some apple juice.\n";
 			Client_goods(*objAppleJuice);
 			delete objAppleJuice;
 		}
 		else if (obj == "OrangeJuice")
 		{
-			Get_orange_juice*objOrangeJuice = new Get_orange_juice();
+			Get_orange_juice* objOrangeJuice = new Get_orange_juice();
 			std::cout << "Client:I'd like some orange juice.\n";
 			Client_goods(*objOrangeJuice);
 			delete objOrangeJuice;
 		}
 		else if (obj == "AppleYogert")
 		{
-			Get_apple_yogert*objAppleYogert = new Get_apple_yogert();
+			Get_apple_yogert* objAppleYogert = new Get_apple_yogert();
 			std::cout << "Client:I'd like some apple yougert.\n";
 			Client_goods(*objAppleYogert);
 			delete objAppleYogert;
 		}
 		else if (obj == "OrangeYogert")
 		{
-			Get_orange_yogert*objOrangeYogert = new Get_orange_yogert();
+			Get_orange_yogert* objOrangeYogert = new Get_orange_yogert();
 			std::cout << "Client:I'd like some orange yogert.\n";
 			Client_goods(*objOrangeYogert);
 			delete objOrangeYogert;
 		}
 		else if (obj == "AppleCandies")
 		{
-			Get_apple_candies*objAppleCandies = new Get_apple_candies();
+			Get_apple_candies* objAppleCandies = new Get_apple_candies();
 			std::cout << "Client:I'd like some apple candies.\n";
 			Client_goods(*objAppleCandies);
 			delete objAppleCandies;
 		}
 		else if (obj == "OrangeCandies")
 		{
-			Get_orange_candies*objOrangeCandies = new Get_orange_candies();
+			Get_orange_candies* objOrangeCandies = new Get_orange_candies();
 			std::cout << "Client:I'd like some orange candies.\n";
 			Client_goods(*objOrangeCandies);
 			delete objOrangeCandies;
 		}
-
 		else
 		{
 			std::cout << "Wrong Input,Please input again!" << std::endl;
@@ -409,7 +409,7 @@ void ClientOption(std::string op, std::string obj)
 	{
 		if (obj == "sticks")
 		{
-			Abstruct_equipment*equipment = new Sticks;
+			Abstruct_equipment* equipment = new Sticks;
 			Suit* suit = new Suit(equipment);
 			Client_equipment(*suit);
 			delete equipment;
@@ -418,7 +418,7 @@ void ClientOption(std::string op, std::string obj)
 		else if (obj == "board")
 		{
 			Abstruct_equipment* equipment = new Board;
-			Suit *suit = new Extend_suit(equipment);
+			Suit* suit = new Extend_suit(equipment);
 			Client_equipment(*suit);
 			delete equipment;
 			delete suit;
@@ -488,6 +488,11 @@ protected:
 				std::cout << std::endl;
 				return true;
 			}
+			if (cmd == "clothes")
+			{
+				clothesshop::getInstance().buy();
+				return true;
+			}
 			return false;
 		}
 		if (subCmd == "rent")
@@ -503,9 +508,6 @@ protected:
 				return true;
 			}
 		}
-
-
-
 		return false;
 	}
 public:
@@ -530,6 +532,7 @@ public:
 		std::cout << head + "---" + "OrangeJuice" << std::endl;
 		std::cout << head + "---" + "OrangeYogert" << std::endl;
 		std::cout << head + "---" + "OrangeCandies" << std::endl;
+		std::cout << head + "---" + "clothes" << std::endl;
 		std::cout << head + "rent" << std::endl;
 		std::cout << head + "---" + "sticks" << std::endl;
 		std::cout << head + "---" + "board" << std::endl;
