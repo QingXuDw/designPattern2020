@@ -9,6 +9,7 @@
 #include "SnowmanTest_zgx.h"
 #include "TestPlanTest_zgx.h"
 #include "TouristCenterTest_zgx.h"
+#include "IceSkatingTest_xjn.h"
 
 
 int main(int argc, char **argv) {
