@@ -18,7 +18,7 @@
 
 int main(int argc, char **argv) {
 	std::string str;
-	std::cout << "ÃŠÃ¤ÃˆÃ«ÃˆÃÃ’Ã¢Â¼Ã¼Â¿ÂªÃŠÂ¼Â²Ã¢ÃŠÃ”" << std::endl;
+	std::cout << "°´ÏÂÈÎÒâ¼ü¿ªÊ¼²âÊÔ" << std::endl;
 	getline(std::cin, str);
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
