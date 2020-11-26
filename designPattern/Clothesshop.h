@@ -150,10 +150,34 @@ public:
         std::string str;
         std::cout << "如果您想按照性别查询请输入sex，如果您想按照价格查询请输入price" << std::endl;
         std::getline(std::cin, str);
+        while (1) {
+            if (str == "price" || str == "sex") {
+                break;
+            }
+            else {
+                std::cin.clear();
+                std::cin.ignore();
+                std::cout << "您输入的指令有误！请重新输入：" << std::endl;
+                std::getline(std::cin, str);
+            }
+        }
         int a, b;
         if (str == "sex") {
             std::cout << "请输入您想查询的服装的性别，（0-男装，1-女装）：" << std::endl;
             std::cin >> a;
+            while (1) {
+                if (std::cin.good())
+                {
+                    break;
+                }
+                else
+                {
+                    std::cin.clear();
+                    std::cin.ignore();
+                    std::cout << "您输入的指令有误！请重新输入：" << std::endl;
+                    cin >> a;
+                }
+            }
             ISpecification* s1 = new SexSpecification(a);
             std::vector<Clothes*>l3 = ProviderEx->findUser(s1);
 
@@ -170,6 +194,19 @@ public:
         {
             std::cout << "请输入您想查询的服装的最高的价格：" << std::endl;
             std::cin >> b;
+            while (1) {
+                if (std::cin.good())
+                {
+                    break;
+                }
+                else
+                {
+                    std::cin.clear();
+                    std::cin.ignore();
+                    std::cout << "您输入的指令有误！请重新输入：" << std::endl;
+                    cin >> b;
+                }
+            }
             ISpecification* s2 = new PriceThenSpecification(b);
             std::vector<Clothes*>l4 = ProviderEx->findUser(s2);
             std::cout << std::endl << std::endl;
