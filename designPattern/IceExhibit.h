@@ -97,7 +97,7 @@ public:
             else
             {
                 std::cin.clear();
-                std::cin.ignore();
+                std::cin.ignore(1024,'\n');
                 std::cout << "您输入的指令有误！请重新输入：" << std::endl;
                 std::cin >> a;
             }
