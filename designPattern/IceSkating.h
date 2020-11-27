@@ -2,8 +2,8 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-#include <conio.h>
 #include <ctime>
+#include <conio.h>
 #include "BaseClasses.h"
 #include "TravelPlan.h"
 
@@ -17,49 +17,49 @@
 
 /*
 * 事件-总线模式中的订阅者
-* 滑冰者基类，项目中出现的其他滑冰者均继承自此类
+* 滑冰者抽象基类，项目中出现的其他滑冰者均继承自此类
 * 用于实现滑冰者基本功能，纯虚函数isNull,isName,move必须被重载
 */  
 class Skater : public DPObject
 {
-    public:
-    /*
+public:
+    /**
 	* 判断该对象是否为空对象
 	* @return bool 
 	*/
     virtual bool isNull() = 0;
-    /*
+    /**
 	* 判断传入的姓名是否为该滑冰者对象的姓名
 	* @param Name 用户输入的姓名
 	* @return bool 
 	*/
     virtual bool isName(std::string Name) = 0;
-    /*
+    /**
 	* 滑冰者的移动逻辑
     * @param rand 
 	* @return void 
 	*/
     virtual void move(int rand) = 0;
-    /*
+    /**
 	* 输出滑冰者当前的状态描述
 	* @return void 
 	*/
     virtual void getState() {};
-    /*
+    /**
 	* 返回滑冰者的X轴坐标
 	* @return int 
 	*/
     int getX(){
         return x;
     }
-    /*
+    /**
 	* 返回滑冰者的Y轴坐标
 	* @return int 
 	*/
     int getY(){
         return y;
     }
-    /*
+    /**
 	* 设置滑冰者的X轴坐标
     * @param X 要设定的值 
 	* @return int 
@@ -67,7 +67,7 @@ class Skater : public DPObject
     void setX(int X){
         x=X;
     }
-    /*
+    /**
 	* 设置滑冰者的Y轴坐标
     * @param X 要设定的值 
 	* @return int 
@@ -76,7 +76,7 @@ class Skater : public DPObject
         y=Y;
     }
 
-    protected:
+protected:
     //保存X、Y轴坐标的变量
     int x=1,y=1;
 };
@@ -86,8 +86,9 @@ class Skater : public DPObject
 */
 class SelfSkater : public Skater
 {
-    private:
-    /*构造函数
+private:
+    /**
+    * 构造函数
 	* 构造函数为private，用于实现单例，并设置初始位置
 	* @return void
 	*/
@@ -95,8 +96,16 @@ class SelfSkater : public Skater
         x=2;
         y=2;
     }
+    /**
+	* 对纯虚函数的实现
+    * @param name
+	* @return bool
+	*/
+    bool isName(std::string name){
+        return false;
+    }
 
-    public:
+public:
     //标记复制构造函数为删除，用于实现单例
 	SelfSkater(const SelfSkater&) = delete;
 	//标记拷贝赋值操作符为删除，用于实现单例
@@ -109,7 +118,7 @@ class SelfSkater : public Skater
 		static SelfSkater instance;
 		return instance;
 	}
-    /*
+    /**
 	* 实现SelfSkater的位置移动
     * @param rand 该int值表示方向
 	* @return void
@@ -128,21 +137,14 @@ class SelfSkater : public Skater
             y++;
         }
     }
-    /*
+    /**
 	* 非空对象直接返回false
 	* @return bool
 	*/
     bool isNull(){
         return false;
     }
-    /*
-	* 对纯虚函数的实现
-    * @param name
-	* @return bool
-	*/
-    bool isName(std::string name){
-        return false;
-    }
+
 };
 /*
 * 代表滑冰场中其他的滑冰者
@@ -150,14 +152,14 @@ class SelfSkater : public Skater
 */
 class OtherSkater : public Skater
 {
-    private:
+private:
     //该滑冰者的姓名
     std::string name;
     //保存该滑冰者当前移动的方向
     int direction;
 
-    public:
-    /*
+public:
+    /**
     * 构造函数
 	* 完成该滑冰者位置、姓名、移动方向的初始化
 	* @return void
@@ -169,20 +171,20 @@ class OtherSkater : public Skater
         x=2;
         y=2;
     }
-    /*
+    /**
 	* 实现OtherSkater的位置移动
     * @param rand 该int值为总线分发给该对象的随机数，用于辅助实现移动逻辑
 	* @return void
 	*/
     void move(int rand);
-    /*
+    /**
 	* 非空对象直接返回false
 	* @return bool
 	*/
     bool isNull(){
         return false;
     }
-    /*
+    /**
 	* 判断传入的姓名是否为该对象的姓名
     * @param name
 	* @return bool
@@ -195,7 +197,7 @@ class OtherSkater : public Skater
             return false;
         }
     }
-    /*
+    /**
 	* 输出滑冰者当前的位置描述
 	* @return void 
 	*/
@@ -210,28 +212,30 @@ class OtherSkater : public Skater
 */
 class NullSkater : public Skater
 {
-    public:
-    /*
+private:
+    /**
+	* 纯虚函数的空实现
+    * @param rand 
+	* @return void
+	*/
+    void move(int rand) {}
+
+public:
+    /**
 	* 空对象直接返回true
 	* @return bool
 	*/
     bool isNull(){
         return true;
     }
-    /*
-	* 空对象直接返回true
+    /**
+	* 空对象直接返回true，用于searchFriend中无条件匹配
 	* @return bool
 	*/
     bool isName(std::string Name){
         return true;
     }
-    /*
-	* 纯虚函数的空实现
-    * @param rand 
-	* @return void
-	*/
-    void move(int rand) {}
-    /*
+    /**
 	* 输出对该空对象的描述
 	* @return void
 	*/
@@ -246,23 +250,40 @@ class NullSkater : public Skater
 */   
 class EventBus : public DPObject
 {
-    private:
+private:
     /*构造函数
 	* 构造函数为private，用于实现单例，并构造初始滑冰者对象
 	* @return void
 	*/
 	EventBus() {
         initFeild();
-
-        skaters[0]= new OtherSkater("昕哥");
+        isAutoRunning=false;  //初始化非运行状态
+        isRunning=false;
+        //添加两个初始滑冰者
+        skaters[0]= new OtherSkater("张光昕");
+        if(skaters[0]==nullptr){
+            std::cout<<"new OtherSkater failed in EveventBus"<<std::endl;
+            isAutoRunning=true;
+            return;
+        }
         skaters[0]->setX(10);
         skaters[0]->setY(15);
-        skaters[1]= new OtherSkater("薛大");
+        skaters[1]= new OtherSkater("薛嘉宁");
+        if(skaters[1]==nullptr){
+            std::cout<<"new OtherSkater failed in EveventBus"<<std::endl;
+            isAutoRunning=true;
+            return;
+        }
         skaters[1]->setX(18);
         skaters[1]->setY(70);
         skaters[2]= new NullSkater();
+        if(skaters[2]==nullptr){
+            std::cout<<"new NullSkater failed in EveventBus"<<std::endl;
+            isAutoRunning=true;
+            return;
+        }
     };
-    /*
+    /**
 	* 用于初始化滑冰场
 	* @return void
 	*/
@@ -283,6 +304,29 @@ class EventBus : public DPObject
             field[i][j]='#';
         }
     }
+    /**
+	* 打印当前的滑冰场地
+	* @return void
+	*/
+    void printFeild(){
+        for(int i=0;i<24;i++){
+            for(int j=0;j<90;j++){
+                std::cout<<field[i][j];
+            }
+            std::cout<<std::endl;
+        }
+    }
+    
+    /**
+	* 通知所有滑冰者，完成定时器事件分发
+	* @return void
+	*/
+    void notifyAll(){
+        srand((unsigned)time(0)*1001);
+        for(int i=0;i<cnt;i++){
+            skaters[i]->move(rand());
+        }
+    }
     //保存滑冰场的二维数组
     char field[24][90];
     //保存滑冰者对象指针的数组
@@ -291,7 +335,7 @@ class EventBus : public DPObject
     int cnt=2;           
 
 public:
-    /*
+    /**
 	* 析构函数
 	* 释放所有的滑冰者对象
 	* @return void
@@ -305,8 +349,8 @@ public:
 	EventBus(const EventBus&) = delete;
 	//标记拷贝赋值操作符为删除，用于实现单例
 	EventBus& operator=(const EventBus&) = delete;
-	/*获取滑冰场的引用
-	* 获取全局唯一滑冰场的实例的引用，用于实现单例。
+	/*获取EventBus的引用
+	* 获取全局唯一总线的实例的引用，用于实现单例。
 	* @return EventBus& 滑冰场的引用
 	*/
 	static EventBus& getInstance() {
@@ -315,41 +359,20 @@ public:
 	}
 
     //保存EventBus是否自动运行的状态值，用于控制定时器事件线程的停止
-    bool isAutoRunning=false;
+    bool isAutoRunning;
     //保存用户自己是否移动的状态，用于切换自动/主动运行状态
-    bool isRunning=false;
+    bool isRunning;
 
-    /*
+    /**
 	* 返回当前滑冰者的数量
 	* @return int
 	*/
     int getCnt(){
         return cnt;
     }
-    /*
-	* 打印当前的滑冰场地
-	* @return void
-	*/
-    void printFeild(){
-        for(int i=0;i<24;i++){
-            for(int j=0;j<90;j++){
-                std::cout<<field[i][j];
-            }
-            std::cout<<std::endl;
-        }
-    }
-    /*
-	* 通知所有滑冰者，完成定时器事件分发
-	* @return void
-	*/
-    void notifyAll(){
-        srand((unsigned)time(0)*1001);
-        for(int i=0;i<cnt;i++){
-            skaters[i]->move(rand());
-        }
-    }
-    /*
-	* 实现滑冰场的更新功能，调用notifyAll完成分发
+    
+    /**
+	* 完成定时器事件分发，通知所有滑冰者以实现滑冰场状态的更新
 	* @return void
 	*/
     void update(){
@@ -366,15 +389,19 @@ public:
 
         notifyAll();
     }
-    /*
+    /**
     * 得到可移动方向
 	* 实现查看各滑冰者可移动方向的功能，滑冰者调用该函数获取可移动信息
-    * @param x,y  要查看可移动信息的滑冰者坐标 
+    * @param x @param y  要查看可移动信息的滑冰者坐标 
 	* @return bool* 可移动方向bool值的数组
 	*/
     bool* getMovableDir(int x,int y){
         SelfSkater& player=SelfSkater::getInstance();
         bool* dir =new bool[4];                //上、下、左、右
+        if(dir==nullptr){
+            std::cout<<"new dir failed: in EventBus::getMovableDir"<<std::endl;
+            return dir;
+        }
         for(int i=0;i<4;i++){
             dir[i]=true;
         }
@@ -435,8 +462,8 @@ public:
         }
         return dir;
     }
-    /*
-	* 实现系统用户自己滑冰移动的逻辑
+    /**
+	* 实现系统用户自己操控SelfSkater滑冰移动的逻辑
 	* @return void
 	*/
     void play(){
@@ -445,12 +472,21 @@ public:
         SelfSkater& player=SelfSkater::getInstance();
         bool* dir;
 
-        while(1){
+        while(true){
             dir=getMovableDir(player.getX(),player.getY());
+            if(dir==nullptr){
+                isRunning=false; 
+                return;
+            }
             std::cout<<"输入w、a、s、d进行移动，其他输入视为停止。O代表自己，X代表其他人。"<<std::endl;
             update();
             printFeild();
-            ch=getchar();
+            #if WIN32         //判断操作系统
+            _getch();
+            #elif LINUX
+            getch();
+            #endif
+            ch=getch();
             if(ch=='w'||ch=='W'){
                 if(dir[0]){
                     player.move(0);
@@ -485,7 +521,7 @@ public:
         delete[] dir;
         isRunning=false; 
     }
-    /*
+    /**
 	* 实现查找滑冰场中朋友的功能
     * @param fname  要查找的朋友姓名
 	* @return void
@@ -493,21 +529,21 @@ public:
     void searchFriend(std::string fname){
         int i;
         for(i=0;i<15;i++){
-            if(skaters[i]->isName(fname)){
+            if(skaters[i]->isName(fname)){  //遇空对象自动返回
                 break;
             }
         }
         skaters[i]->getState();
     }
-    /*
+    /**
 	* 实现在滑冰场中加入一个新朋友的功能
     * @param name 新加入的朋友姓名
 	* @return void
 	*/
     void addSkater(std::string name){
-        skaters[cnt+1]=skaters[cnt];
+        skaters[cnt+1]=skaters[cnt];    //将空对象放到数组最后
         skaters[cnt]= new OtherSkater(name);
-        if(skaters[cnt]==NULL){
+        if(skaters[cnt]==nullptr){
             std::cout<<"new Skater() failed"<<std::endl;
             return;
         }
@@ -535,13 +571,16 @@ public:
 void OtherSkater::move(int rand){
     bool* dir;
     dir=EventBus::getInstance().getMovableDir(x,y); //获得可移动方向
+    if(dir==nullptr){
+        return;
+    }
     if(!dir[0]&&!dir[1]&&!dir[2]&&!dir[3]){  //不可移动直接返回
         return;
     }
 
     //以下为OtherSkater的移动逻辑
     int ran=rand%10;
-    if(ran<7){
+    if(ran<6){
         if(direction==0&&dir[0]){
             x--;
             delete[] dir;
@@ -565,25 +604,26 @@ void OtherSkater::move(int rand){
     }
     switch (ran)
     {
-    case 7:
-        if(dir[0]){
+    case 6:
+        if(dir[0] && direction!=1){
             x--;
             direction=0;
             break;
         }
-        if(dir[1]){
+    case 7:
+        if(dir[1] && direction!=0){
             x++;
             direction=1;
             break;
         }
     case 8:
-        if(dir[2]){
+        if(dir[2] && direction!=3){
             y--;
             direction=2;
             break;
         }
     case 9:
-        if(dir[3]){
+        if(dir[3] && direction!=2){
             y++;
             direction=3;
             break;
@@ -624,7 +664,7 @@ private:
 	* @return void
 	*/
 	SkaterFactory() {};
-    /*
+    /**
     * 定时器函数
 	* 用于产生每秒一次的事件，仅可被run调用产生新线程
 	* @return void*
@@ -639,20 +679,20 @@ private:
         }
     }
 
-    public:
+public:
     //标记复制构造函数为删除，用于实现单例
 	SkaterFactory(const SkaterFactory&) = delete;
 	//标记拷贝赋值操作符为删除，用于实现单例
 	SkaterFactory& operator=(const SkaterFactory&) = delete;
-	/*
-	* 获取全局唯一滑冰场的引用，用于实现单例。
+	/**
+	* 获取全局唯一滑冰场工厂的引用，用于实现单例。
 	* @return SkaterFactory& 滑冰场工厂的引用
 	*/
 	static SkaterFactory& getInstance() {
 		static SkaterFactory instance;
 		return instance;
 	}
-    /*
+    /**
 	* 用于进入滑冰项目的内部逻辑
 	* @return void
 	*/
@@ -663,6 +703,10 @@ private:
         //int ret = pthread_create(&id, nullptr, Timer, nullptr); //创建滑冰场自动刷新线程
 
         EventBus& mainSkatingManager =EventBus::getInstance();
+        if(mainSkatingManager.isAutoRunning==true){   //EventBus构造时创建Skater对象出现问题，直接结束
+            std::cout<<"skate exit!"<<std::endl;
+            return;
+        }
         mainSkatingManager.isAutoRunning=true;
         //滑冰指令逻辑开始
         std::cout<<"*********************************************************************"<<std::endl;
@@ -710,10 +754,7 @@ private:
                         std::cout<<std::endl;
 						continue;
 					}
-                    if(order==5){
-                        mainSkatingManager.printFeild();
-						continue;
-					}
+                    
 					std::cout<<"无效指令请检查输入的指令格式"<<std::endl;
 				}
 				else{
