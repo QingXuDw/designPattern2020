@@ -219,12 +219,12 @@ public:
 		__super::printHelp(level);				//调用父类的默认printHelp函数，递归输出当前及子接收器的tag
 		level++;								//将子指令显示到下一层
 		std::string head(level * 3, '-');
-		std::cout << head + "create" << std::endl;								//输出子指令
-		std::cout << head + "---" + "testSpot" << std::endl;					//输出子指令
-		std::cout << head + "---" + "mountain" << std::endl;					//输出子指令
+		std::cout << head + "create" << std::endl;									//输出子指令
+		std::cout << head + "---" + "testSpot" << std::endl;						//输出子指令
+		std::cout << head + "---" + "mountain" << std::endl;						//输出子指令
 		std::cout << head + "---" + "cave   (冰封鬼窟)" << std::endl;				//输出子指令
 		std::cout << head + "---" + "iceZoo   (冰雪动物园)" << std::endl;			//输出子指令
-		std::cout << head + "---" + "iceSkating   (溜冰场)" << std::endl;		//输出子指令
+		std::cout << head + "---" + "iceSkating   (溜冰场)" << std::endl;			//输出子指令
 		std::cout << head + "---" + "exhibit   (冰雕展览)" << std::endl;			//输出子指令
 		std::cout << head + "getDescription -p:计划在列表中的位置" << std::endl;	//输出子指令
 	}
@@ -244,7 +244,7 @@ public:
 
 int main() {
 	MainReceiver& mainReciver = MainReceiver::getInstance();	//获取主接收器的引用
-	mainReciver.addReceiver(&PlanManager::getInstance());	//添加计划管理器到主接收器下面
+	mainReciver.addReceiver(&PlanManager::getInstance());		//添加计划管理器到主接收器下面
 	mainReciver.addReceiver(&ShoppingManager::getInstance());
 	mainReciver.addReceiver(&Vehicle::getInstance());
 	mainReciver.addReceiver(&SnowmanManager::getInstance());
@@ -253,6 +253,6 @@ int main() {
 	mainReciver.addReceiver(&Ticket_Buyer::getInstance());
 	mainReciver.addReceiver(&CheckingManager::getInstance());
 	mainReciver.addReceiver(&HotelManager::getInstance());
-	mainReciver.addReceiver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
-	mainReciver.run();										//运行
+	mainReciver.addReceiver(&TouristCenter::getInstance());		//添加游客中心到主接收器下面
+	mainReciver.run();											//运行
 }
