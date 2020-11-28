@@ -12,8 +12,6 @@
 #include "VisitorClassesTest_wsq.h"
 #include "StateTest_wsq.h"
 #include "IceSkatingTest_xjn.h"
-#include "StateTest_zzy.h"
-#include "StrategyTest_zzy.h"
 
 
 int main(int argc, char **argv) {
