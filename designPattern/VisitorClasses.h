@@ -3,6 +3,7 @@
 // #include <windows.h>
 #include "BaseClasses.h"
 #include "TravelPlan.h"
+#include"IceExhibit.h"
 
 
 
@@ -58,12 +59,13 @@ public:
 	void VisitGhostCave();
 
 	/*访问冰雕展览
-	* 重载父类虚函数，打印访问者具体参观冰雕展览的行动
+	* 重载父类虚函数，打印具体参观冰雕展览的行动
 	* @return void
 	*/
-	void VisitIceSculptureExhibit(){
+	void VisitIceSculptureExhibit() {
 		AbstractVisitor::VisitIceSculptureExhibit();
-		std::cout<<std::endl<<"参观结束，将继续踏上行程。"<<std::endl<<std::endl;
+		exhibit::getInstance().showExhibit();
+		cout << endl << "参观结束，将继续踏上行程。" << endl << endl;
 		system("pause");
 	}
 };
