@@ -113,12 +113,21 @@ private:
 	* @return void
 	*/
 	void createPlan(AbstractPlanFactory& factory) {
+		bool exist = false;
 		Plan* plan = new Plan();
 		plan->description = factory.makeDescription();
 		plan->spot = factory.makeSpot();
 		plan->path = factory.makePath();
-		planList.push_back(plan);
-		MainReceiver::getInstance().addReceiver(plan->spot);
+		for (int i = 0; i < planList.size(); i++) {
+			if (planList[i]->spot == plan->spot) {
+				exist = true;
+			}
+		}
+		if (!exist) { 
+			planList.push_back(plan);
+			MainReceiver::getInstance().addReceiver(plan->spot);
+		}
+		
 	}
 	/*获取计划的描述述
 	* 获取第pos+1项的计划的描述并返回
