@@ -4,17 +4,15 @@
 #include <map>
 #include "BaseClasses.h"
 
-using namespace std;
-
 //购买冰雪冰激凌，prototype
 class CIcecream :public DPObject
 {
 public:
 	enum icBallType { 西瓜, 草莓, 芒果, 榴莲, 巧克力 };  //冰激凌球的口味表
 	enum icBiscuitType { 南瓜, 黄瓜 };  //冰激凌小饼干的口味表
-	map<icBallType, string> mBallMap =
+	std::map<icBallType, std::string> mBallMap =
 	{ { 西瓜,"西瓜" },{ 草莓,"草莓" },{ 芒果 ,"芒果" },{ 榴莲,"榴莲" },{ 巧克力 ,"巧克力" } }; //用于输出字符串
-	map<icBiscuitType, string> mBiscuitMap =
+	std::map<icBiscuitType, std::string> mBiscuitMap =
 	{ { 南瓜,"南瓜" },{ 黄瓜,"黄瓜" } };
 
 	/**
@@ -51,11 +49,11 @@ public:
 	*/
 	void icType()
 	{
-		string tsize = "中号";
+		std::string tsize = "中号";
 		if (isLarge) {
 			tsize = "大号";
 		}
-		cout <<"您购买了一个"<< tsize << "带有" << mBiscuitMap[icBiscuit] << "小饼干的" << mBallMap[icBall] << "冰激凌。请享用！" << endl;
+		std::cout <<"您购买了一个"<< tsize << "带有" << mBiscuitMap[icBiscuit] << "小饼干的" << mBallMap[icBall] << "冰激凌。请享用！" << std::endl;
 	}
 
 private:
@@ -80,6 +78,7 @@ protected:
 	* @return bool 指令格式是否正确
 	*/
 	bool executeCommand(std::string cmd) {
+		using namespace std;
 		std::string subCmd = sliceCommand(cmd);
 		removeBlank(cmd);
 		if (subCmd != "") {
