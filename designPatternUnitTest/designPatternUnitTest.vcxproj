@@ -42,8 +42,11 @@
     <ClInclude Include="SnowmanTest_zgx.h" />
     <ClInclude Include="StateTest_zzy.h" />
     <ClInclude Include="StrategyTest_zzy.h" />
+    <ClInclude Include="SnowmanTest_wsq.h" />
+    <ClInclude Include="StateTest_wsq.h" />
     <ClInclude Include="TestPlanTest_zgx.h" />
     <ClInclude Include="TouristCenterTest_zgx.h" />
+    <ClInclude Include="VisitorClassesTest_wsq.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />
