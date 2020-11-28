@@ -19,7 +19,7 @@
 /*主指令接收器
 * 继承于宏指令接收器，是指令接收器多叉树的根节点，负责接收键盘输入并下发
 */
-class MainReciver : public MacroCommandReceiver {
+class MainReceiver : public MacroCommandReceiver {
 private:
 	//是否继续接收新的输入
 	bool toContinue = true;
@@ -27,7 +27,7 @@ private:
 	* 构造函数为private，用于实现单例，tag为""
 	* @return void
 	*/
-	MainReciver() : MacroCommandReceiver("") {}
+	MainReceiver() : MacroCommandReceiver("") {}
 
 protected:
 	/*执行指令
@@ -52,15 +52,15 @@ protected:
 	}
 public:
 	//标记复制构造函数为删除，用于实现单例
-	MainReciver(const MainReciver&) = delete;
+	MainReceiver(const MainReceiver&) = delete;
 	//标记拷贝赋值操作符为删除，用于实现单例
-	MainReciver& operator=(const MainReciver&) = delete;
+	MainReceiver& operator=(const MainReceiver&) = delete;
 	/*获取主接收器引用
 	* 获取全局唯一主接收器的实例的引用，用于实现单例。
-	* @return MainReciver& 主接收器的引用
+	* @return MainReceiver& 主接收器的引用
 	*/
-	static MainReciver& getInstance() {
-		static MainReciver reciver;
+	static MainReceiver& getInstance() {
+		static MainReceiver reciver;
 		return reciver;
 	}
 	/*运行
@@ -118,7 +118,7 @@ private:
 		plan->spot = factory.makeSpot();
 		plan->path = factory.makePath();
 		planList.push_back(plan);
-		MainReciver::getInstance().addReciver(plan->spot);
+		MainReceiver::getInstance().addReceiver(plan->spot);
 	}
 	/*获取计划的描述述
 	* 获取第pos+1项的计划的描述并返回
@@ -243,16 +243,16 @@ public:
 
 
 int main() {
-	MainReciver& mainReciver = MainReciver::getInstance();	//获取主接收器的引用
-	mainReciver.addReciver(&PlanManager::getInstance());	//添加计划管理器到主接收器下面
-	mainReciver.addReciver(&ShoppingManager::getInstance());
-	mainReciver.addReciver(&Vehicle::getInstance());
-	mainReciver.addReciver(&SnowmanManager::getInstance());
-	mainReciver.addReciver(&MediatorManager::getInstance());
-	mainReciver.addReciver(&DecoratorReceiver::getInstance());
-	mainReciver.addReciver(&Ticket_Buyer::getInstance());
-	mainReciver.addReciver(&CheckingManager::getInstance());
-	mainReciver.addReciver(&HotelManager::getInstance());
-	mainReciver.addReciver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
+	MainReceiver& mainReciver = MainReceiver::getInstance();	//获取主接收器的引用
+	mainReciver.addReceiver(&PlanManager::getInstance());	//添加计划管理器到主接收器下面
+	mainReciver.addReceiver(&ShoppingManager::getInstance());
+	mainReciver.addReceiver(&Vehicle::getInstance());
+	mainReciver.addReceiver(&SnowmanManager::getInstance());
+	mainReciver.addReceiver(&MediatorManager::getInstance());
+	mainReciver.addReceiver(&DecoratorReceiver::getInstance());
+	mainReciver.addReceiver(&Ticket_Buyer::getInstance());
+	mainReciver.addReceiver(&CheckingManager::getInstance());
+	mainReciver.addReceiver(&HotelManager::getInstance());
+	mainReciver.addReceiver(&TouristCenter::getInstance());	//添加游客中心到主接收器下面
 	mainReciver.run();										//运行
 }

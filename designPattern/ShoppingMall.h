@@ -441,7 +441,7 @@ class ShoppingManager : public MacroCommandReceiver
 
 private:
 	ShoppingManager() : MacroCommandReceiver("shop") {
-		this->addReciver(&(IcecreamManager::getInstance()));
+		this->addReceiver(&(IcecreamManager::getInstance()));
 	}
 	std::vector<Shopping*> ShoppingList;
 
