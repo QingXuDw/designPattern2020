@@ -10,6 +10,8 @@
 #include "TestPlanTest_zgx.h"
 #include "TouristCenterTest_zgx.h"
 #include "IceSkatingTest_xjn.h"
+#include "StateTest_zzy.h"
+#include "StrategyTest_zzy.h"
 
 
 int main(int argc, char **argv) {
