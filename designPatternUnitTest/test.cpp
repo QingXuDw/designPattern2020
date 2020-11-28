@@ -11,10 +11,12 @@
 #include "TouristCenterTest_zgx.h"
 #include"VisitorClassesTest_wsq.h"
 #include"StateTest_wsq.h"
+#include "IceSkatingTest_xjn.h"
+
 
 int main(int argc, char **argv) {
 	std::string str;
-	std::cout << "ÊäÈëÈÎÒâ¼ü¿ªÊ¼²âÊÔ" << std::endl;
+	std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½" << std::endl;
 	getline(std::cin, str);
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

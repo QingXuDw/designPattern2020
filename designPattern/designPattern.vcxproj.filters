@@ -86,5 +86,14 @@
     <ClInclude Include="IceSkating.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Clothesshop.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="IceExhibit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Hotel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,7 +8,26 @@
  * 黑板交互者类
  * 包含可以向黑板提供消息和可以从中读取消息的对象操作
  */
-class BBParticipant : public DPObject {
+class BParticipant : public DPObject {
+protected:
+	/**
+	 * 写入消息
+	 * 用于向消息队列中添加公告内容
+	 */
+	virtual void addNotice() {}
+
+	/**
+	 * 获取消息
+	 * 用于从消息队列中获取消息并遍历输出
+	 */
+	virtual void getNotice() {}
+};
+
+/**
+ * 黑板写入者类
+ * 包含可以向黑板提供消息的对象操作
+ */
+class BWriter : public BParticipant {
 public:
 	/**
 	 * 写入消息
@@ -23,11 +42,18 @@ public:
 		std::cout << "  添加完成！" << std::endl;
 		msg.push(content);		//添加消息到队列
 	}
+};
 
+/**
+ * 黑板交互者类
+ * 包含可以从黑板读取消息的对象操作
+ */
+class BReader : public BParticipant {
+public:
 	/**
 	 * 获取消息
 	 * 用于从消息队列中获取消息并遍历输出
-	 * @param queue<string> msg 需要进行修改的消息队列
+	 * @param queue<string> msg 需要进行输出的消息队列
 	 * @return void
 	 */
 	void getNotice(std::queue<std::string > &msg) {
@@ -65,11 +91,11 @@ public:
 			std::cin >> c;
 			getline(std::cin, d);
 			if (c == "1" ) {
-				BBParticipant *worker = new BBParticipant();	//创建游客对象
+				BWriter *worker = new BWriter();				//创建游客对象
 				worker->addNotice(msg);							//游客对象使用读取黑板方法
 			}
 			else if (c == "2") {
-				BBParticipant *visitor = new BBParticipant();	//创建工作人员对象
+				BReader *visitor = new BReader();				//创建工作人员对象
 				visitor->getNotice(msg);						//工作人员对象使用写入黑板方法
 			}
 			else if (c == "0") {			//当用户决定退出时跳出循环并给予提示

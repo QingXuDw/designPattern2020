@@ -132,9 +132,11 @@
     <ClInclude Include="caculate.h" />
     <ClInclude Include="CIcecream.h" />
     <ClInclude Include="CIceZoo.h" />
+    <ClInclude Include="Clothesshop.h" />
     <ClInclude Include="Consult.h" />
     <ClInclude Include="FCurrency.h" />
     <ClInclude Include="FlyWeight.h" />
+    <ClInclude Include="Hotel.h" />
     <ClInclude Include="IceSkating.h" />
     <ClInclude Include="MediatorModel.h" />
     <ClInclude Include="Notice.h" />
@@ -148,6 +150,7 @@
     <ClInclude Include="TravelPlan.h" />
     <ClInclude Include="VisitorClasses.h" />
     <ClInclude Include="TicketBuyer.h" />
+    <ClInclude Include="IceExhibit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

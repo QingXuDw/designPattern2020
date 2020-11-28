@@ -35,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="AdapterTest_zgx.h" />
     <ClInclude Include="ConsultTest_zgx.h" />
+    <ClInclude Include="IceSkatingTest_xjn.h" />
     <ClInclude Include="MediatorModelTest_zgx.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SnowmanTest_wsq.h" />
