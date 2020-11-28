@@ -481,12 +481,11 @@ public:
             std::cout<<"输入w、a、s、d进行移动，其他输入视为停止。O代表自己，X代表其他人。"<<std::endl;
             update();
             printFeild();
-            #if WIN32         //判断操作系统
-            _getch();
-            #else LINUX
-            getch();
+            #ifdef WIN32         //判断操作系统
+			ch = _getch();
+            #elif LINUX
+			ch = getch();
             #endif
-            ch=getch();
             if(ch=='w'||ch=='W'){
                 if(dir[0]){
                     player.move(0);
