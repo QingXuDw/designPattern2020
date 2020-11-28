@@ -9,14 +9,14 @@
 #include "SnowmanTest_zgx.h"
 #include "TestPlanTest_zgx.h"
 #include "TouristCenterTest_zgx.h"
-#include"VisitorClassesTest_wsq.h"
-#include"StateTest_wsq.h"
+#include "VisitorClassesTest_wsq.h"
+#include "StateTest_wsq.h"
 #include "IceSkatingTest_xjn.h"
 
 
 int main(int argc, char **argv) {
 	std::string str;
-	std::cout << "æŒ‰å›žè½¦é”®å¼€å§‹æµ‹è¯•" << std::endl;
+	std::cout << "°´»Ø³µ¼ü¿ªÊ¼²âÊÔ" << std::endl;
 	getline(std::cin, str);
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
