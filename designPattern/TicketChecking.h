@@ -4,11 +4,74 @@
 #include<string>
 
 /**
- * 过滤器类
- * 包含实现数据处理的过滤器
+ * 管道过滤器类
+ * 包含实现数据流传输的管道和数据处理的过滤器
  */
-class Filters : public DPObject {
+class PipeFilters : DPObject{
 public:
+	/**
+	 * 套票检查类
+	 * 用于生成对应的用户界面，接收并处理用户的输入，帮助工作人员检查套票类型及内容
+	 * @return void
+	 */
+	void Check() {
+		std::string itemID;										//使用此系统的工作人员所属的项目编号
+		std::string itemName[] = {"冰封鬼窟", "登山", "动物园"};	//使用此系统的工作人员所属的项目名称
+		std::string ticketID;									//所检查的套票编号
+		std::string d;			//用于吞没多余输入内容的字符串
+		int id = 0;			//使用此系统的工作人员所属的项目编号(整型)
+
+		std::cout << "  请输入您的项目编号: ";
+		while (1) {
+			getline(std::cin, itemID);
+			if (itemID.length() == 1 && itemID >= "1" && itemID <= "3") {		//若输入的项目编号合法则欢迎并引导工作人员至下一步
+				id = (int)itemID[0] - 49;		//由字符串转为整型
+				std::cout << "  欢迎你, " << itemName[id] << " 的工作人员！" << std::endl;
+				break;				//项目编号获取成功，跳出循环
+			}
+			else 
+				std::cout << "  项目编号错误，请重新输入: ";		//若输入的项目编号不合法则继续循环
+		}
+
+		while (1) {
+			std::cout << "  请输入游客套票的四位编码(以空格分隔)(以quit退出): ";
+			std::cin >> ticketID;
+			getline(std::cin, d);			//吞没多余的输入内容
+			if (ticketID == "quit") {	//若用户决定退出系统则给予相应提示并跳出循环
+				std::cout << "成功退出套票查询!" << std::endl;
+				break;
+			}
+			if (ticketID.length() == 4) {	//若编码格式合格则进行下一步判断
+				int status;					//项目内容的编号
+				std::string type;				//套票持有者的游客类型
+				type = Filter_TicketType(ticketID);		//获取到当前套票的游客类型
+
+				if (type == "错误") {		//若输入的类型编码错误则给予相应提示并跳转至下一轮循环
+					std::cout << "  编码错误，请重新输入!" << std::endl;
+					continue;
+				}
+				switch (id+1) {			//根据使用系统用户人员所属于项目编号的不同调用不同的方法
+				case 1:
+					status = Filter_Cave(ticketID);		//使用过滤器得到套票编号中冰封鬼窟的部分
+					Content_Cave(type, status);			//根据套票编号中过滤得到的可用内容输出相应信息
+					break;
+				case 2:
+					status = Filter_Mountain(ticketID);	//使用过滤器得到套票编号中登山的部分
+					Content_Mountain(type, status);		//根据套票编号中过滤得到的可用内容输出相应信息
+					break;
+				case 3:
+					status = Filter_Zoo(ticketID);		//使用过滤器得到套票编号中动物园参观的部分
+					Content_Zoo(type, status);			//根据套票编号中过滤得到的可用内容输出相应信息
+					break;
+				}
+				
+
+			}
+			else				//若编码格式不合格则继续循环
+				std::cout << "  格式错误，请重新输入!" << std::endl;
+		}
+	}
+
 	/**
 	 * 套票类型过滤器
 	 * 给定套票编号，过滤得到该套票的游客类型
@@ -34,8 +97,8 @@ public:
 	 * @return int 套票对应冰封鬼窟项目的内容编号
 	 */
 	int Filter_Cave(std::string id) {
-		int status = (int)id[1] - 48;		//将套票编号中关于冰封鬼窟的部分由字符串转为整型
-		return status;
+		int status = (int)id[1]-48;		//将套票编号中关于冰封鬼窟的部分由字符串转为整型
+		return status;	
 	}
 
 	/**
@@ -58,76 +121,6 @@ public:
 	int Filter_Zoo(std::string id) {
 		int status = (int)id[3] - 48;	//将套票编号中关于游客动物园参观的部分由字符串转为整型
 		return status;
-	}
-};
-
-/**
- * 管道类
- * 包含实现数据流传输的管道和用户界面的实现
- */
-class Pipe : public DPObject{
-public:
-	/**
-	 * 套票检查类
-	 * 用于生成对应的用户界面，接收并处理用户的输入，帮助工作人员检查套票类型及内容
-	 * @return void
-	 */
-	void Check() {
-		std::string itemID;										//使用此系统的工作人员所属的项目编号
-		std::string itemName[] = {"冰封鬼窟", "登山", "动物园"};	//使用此系统的工作人员所属的项目名称
-		std::string ticketID;									//所检查的套票编号
-		std::string d;			//用于吞没多余输入内容的字符串
-		int id = 0;			//使用此系统的工作人员所属的项目编号(整型)
-		Filters *p_filter = new Filters();
-
-		std::cout << "  请输入您的项目编号: ";
-		while (1) {
-			getline(std::cin, itemID);
-			if (itemID.length() == 1 && itemID >= "1" && itemID <= "3") {		//若输入的项目编号合法则欢迎并引导工作人员至下一步
-				id = (int)itemID[0] - 49;		//由字符串转为整型
-				std::cout << "  欢迎你, " << itemName[id] << " 的工作人员！" << std::endl;
-				break;				//项目编号获取成功，跳出循环
-			}
-			else 
-				std::cout << "  项目编号错误，请重新输入: ";		//若输入的项目编号不合法则继续循环
-		}
-
-		while (1) {
-			std::cout << "  请输入游客套票的四位编码(以空格分隔)(以quit退出): ";
-			std::cin >> ticketID;
-			getline(std::cin, d);			//吞没多余的输入内容
-			if (ticketID == "quit") {	//若用户决定退出系统则给予相应提示并跳出循环
-				std::cout << "成功退出套票查询!" << std::endl;
-				break;
-			}
-			if (ticketID.length() == 4) {	//若编码格式合格则进行下一步判断
-				int status;					//项目内容的编号
-				std::string type;				//套票持有者的游客类型
-				type = p_filter->Filter_TicketType(ticketID);		//获取到当前套票的游客类型
-
-				if (type == "错误") {		//若输入的类型编码错误则给予相应提示并跳转至下一轮循环
-					std::cout << "  编码错误，请重新输入!" << std::endl;
-					continue;
-				}
-				switch (id+1) {			//根据使用系统用户人员所属于项目编号的不同调用不同的方法
-				case 1:
-					status = p_filter->Filter_Cave(ticketID);		//使用过滤器得到套票编号中冰封鬼窟的部分
-					Content_Cave(type, status);			//根据套票编号中过滤得到的可用内容输出相应信息
-					break;
-				case 2:
-					status = p_filter->Filter_Mountain(ticketID);	//使用过滤器得到套票编号中登山的部分
-					Content_Mountain(type, status);		//根据套票编号中过滤得到的可用内容输出相应信息
-					break;
-				case 3:
-					status = p_filter->Filter_Zoo(ticketID);		//使用过滤器得到套票编号中动物园参观的部分
-					Content_Zoo(type, status);			//根据套票编号中过滤得到的可用内容输出相应信息
-					break;
-				}
-				
-			}
-			else				//若编码格式不合格则继续循环
-				std::cout << "  格式错误，请重新输入!" << std::endl;
-		}
 	}
 
 	/**
@@ -225,7 +218,7 @@ protected:
 			return true;
 		}
 		else if (subCmd == "worker") {
-			Pipe *worker = new Pipe();
+			PipeFilters *worker = new PipeFilters();
 			worker->Check();
 			return true;
 		}

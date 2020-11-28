@@ -14,62 +14,61 @@
 #include "IceSkating.h"
 #include "Clothesshop.h"
 #include "IceExhibit.h"
-#include "Hotel.h"
 
-/*ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-* ï¿½Ì³ï¿½ï¿½Úºï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Úµã£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²¢ï¿½Â·ï¿½
+/*Ö÷Ö¸Áî½ÓÊÕÆ÷
+* ¼Ì³ĞÓÚºêÖ¸Áî½ÓÊÕÆ÷£¬ÊÇÖ¸Áî½ÓÊÕÆ÷¶à²æÊ÷µÄ¸ù½Úµã£¬¸ºÔğ½ÓÊÕ¼üÅÌÊäÈë²¢ÏÂ·¢
 */
-class MainReceiver : public MacroCommandReceiver {
+class MainReciver : public MacroCommandReceiver {
 private:
-	//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
+	//ÊÇ·ñ¼ÌĞø½ÓÊÕĞÂµÄÊäÈë
 	bool toContinue = true;
-	/*ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
-	* ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Îªprivateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½tagÎª""
+	/*¹¹Ôìº¯Êı
+	* ¹¹Ôìº¯ÊıÎªprivate£¬ÓÃÓÚÊµÏÖµ¥Àı£¬tagÎª""
 	* @return void
 	*/
-	MainReceiver() : MacroCommandReceiver("") {}
+	MainReciver() : MacroCommandReceiver("") {}
 
 protected:
-	/*Ö´ï¿½ï¿½Ö¸ï¿½ï¿½
-	* ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö¸ï¿½ï¿½Ä´ï¿½ï¿½éº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
-	* @param cmd ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* @return bool Ö¸ï¿½ï¿½ï¿½Ê½ï¿½Ç·ï¿½ï¿½ï¿½È·
+	/*Ö´ĞĞÖ¸Áî
+	* ÖØÔØ¸¸ÀàÖ´ĞĞÖ¸ÁîµÄ´¿Ğéº¯Êı£¬¸ù¾İÊäÈëµÄÃüÁîÖ´ĞĞÏàÓ¦²Ù×÷
+	* @param cmd ÓÃ»§ÊäÈëµÄÖ¸ÁîÄÚÈİ
+	* @return bool Ö¸Áî¸ñÊ½ÊÇ·ñÕıÈ·
 	*/
 	bool executeCommand(std::string cmd) {
-		std::string subCmd = sliceCommand(cmd);				//ï¿½ï¿½Æ¬ï¿½ï¿½Ç°Ö¸ï¿½ï¿½
-		removeBlank(cmd);									//ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½
-		if (subCmd == "quit") {								//Æ¥ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-			std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" << std::endl;
-			toContinue = false;								//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½
-			return true;									//ï¿½ï¿½ï¿½Ø£ï¿½Ö¸ï¿½ï¿½ï¿½Ê½ï¿½ï¿½È·
+		std::string subCmd = sliceCommand(cmd);				//ÇĞÆ¬µ±Ç°Ö¸Áî
+		removeBlank(cmd);									//ÒÆ³ı¶àÓà¿Õ¸ñ
+		if (subCmd == "quit") {								//Æ¥Åä×ÓÖ¸Áî
+			std::cout << "³ÌĞò½áÊø" << std::endl;
+			toContinue = false;								//½áÊøÊäÈëÖ÷Ñ­»·
+			return true;									//·µ»Ø£ºÖ¸Áî¸ñÊ½ÕıÈ·
 		}
 		if (subCmd == "help") {
-			std::cout << "ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ğ±ï¿½Îªï¿½ï¿½" << std::endl;
+			std::cout << "¿ÉÓÃÖ¸ÁîÁĞ±íÎª£º" << std::endl;
 			printHelp(0);
 			return true;
 		}
 		return false;
 	}
 public:
-	//ï¿½ï¿½Ç¸ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
-	MainReceiver(const MainReceiver&) = delete;
-	//ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
-	MainReceiver& operator=(const MainReceiver&) = delete;
-	/*ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* ï¿½ï¿½È¡È«ï¿½ï¿½Î¨Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
-	* @return MainReceiver& ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊıÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	MainReciver(const MainReciver&) = delete;
+	//±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
+	MainReciver& operator=(const MainReciver&) = delete;
+	/*»ñÈ¡Ö÷½ÓÊÕÆ÷ÒıÓÃ
+	* »ñÈ¡È«¾ÖÎ¨Ò»Ö÷½ÓÊÕÆ÷µÄÊµÀıµÄÒıÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àı¡£
+	* @return MainReciver& Ö÷½ÓÊÕÆ÷µÄÒıÓÃ
 	*/
-	static MainReceiver& getInstance() {
-		static MainReceiver reciver;
+	static MainReciver& getInstance() {
+		static MainReciver reciver;
 		return reciver;
 	}
-	/*ï¿½ï¿½ï¿½ï¿½
-	* ï¿½ï¿½ï¿½Ğ½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½î²¢ï¿½ï¿½ï¿½ï¿½
+	/*ÔËĞĞ
+	* °´ĞĞ½ÓÊÕÓÃ»§ÊäÈëµÄÖ¸Áî²¢´¦Àí
 	* @return void
 	*/
 	void run() {
 		std::string cmd;
-		std::cout << "ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ help ï¿½é¿´ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½" << std::endl;
+		std::cout << "ÊäÈëÖ¸Áî help ²é¿´µ±Ç°¿ÉÓÃÖ¸Áî" << std::endl;
 		while (toContinue) {
 			std::cout << ">";
 			while (1) {
@@ -80,40 +79,40 @@ public:
 			handleCommand(cmd);
 		}
 	}
-	/*ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	* ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½éº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½levelï¿½ï¿½Ó¡ï¿½ï¿½Ó¦ï¿½ï¿½Ê½ï¿½ï¿½Ö¸ï¿½î£¬ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	* @param level ï¿½ï¿½Ç°Reciverï¿½ï¿½Reciverï¿½ï¿½ï¿½ĞµÄ²ã¼¶
+	/*´òÓ¡¿ÉÓÃÖ¸Áî
+	* ÖØÔØ¸¸ÀàĞéº¯Êı£¬¸ù¾İlevel´òÓ¡¶ÔÓ¦¸ñÊ½µÄÖ¸Áî£¬ÒÔ¼°¿ÉÓÃ×ÓÖ¸Áî
+	* @param level µ±Ç°ReciverÔÚReciverÊ÷ÖĞµÄ²ã¼¶
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		__super::printHelp(level);				//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½printHelpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tag
-		level++;								//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+		__super::printHelp(level);				//µ÷ÓÃ¸¸ÀàµÄÄ¬ÈÏprintHelpº¯Êı£¬µİ¹éÊä³öµ±Ç°¼°×Ó½ÓÊÕÆ÷µÄtag
+		level++;								//½«×ÓÖ¸ÁîÏÔÊ¾µ½ÏÂÒ»²ã
 		std::string head(level * 3, '-');
-		std::cout << head + "quit" << std::endl;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "help" << std::endl;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+		std::cout << head + "quit" << std::endl;	//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "help" << std::endl;	//Êä³ö×ÓÖ¸Áî
 	}
 };
 
 
 /************************************************************************
-*							ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½								*
+*							¼Æ»®¹ÜÀíÆ÷Ä£¿é								*
 *************************************************************************/
 
-/*ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-* ï¿½Ì³ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½
+/*¼Æ»®¹ÜÀíÆ÷
+* ¼Ì³ĞÓÚÖ¸Áî½ÓÊÕÆ÷£¬¸ºÔğ¹ÜÀíÓÎÀÀ¼Æ»®
 */
 class PlanManager : public CommandReceiver {
 private:
-	/*ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
-	* ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½Îªprivateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½tagÎª"plan"
+	/*¹¹Ôìº¯Êı
+	* ¹¹Ôìº¯ÊıÎªprivate£¬ÓÃÓÚÊµÏÖµ¥Àı£¬tagÎª"plan"
 	* @return void
 	*/
 	PlanManager() : CommandReceiver("plan") {}
-	//ï¿½Æ»ï¿½ï¿½Ğ±ï¿½
+	//¼Æ»®ÁĞ±í
 	std::vector<Plan*> planList;
-	/*ï¿½ï¿½ï¿½ï¿½ï¿½Â¼Æ»ï¿½
-	* ï¿½ï¿½ï¿½İ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ¼Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½ï¿½Ğ±ï¿½Î²
-	* @param factory Ä¿ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/*´´½¨ĞÂ¼Æ»®
+	* ¸ù¾İ´«½øÀ´µÄ¹¤³§ÒıÓÃ£¬´´½¨ĞÂµÄ¼Æ»®²¢Ìí¼ÓÖÁ¼Æ»®ÁĞ±íÎ²
+	* @param factory Ä¿±ê¼Æ»®¹¤³§µÄÒıÓÃ
 	* @return void
 	*/
 	void createPlan(AbstractPlanFactory& factory) {
@@ -122,24 +121,24 @@ private:
 		plan->spot = factory.makeSpot();
 		plan->path = factory.makePath();
 		planList.push_back(plan);
-		MainReceiver::getInstance().addReceiver(plan->spot);
+		MainReciver::getInstance().addReciver(plan->spot);
 	}
-	/*ï¿½ï¿½È¡ï¿½Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* ï¿½ï¿½È¡ï¿½ï¿½pos+1ï¿½ï¿½Ä¼Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* @param pos ï¿½Æ»ï¿½ï¿½Ú¼Æ»ï¿½ï¿½Ğ±ï¿½ï¿½Ğµï¿½Î»ï¿½ï¿½
-	* @return std::string ï¿½ï¿½ï¿½ï¿½
+	/*»ñÈ¡¼Æ»®µÄÃèÊöÊö
+	* »ñÈ¡µÚpos+1ÏîµÄ¼Æ»®µÄÃèÊö²¢·µ»Ø
+	* @param pos ¼Æ»®ÔÚ¼Æ»®ÁĞ±íÖĞµÄÎ»ÖÃ
+	* @return std::string ÃèÊö
 	*/
 	std::string getDescription(int pos) {
 		if (pos >= planList.size() || pos < 0) {
-			return "ï¿½ï¿½Î´ï¿½ï¿½ï¿½Ã¸ï¿½Î»ï¿½ÃµÄ¼Æ»ï¿½";
+			return "ÉĞÎ´ÉèÖÃ¸ÃÎ»ÖÃµÄ¼Æ»®";
 		}
 		return planList[pos]->description->content;
 	}
 protected:
-	/*Ö´ï¿½ï¿½Ö¸ï¿½ï¿½
-	* ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ö¸ï¿½ï¿½Ä´ï¿½ï¿½éº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
-	* @param cmd ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* @return bool Ö¸ï¿½ï¿½ï¿½Ê½ï¿½Ç·ï¿½ï¿½ï¿½È·
+	/*Ö´ĞĞÖ¸Áî
+	* ÖØÔØ¸¸ÀàÖ´ĞĞÖ¸ÁîµÄ´¿Ğéº¯Êı£¬¸ù¾İÊäÈëµÄÃüÁîÖ´ĞĞÏàÓ¦²Ù×÷
+	* @param cmd ÓÃ»§ÊäÈëµÄÖ¸ÁîÄÚÈİ
+	* @return bool Ö¸Áî¸ñÊ½ÊÇ·ñÕıÈ·
 	*/
 	bool executeCommand(std::string cmd) {
 		std::string subCmd = sliceCommand(cmd);
@@ -148,50 +147,44 @@ protected:
 			if (cmd == "testSpot") {
 				TestPlanFactory factory;
 				createPlan(factory);
-				std::cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½testSpotï¿½ï¿½Ö¸ï¿½ï¿½Îªtest" << std::endl;
+				std::cout << "³É¹¦´´½¨testSpot£¬Ö¸ÁîÎªtest" << std::endl;
 				return true;
 			}
 			if (cmd == "mountain") {
 				MountainPlanFactory factory;
 				createPlan(factory);
-				std::cout << "ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½mountainï¿½ï¿½Ö¸ï¿½ï¿½Îªchoose" << std::endl;
+				std::cout << "³É¹¦´´½¨mountain£¬Ö¸ÁîÎªchoose" << std::endl;
 				return true;
 			}
 			if (cmd == "cave") {
 				CavePlanFactory factory;
 				createPlan(factory);
-				std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Îªcave" << std::endl;
+				std::cout << "±ù·â¹í¿ßÌ½ÏÕÒÑ¼ÓÈë¼Æ»®£¬Ö¸ÁîÎªcave" << std::endl;
 				return true;
 			}
 			if (cmd == "exhibit") {
 				ExhibitPlanFactory factory;
 				createPlan(factory);
-				std::cout << "ï¿½Î¹Û±ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Îªexhibit" << std::endl;
+				std::cout << "²Î¹Û±ùµñÕ¹ÀÀÒÑ¼ÓÈë¼Æ»®£¬Ö¸ÁîÎªexhibit" << std::endl;
 				return true;
 			}
 			if (cmd == "iceZoo") {
 				IceZooFactory factory;
 				createPlan(factory);
-				std::cout << "ï¿½ï¿½Ñ©ï¿½ï¿½ï¿½ï¿½Ô°ï¿½Ñ¼ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ÎªiceZoo" << std::endl;
+				std::cout << "±ùÑ©¶¯ÎïÔ°ÒÑ¼ÓÈë¼Æ»®£¬Ö¸ÁîÎªiceZoo" << std::endl;
 				return true;
 			}
 			if (cmd == "iceSkating") {
 				IceSkatingPlanFactory factory;
 				createPlan(factory);
-				std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Îªskate" << std::endl;
-				return true;
-			}
-			if (cmd == "exhibit") {
-				ExhibitPlanFactory factory;
-				createPlan(factory);
-				std::cout << "ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½[ï¿½Ñ¼ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Îªexhibit" << std::endl;
+				std::cout << "Áï±ù³¡ÒÑ¼ÓÈë¼Æ»®£¬Ö¸ÁîÎªskate" << std::endl;
 				return true;
 			}
 			return false;
 		}
 		if (subCmd == "getDescription") {
-			std::string paramTag1 = sliceCommand(cmd);		//Í¨ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½Ö¸ï¿½î£¬ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ç©
-			removeBlank(cmd);								//ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½
+			std::string paramTag1 = sliceCommand(cmd);		//Í¨¹ıÇĞÆ¬×ÓÖ¸Áî£¬»ñµÃµÚÒ»¸ö²ÎÊıµÄ±êÇ©
+			removeBlank(cmd);								//ÒÆ³ı¶àÓà¿Õ¸ñ
 			if (paramTag1 == "-p") {
 				int pos = std::stoi(cmd);
 				std::cout << getDescription(pos) << std::endl;
@@ -202,38 +195,37 @@ protected:
 		return false;
 	}
 public:
-	//ï¿½ï¿½Ç¸ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
+	//±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊıÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
 	PlanManager(const PlanManager&) = delete;
-	//ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
+	//±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ı£¬ÓÃÓÚÊµÏÖµ¥Àı
 	PlanManager& operator=(const PlanManager&) = delete;
-	/*ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* ï¿½ï¿½È¡È«ï¿½ï¿½Î¨Ò»ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
-	* @return PlanManager& ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	/*»ñÈ¡µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
+	* »ñÈ¡È«¾ÖÎ¨Ò»µ±Ç°½ÓÊÕÆ÷µÄÊµÀıµÄÒıÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àı¡£
+	* @return PlanManager& µ±Ç°½ÓÊÕÆ÷µÄÒıÓÃ
 	*/
 	static PlanManager& getInstance() {
 		static PlanManager reciver;
 		return reciver;
 	}
-	/*ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	* ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½éº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½levelï¿½ï¿½Ó¡ï¿½ï¿½Ó¦ï¿½ï¿½Ê½ï¿½ï¿½Ö¸ï¿½î£¬ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	* @param level ï¿½ï¿½Ç°Reciverï¿½ï¿½Reciverï¿½ï¿½ï¿½ĞµÄ²ã¼¶
+	/*´òÓ¡¿ÉÓÃÖ¸Áî
+	* ÖØÔØ¸¸ÀàĞéº¯Êı£¬¸ù¾İlevel´òÓ¡¶ÔÓ¦¸ñÊ½µÄÖ¸Áî£¬ÒÔ¼°¿ÉÓÃ×ÓÖ¸Áî
+	* @param level µ±Ç°ReciverÔÚReciverÊ÷ÖĞµÄ²ã¼¶
 	* @return void
 	*/
 	virtual void printHelp(int level) {
-		__super::printHelp(level);				//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½printHelpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tag
-		level++;								//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+		__super::printHelp(level);				//µ÷ÓÃ¸¸ÀàµÄÄ¬ÈÏprintHelpº¯Êı£¬µİ¹éÊä³öµ±Ç°¼°×Ó½ÓÊÕÆ÷µÄtag
+		level++;								//½«×ÓÖ¸ÁîÏÔÊ¾µ½ÏÂÒ»²ã
 		std::string head(level * 3, '-');
-		std::cout << head + "create" << std::endl;								//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "---" + "testSpot" << std::endl;					//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "---" + "mountain" << std::endl;					//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "---" + "cave   (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)" << std::endl;				//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "---" + "iceZoo   (ï¿½ï¿½Ñ©ï¿½ï¿½ï¿½ï¿½Ô°)" << std::endl;			//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "---" + "iceSkating   (ï¿½ï¿½ï¿½ï¿½ï¿½)" << std::endl;		//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "---" + "exhibit   (ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½)" << std::endl;			//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-		std::cout << head + "getDescription -p:ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½ï¿½Ğµï¿½Î»ï¿½ï¿½" << std::endl;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+		std::cout << head + "create" << std::endl;								//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "---" + "testSpot" << std::endl;					//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "---" + "mountain" << std::endl;					//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "---" + "cave   (±ù·â¹í¿ß)" << std::endl;				//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "---" + "iceZoo   (±ùÑ©¶¯ÎïÔ°)" << std::endl;			//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "---" + "iceSkating   (Áï±ù³¡)" << std::endl;			//Êä³ö×ÓÖ¸Áî
+		std::cout << head + "getDescription -p:¼Æ»®ÔÚÁĞ±íÖĞµÄÎ»ÖÃ" << std::endl;	//Êä³ö×ÓÖ¸Áî
 	}
-	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	* ï¿½ï¿½ï¿½Ú·ï¿½Ö¹ï¿½Ú´ï¿½Ğ¹Â¶ï¿½ï¿½ï¿½İ¹ï¿½ï¿½Í·ï¿½planListï¿½ĞµÄ¶ï¿½ï¿½ï¿½
+	/*Îö¹¹º¯Êı
+	* ÓÃÓÚ·ÀÖ¹ÄÚ´æĞ¹Â¶£¬µİ¹éÊÍ·ÅplanListÖĞµÄ¶ÔÏó
 	*/
 	~PlanManager() {
 		for (int i = 0; i < planList.size(); i++)
@@ -247,16 +239,15 @@ public:
 
 
 int main() {
-	MainReceiver& mainReciver = MainReceiver::getInstance();	//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	mainReciver.addReceiver(&PlanManager::getInstance());	//ï¿½ï¿½ï¿½Ó¼Æ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	mainReciver.addReceiver(&ShoppingManager::getInstance());
-	mainReciver.addReceiver(&Vehicle::getInstance());
-	mainReciver.addReceiver(&SnowmanManager::getInstance());
-	mainReciver.addReceiver(&MediatorManager::getInstance());
-	mainReciver.addReceiver(&DecoratorReceiver::getInstance());
-	mainReciver.addReceiver(&Ticket_Buyer::getInstance());
-	mainReciver.addReceiver(&CheckingManager::getInstance());
-	mainReciver.addReceiver(&HotelManager::getInstance());
-	mainReciver.addReceiver(&TouristCenter::getInstance());	//ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	mainReciver.run();										//ï¿½ï¿½ï¿½ï¿½
+	MainReciver& mainReciver = MainReciver::getInstance();	//»ñÈ¡Ö÷½ÓÊÕÆ÷µÄÒıÓÃ
+	mainReciver.addReciver(&PlanManager::getInstance());	//Ìí¼Ó¼Æ»®¹ÜÀíÆ÷µ½Ö÷½ÓÊÕÆ÷ÏÂÃæ
+	mainReciver.addReciver(&ShoppingManager::getInstance());
+	mainReciver.addReciver(&Vehicle::getInstance());
+	mainReciver.addReciver(&SnowmanManager::getInstance());
+	mainReciver.addReciver(&MediatorManager::getInstance());
+	mainReciver.addReciver(&DecoratorReceiver::getInstance());
+	mainReciver.addReciver(&Ticket_Buyer::getInstance());
+	mainReciver.addReciver(&CheckingManager::getInstance());
+	mainReciver.addReciver(&TouristCenter::getInstance());	//Ìí¼ÓÓÎ¿ÍÖĞĞÄµ½Ö÷½ÓÊÕÆ÷ÏÂÃæ
+	mainReciver.run();										//ÔËĞĞ
 }

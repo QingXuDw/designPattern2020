@@ -9,15 +9,15 @@
 #include "BaseClasses.h"
 #include "ShoppingMall.h"
 
-class Clothes {/*ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½*/
+class Clothes {/*·þ×°»ùÀà*/
 public:
     Clothes(std::string name, int sex, int price);
     ~Clothes();
 
 public:
-    std::string _name;/*ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½*/
-    int _price;/*ï¿½Û¸ï¿½*/
-    int _sex;/*ï¿½Ô±ï¿½*/
+    std::string _name;/*Ì××°Ãû³Æ*/
+    int _price;/*¼Û¸ñ*/
+    int _sex;/*ÐÔ±ð*/
 };
 Clothes::Clothes(std::string name, int sex, int price) {
     _name = name;
@@ -28,7 +28,7 @@ Clothes::Clothes(std::string name, int sex, int price) {
 Clothes::~Clothes() {
 
 }
-/*ï¿½ï¿½Ñ¯ï¿½Ó¿ï¿½*/
+/*²éÑ¯½Ó¿Ú*/
 class ISpecification {
 public:
     ISpecification();
@@ -46,7 +46,7 @@ ISpecification::~ISpecification() {
 bool ISpecification::isBy(Clothes* iclothes) {
     return true;
 }
-/*ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ñ¯ï¿½Ä½Ó¿ï¿½*/
+/*°´ÐÔ±ð²éÑ¯µÄ½Ó¿Ú*/
 class SexSpecification :public ISpecification {
 public:
     SexSpecification(int sex);
@@ -63,7 +63,7 @@ bool SexSpecification::isBy(Clothes* iclothes) {
     }
     return false;
 }
-/*ï¿½ï¿½ï¿½Õ¼Û¸ï¿½Ð¡ï¿½Ú²ï¿½Ñ¯ï¿½Ä½Ó¿ï¿½*/
+/*°´ÕÕ¼Û¸ñÐ¡ÓÚ²éÑ¯µÄ½Ó¿Ú*/
 class PriceThenSpecification :public ISpecification {
 public:
     PriceThenSpecification(int price);
@@ -80,12 +80,12 @@ bool PriceThenSpecification::isBy(Clothes* iclothes) {
     }
     return false;
 };
-/*ï¿½ï¿½ï¿½Ã½Ó¿ï¿½*/
+/*µ÷ÓÃ½Ó¿Ú*/
 class IUserProviderEx {
 public:
     virtual std::vector<Clothes*> findUser(ISpecification* spec) = 0;
 };
-/*ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö½Ó¿ï¿½*/
+/*¾ßÌåÊµÏÖ½Ó¿Ú*/
 class UserProviderEx :public IUserProviderEx {
 public:
     UserProviderEx(std::vector<Clothes*>clothes);
@@ -109,33 +109,33 @@ std::vector<Clothes*>UserProviderEx::findUser(ISpecification* spec) {
 
 
 /************************************************************************
-*							clothesshopÄ£ï¿½ï¿½							*
+*							clothesshopÄ£¿é							*
 *************************************************************************/
 
 class clothesshop {
     clothesshop() {};
 public:
-    //ï¿½ï¿½Ç¸ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
+    //±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊýÎªÉ¾³ý£¬ÓÃÓÚÊµÏÖµ¥Àý
     clothesshop(const clothesshop&) = delete;
-    //ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
+    //±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ý£¬ÓÃÓÚÊµÏÖµ¥Àý
     clothesshop& operator=(const clothesshop&) = delete;
     /*
-    * ï¿½ï¿½È¡È«ï¿½ï¿½Î¨Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
+    * »ñÈ¡È«¾ÖÎ¨Ò»µÄÒýÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àý¡£
     */
     static clothesshop& getInstance() {
         static clothesshop instance;
         return instance;
     }
     void buy() {
-        Clothes* u1 = new Clothes("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°", 1, 160);
-        Clothes* u2 = new Clothes("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°", 0, 170);
-        Clothes* u3 = new Clothes("ï¿½ï¿½ï¿½ï¿½ï¿½×°", 1, 160);
-        Clothes* u4 = new Clothes("ï¿½ï¿½ï¿½ï¿½ï¿½×°", 1, 165);
-        Clothes* u5 = new Clothes("ï¿½ï¿½ï¿½ï¿½ï¿½×°", 0, 175);
-        Clothes* u6 = new Clothes("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°", 0, 180);
-        Clothes* u7 = new Clothes("ï¿½ï¿½Ñ©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°", 1, 165);
-        Clothes* u8 = new Clothes("Ñ©Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°", 0, 175);
-        Clothes* u9 = new Clothes("ï¿½ï¿½Ñ©ï¿½ï¿½Ôµï¿½ï¿½×°", 1, 160);
+        Clothes* u1 = new Clothes("±±¼«ÐÜÌ××°", 1, 160);
+        Clothes* u2 = new Clothes("±±¼«ÐÜÌ××°", 0, 170);
+        Clothes* u3 = new Clothes("Æó¶ìÌ××°", 1, 160);
+        Clothes* u4 = new Clothes("Æó¶ìÌ××°", 1, 165);
+        Clothes* u5 = new Clothes("Æó¶ìÌ××°", 0, 175);
+        Clothes* u6 = new Clothes("º£±ªÌ××°", 0, 180);
+        Clothes* u7 = new Clothes("°×Ñ©¹«Ö÷Ì××°", 1, 165);
+        Clothes* u8 = new Clothes("Ñ©Ò¹Íõ×ÓÌ××°", 0, 175);
+        Clothes* u9 = new Clothes("±ùÑ©ÆæÔµÌ××°", 1, 160);
         std::vector<Clothes*> clothes;
         clothes.push_back(u1);
         clothes.push_back(u2);
@@ -148,7 +148,7 @@ public:
         clothes.push_back(u9);
         IUserProviderEx* ProviderEx = new UserProviderEx(clothes);
         std::string str;
-        std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë°´ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sexï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë°´ï¿½Õ¼Û¸ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½price" << std::endl;
+        std::cout << "Èç¹ûÄúÏë°´ÕÕÐÔ±ð²éÑ¯ÇëÊäÈësex£¬Èç¹ûÄúÏë°´ÕÕ¼Û¸ñ²éÑ¯ÇëÊäÈëprice" << std::endl;
         std::getline(std::cin, str);
         while (1) {
             if (str == "price" || str == "sex") {
@@ -157,13 +157,13 @@ public:
             else {
                 std::cin.clear();
                 std::cin.sync();
-                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£º" << std::endl;
+                std::cout << "ÄúÊäÈëµÄÖ¸ÁîÓÐÎó£¡ÇëÖØÐÂÊäÈë£º" << std::endl;
                 std::getline(std::cin, str);
             }
         }
         int a, b;
         if (str == "sex") {
-            std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Ä·ï¿½×°ï¿½ï¿½ï¿½Ô±ð£¬£ï¿½0-ï¿½ï¿½×°ï¿½ï¿½1-Å®×°ï¿½ï¿½ï¿½ï¿½" << std::endl;
+            std::cout << "ÇëÊäÈëÄúÏë²éÑ¯µÄ·þ×°µÄÐÔ±ð£¬£¨0-ÄÐ×°£¬1-Å®×°£©£º" << std::endl;
             std::cin >> a;
             while(1) {
                 if (std::cin.good()&&a == 0 || a == 1&&std::cin.good()) {
@@ -172,7 +172,7 @@ public:
                 else {
                     std::cin.clear();
                     std::cin.ignore(1024,'\n');
-                    std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£º" << std::endl;
+                    std::cout << "ÄúÊäÈëµÄÖ¸ÁîÓÐÎó£¡ÇëÖØÐÂÊäÈë£º" << std::endl;
                     std::cin >> a;
                 }   
             }
@@ -181,16 +181,16 @@ public:
 
                 int num3 = l3.size();
                 if (num3 == 0) {
-                    std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ð²»´ï¿½ï¿½Ú£ï¿½" << std::endl;
+                    std::cout << "ÄúÊäÈëµÄÐÔ±ð²»´æÔÚ£¡" << std::endl;
                 }
                 else {
                     for (int i = 0; i < num3; i++)
-                        std::cout << "ï¿½ï¿½ï¿½Æ£ï¿½" << l3.at(i)->_name.c_str() << "ï¿½Ô±ï¿½" << l3.at(i)->_sex << "ï¿½Û¸ï¿½" << l3.at(i)->_price << std::endl;
+                        std::cout << "Ãû³Æ£º" << l3.at(i)->_name.c_str() << "ÐÔ±ð£º" << l3.at(i)->_sex << "¼Û¸ñ£º" << l3.at(i)->_price << std::endl;
                 }
         }
         else if (str == "price")
         {
-            std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Ä·ï¿½×°ï¿½ï¿½ï¿½ï¿½ßµÄ¼Û¸ï¿½" << std::endl;
+            std::cout << "ÇëÊäÈëÄúÏë²éÑ¯µÄ·þ×°µÄ×î¸ßµÄ¼Û¸ñ£º" << std::endl;
             std::cin >> b;
             while (1) {
                 if (std::cin.good())
@@ -201,7 +201,7 @@ public:
                 {
                     std::cin.clear();
                     std::cin.ignore(1024,'\n');
-                    std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£º" << std::endl;
+                    std::cout << "ÄúÊäÈëµÄÖ¸ÁîÓÐÎó£¡ÇëÖØÐÂÊäÈë£º" << std::endl;
                     std::cin >> b;
                 }
             }
@@ -210,11 +210,11 @@ public:
             std::cout << std::endl << std::endl;
             int num4 = l4.size();
             if (num4 == 0) {
-                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½" << std::endl;
+                std::cout << "ÄúÔÙÕõµãÇ®ÔÙÀ´°É£¡" << std::endl;
             }
             else {
                 for (int i = 0; i < num4; i++) {
-                    std::cout << "ï¿½ï¿½ï¿½Æ£ï¿½" << l4.at(i)->_name.c_str() << "ï¿½Ô±ï¿½" << l4.at(i)->_sex << "ï¿½Û¸ï¿½" << l4.at(i)->_price << std::endl;
+                    std::cout << "Ãû³Æ£º" << l4.at(i)->_name.c_str() << "ÐÔ±ð£º" << l4.at(i)->_sex << "¼Û¸ñ£º" << l4.at(i)->_price << std::endl;
                 }
             }
         }

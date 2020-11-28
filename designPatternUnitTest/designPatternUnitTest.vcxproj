@@ -33,20 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
-    <ClInclude Include="AdapterTest_zgx.h" />
-    <ClInclude Include="ConsultTest_zgx.h" />
-    <ClInclude Include="IceSkatingTest_xjn.h" />
-    <ClInclude Include="MediatorModelTest_zgx.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ShoppingMallTest_zzy.h" />
-    <ClInclude Include="SnowmanTest_zgx.h" />
-    <ClInclude Include="StateTest_zzy.h" />
-    <ClInclude Include="StrategyTest_zzy.h" />
-    <ClInclude Include="SnowmanTest_wsq.h" />
-    <ClInclude Include="StateTest_wsq.h" />
-    <ClInclude Include="TestPlanTest_zgx.h" />
-    <ClInclude Include="TouristCenterTest_zgx.h" />
-    <ClInclude Include="VisitorClassesTest_wsq.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />
