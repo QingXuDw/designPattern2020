@@ -5,27 +5,27 @@
 #include "VisitorClasses.h"
 #include "BaseClasses.h"
 
-enum ICETYPE/*Ã¶¾ÙÊý×é£¬¶ÔÓ¦²»Í¬µÄ±ùµñ£¬Ïàµ±ÓÚ²úÆ·±êÊ¶Âë*/
+enum ICETYPE/*Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½Ó¦ï¿½ï¿½Í¬ï¿½Ä±ï¿½ï¿½ï¿½ï¿½àµ±ï¿½Ú²ï¿½Æ·ï¿½ï¿½Ê¶ï¿½ï¿½*/
 {
     AT_Start = -1, AT_Cat, AT_Dog, AT_Cattle, AT_Sheep, AT_End
 };
 
-class CICE/*¶¨ÒåÒ»¸ö±ùµñÀà*/
+class CICE/*ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 public:
     static CICE* CreateAnIce(ICETYPE typeCode, std::string name);
     virtual ~CICE() {};
-    ICETYPE GetTypeCode() { return m_typeCode; }/*·µ»ØÃ¶¾ÙÀàÐÍ*/
-    std::string GetTypeName() { return m_typeName; }/*·µ»Ø±ùµñÖÖÀà*/
-    std::string GetColor() { return m_IceColor; }/*·µ»Ø±ùµñÑÕÉ«*/
-    std::string GetName() { return m_name; }/*·µ»Ø±ùµñÃû³Æ*/
-    static CICE* m_exemplars[4];/*¶¨ÒåÒ»¸öÊý×é£¬ÓÃÀ´´æ´¢±ùµñ*/
+    ICETYPE GetTypeCode() { return m_typeCode; }/*ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    std::string GetTypeName() { return m_typeName; }/*ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    std::string GetColor() { return m_IceColor; }/*ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½É«*/
+    std::string GetName() { return m_name; }/*ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
+    static CICE* m_exemplars[4];/*ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½*/
 
 protected:
     CICE(ICETYPE typeCode, std::string typeName, std::string strColor, std::string name);
-    CICE* Clone(std::string name);/*¿ËÂ¡Ò»¸ö±ùµñ*/
+    CICE* Clone(std::string name);/*ï¿½ï¿½Â¡Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 
-private:/*³õÊ¼»¯¸÷¸ö±ùµñµÄÊôÐÔ*/
+private:/*ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
     static CICE* ICENUM[4];
     ICETYPE m_typeCode;
     std::string m_IceColor;
@@ -41,14 +41,14 @@ std::ostream& operator <<(std::ostream& out, CICE* myself) {
     out << myself->m_IceColor << ' ' << myself->m_typeName << ' ' << myself->m_name;
     return out;
 }
-CICE* CICE::m_exemplars[] =/*½«¸÷¸ö±ùµñÊµÀý»¯£¬´æ·ÅÔÚÊý×éÖÐ*/
+CICE* CICE::m_exemplars[] =/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
-    new CICE(AT_Cat,"Ã¨","°×","¶ßÀ´AÃÎ"),
-    new CICE(AT_Dog,"¹·","»Æ","½ðÈ®ËÍ¸£"),
-    new CICE(AT_Cattle,"Å£","×Ø","Å£Æø³åÌì"),
-    new CICE(AT_Sheep,"Ñò","°×","ÈýÑò¿ªÌ©"),
+    new CICE(AT_Cat,"Ã¨","ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½"),
+    new CICE(AT_Dog,"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½È®ï¿½Í¸ï¿½"),
+    new CICE(AT_Cattle,"Å£","ï¿½ï¿½","Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"),
+    new CICE(AT_Sheep,"ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½ï¿½ï¿½Ì©"),
 };
-CICE* CICE::CreateAnIce(ICETYPE typeCode, std::string name)/*´´½¨Ò»¸öÐÂµÄ±ùµñ*/
+CICE* CICE::CreateAnIce(ICETYPE typeCode, std::string name)/*ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÂµÄ±ï¿½ï¿½ï¿½*/
 {
     if (typeCode <= AT_Start || typeCode >= AT_End)
         return NULL;
@@ -65,28 +65,28 @@ CICE::CICE(ICETYPE typeCode, std::string typeName, std::string strColor, std::st
     m_typeName = typeName;
     m_IceColor = strColor;
 }
-CICE* CICE::Clone(std::string name)/*¿ËÂ¡Ò»¸öÐÂµÄ±ùµñ£¬ÊµÏÖ¶Ô×ÔÉíµÄ¿½±´*/
+CICE* CICE::Clone(std::string name)/*ï¿½ï¿½Â¡Ò»ï¿½ï¿½ï¿½ÂµÄ±ï¿½ï¿½ï¿½Êµï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½*/
 {
     return new CICE(m_typeCode, m_typeName, m_IceColor, name);
 }
 class exhibit {
     exhibit() {};
 public:
-    //±ê¼Ç¸´ÖÆ¹¹Ôìº¯ÊýÎªÉ¾³ý£¬ÓÃÓÚÊµÏÖµ¥Àý
+    //ï¿½ï¿½Ç¸ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
     exhibit(const exhibit&) = delete;
-    //±ê¼Ç¿½±´¸³Öµ²Ù×÷·ûÎªÉ¾³ý£¬ÓÃÓÚÊµÏÖµ¥Àý
+    //ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÉ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½
     exhibit& operator=(const exhibit&) = delete;
     /*
-    * »ñÈ¡È«¾ÖÎ¨Ò»µÄÒýÓÃ£¬ÓÃÓÚÊµÏÖµ¥Àý¡£
-    * @return SkaterFactory& »¬±ù³¡¹¤³§µÄÒýÓÃ
+    * ï¿½ï¿½È¡È«ï¿½ï¿½Î¨Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½
+    * @return SkaterFactory& ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     */
     static exhibit& getInstance() {
         static exhibit instance;
         return instance;
     }
-    void showExhibit()/*Ö÷º¯Êý*/
+    void showExhibit()/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
     {
-        std::cout << "ÇëÊäÈëÄúÏë²Î¹ÛµÄ±ùµñ±àºÅ£º£¨0-Ã¨µñ£¬1-¹·µñ£¬2-Å£µñ£¬3-Ñòµñ£©" << std::endl;
+        std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ÛµÄ±ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½0-Ã¨ï¿½ï¿½1-ï¿½ï¿½ï¿½ï¿½2-Å£ï¿½ï¿½3-ï¿½ï¿½ï¿½" << std::endl;
         int a;
         std::cin >> a;
         while (1) {
@@ -98,7 +98,7 @@ public:
             {
                 std::cin.clear();
                 std::cin.ignore(1024,'\n');
-                std::cout << "ÄúÊäÈëµÄÖ¸ÁîÓÐÎó£¡ÇëÖØÐÂÊäÈë£º" << std::endl;
+                std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£º" << std::endl;
                 std::cin >> a;
             }
         }
@@ -109,7 +109,7 @@ public:
         }
         else if(a<=AT_Start||a>=AT_End)
         {
-            std::cout << "ÄúÊäÈëµÄ±àºÅ²»´æÔÚ£¡" << std::endl;
+            std::cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Å²ï¿½ï¿½ï¿½ï¿½Ú£ï¿½" << std::endl;
         }
         std::cin.clear();
         string tmp;

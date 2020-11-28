@@ -98,14 +98,14 @@ public:
 class MacroCommandReceiver : public CommandReceiver {
 private:
 	//子接收器列表
-	std::vector<CommandReceiver*> reciverList;
+	std::vector<CommandReceiver*> receiverList;
 	/*解析子指令
 	* 接收子指令中待匹配的tag，根据tag匹配子接收器，并返回指向子接收器的指针
 	* @param subCmd 待匹配的标签
 	* @return CommandReceiver* 指向子接收器的指针（若无相应子接收器返回nullptr）
 	*/
 	CommandReceiver* resolveSubCommand(std::string& subCmd) {
-		for (std::vector<CommandReceiver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
+		for (std::vector<CommandReceiver*>::iterator i = receiverList.begin(); i != receiverList.end(); i++) {
 			if (subCmd == (*i)->tag) {
 				return (*i);
 			}
@@ -128,44 +128,44 @@ public:
 		std::string head(level * 3, '-');
 		std::cout << head + tag << std::endl;
 		level++;
-		for (int i = 0; i < reciverList.size(); i++) {
-			reciverList[i]->printHelp(level);
+		for (int i = 0; i < receiverList.size(); i++) {
+			receiverList[i]->printHelp(level);
 		}
 	}
 	/*添加子接收器
-	* 用于维护reciverList，若已存在同tag子接收器则添加失败，否则添加到列表尾
+	* 用于维护receiverList，若已存在同tag子接收器则添加失败，否则添加到列表尾
 	* @param p_reciver 指向待添加的子接收器的指针
 	* @return bool 是否添加成功
 	*/
-	virtual bool addReciver(CommandReceiver* p_reciver) {
-		for (std::vector<CommandReceiver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
+	virtual bool addReceiver(CommandReceiver* p_reciver) {
+		for (std::vector<CommandReceiver*>::iterator i = receiverList.begin(); i != receiverList.end(); i++) {
 			if (tag == (*i)->tag) {
 				return false;
 			}
 		}
-		reciverList.push_back(p_reciver);
+		receiverList.push_back(p_reciver);
 		return true;
 	}
 	/*移除子接收器
-	* 用于维护reciverList，若已存在同tag子接收器则移除，否则失败
+	* 用于维护receiverList，若已存在同tag子接收器则移除，否则失败
 	* @param tag 待移除的子接收器的标签
-	* @return bool 是否添加成功
+	* @return bool 是否成功
 	*/
-	virtual bool removeReciver(std::string tag) {
-		for (std::vector<CommandReceiver*>::iterator i = reciverList.begin(); i != reciverList.end(); i++) {
+	virtual bool removeReceiver(std::string tag) {
+		for (std::vector<CommandReceiver*>::iterator i = receiverList.begin(); i != receiverList.end(); i++) {
 			if (tag == (*i)->tag) {
-				reciverList.erase(i);
+				receiverList.erase(i);
 				return true;
 			}
 		}
 		return false;
 	}
 	/*移除子接收器
-	* 用于维护reciverList，若已存在同tag子接收器则移除，否则失败
+	* 用于维护receiverList，若已存在同tag子接收器则移除，否则失败
 	* @param p_reciver 指向待移除的子接收器的指针
-	* @return bool 是否添加成功
+	* @return bool 是否成功
 	*/
-	virtual bool removeReciver(CommandReceiver* reciver) { return removeReciver(reciver->tag); }
+	virtual bool removeReceiver(CommandReceiver* reciver) { return removeReceiver(reciver->tag); }
 	/*处理指令
 	* 当前Reciver收到的指令首先进入这里进行处理，默认处理方式是匹配子接收器，若匹配失败则执行指令
 	* @param cmd 用户输入的指令内容

@@ -136,6 +136,7 @@
     <ClInclude Include="Consult.h" />
     <ClInclude Include="FCurrency.h" />
     <ClInclude Include="FlyWeight.h" />
+    <ClInclude Include="Hotel.h" />
     <ClInclude Include="IceSkating.h" />
     <ClInclude Include="MediatorModel.h" />
     <ClInclude Include="Notice.h" />
