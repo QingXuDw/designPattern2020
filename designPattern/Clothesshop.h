@@ -184,7 +184,7 @@ public:
             }
         }
         std::cin.clear();
-        string tmp;
+		std::string tmp;
         std::getline(std::cin,tmp);
     }
 };
