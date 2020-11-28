@@ -16,7 +16,7 @@
 
 int main(int argc, char **argv) {
 	std::string str;
-	std::cout << "�����������ʼ����" << std::endl;
+	std::cout << "按回车键开始测试" << std::endl;
 	getline(std::cin, str);
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
