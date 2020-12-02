@@ -1,8 +1,9 @@
 ﻿#pragma once
+#include <iostream>
 #include"BaseClasses.h"
 #include"TravelPlan.h"
 #define  free_ptr(p) \
-	if(p) delete p; p = nullptr;//释放指针用
+	if(p) delete p; p = NULL;//释放指针用
 
 /**
 * 策略模式让你可以动态的改变对象的行为，动态修改策略
@@ -148,6 +149,7 @@ public:
 		return reciver;
 	}
 };
+
 
 class MountainPlanFactory : public AbstractPlanFactory {
 public:

@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿#include <iostream>
 #include"BaseClasses.h"
 #include"TravelPlan.h"
 #include"Flyweight.h"
@@ -8,6 +8,7 @@ using namespace std;
  */
 
 class Context;//提前声明Context类
+
 /**
  * 载具状态类
  * 定义一个接口以封装与Context的一个特定状态相关的行为

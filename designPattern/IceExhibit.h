@@ -89,14 +89,27 @@ public:
         std::cout << "ÇëÊäÈëÄúÏë²Î¹ÛµÄ±ùµñ±àºÅ£º£¨0-Ã¨µñ£¬1-¹·µñ£¬2-Å£µñ£¬3-Ñòµñ£©" << std::endl;
         int a;
         std::cin >> a;
-        if (a<AT_Start || a>AT_End)
-        {
-            std::cout << "ÄúÊäÈëµÄ±àºÅ²»´æÔÚ£¡" << std::endl;
+        while (1) {
+            if (std::cin.good())
+            {
+                break;
+            }
+            else
+            {
+                std::cin.clear();
+                std::cin.ignore(1024,'\n');
+                std::cout << "ÄúÊäÈëµÄÖ¸ÁîÓĞÎó£¡ÇëÖØĞÂÊäÈë£º" << std::endl;
+                std::cin >> a;
+            }
         }
-        else
+        if(AT_Start<a&&a<AT_End)
         {
             CICE C;
             std::cout << C.m_exemplars[a];
+        }
+        else if(a<=AT_Start||a>=AT_End)
+        {
+            std::cout << "ÄúÊäÈëµÄ±àºÅ²»´æÔÚ£¡" << std::endl;
         }
         std::cin.clear();
         string tmp;
